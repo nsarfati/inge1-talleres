@@ -19,13 +19,17 @@ I class
 + aNaturalNumber
 	^aNaturalNumber next! !
 
-!I class methodsFor: 'PeanoAxiomas' stamp: 'N S 8/26/2023 16:48:33'!
-/ aNaturalNumber
-	^self! !
+!I class methodsFor: 'PeanoAxiomas' stamp: 'N S 8/28/2023 21:33:58'!
+- aNaturalNumber
+	^self error: self NoPuedoRestar ! !
 
-!I class methodsFor: 'PeanoAxiomas' stamp: 'N S 8/26/2023 16:24:33'!
-dividir: dividendo and: divisor
-	^self! !
+!I class methodsFor: 'PeanoAxiomas' stamp: 'N S 8/28/2023 21:33:48'!
+NoPuedoRestar
+	^'No puedo restar porque soy el I'! !
+
+!I class methodsFor: 'PeanoAxiomas' stamp: 'N S 8/28/2023 20:53:09'!
+TimesToDivide: aNaturalNumber
+	^aNaturalNumber! !
 
 !I class methodsFor: 'PeanoAxiomas' stamp: 'N S 8/26/2023 12:36:24'!
 multiplicateA: aNaturalNumber
@@ -45,7 +49,7 @@ restateA: aNaturalNumber
 	^aNaturalNumber previous! !
 
 
-!I class methodsFor: '--** private fileout/in **--' stamp: 'N S 8/26/2023 16:56:14'!
+!I class methodsFor: '--** private fileout/in **--' stamp: 'N S 8/28/2023 21:39:37'!
 initializeCollaboratorsFromFile
 	"Auto generated method for loading purposes - Do not modify it"
 
@@ -78,23 +82,25 @@ II class
 - aNaturalNumber
 	^ aNaturalNumber  restateA: self! !
 
-!II class methodsFor: 'PeanoAxiomas' stamp: 'N S 8/26/2023 16:48:25'!
+!II class methodsFor: 'PeanoAxiomas' stamp: 'N S 8/28/2023 21:30:41'!
 / aNaturalNumber
-	aNaturalNumber = self ifTrue: [^I] .
-	^(self - aNaturalNumber + I) dividir: self and: aNaturalNumber! !
+	^aNaturalNumber TimesToDivide: self .! !
 
-!II class methodsFor: 'PeanoAxiomas' stamp: 'N S 8/26/2023 16:40:13'!
-dividir: dividendo and: divisor
-	^[((dividendo - divisor) / divisor) + I] on: Error do: [I]! !
+!II class methodsFor: 'PeanoAxiomas' stamp: 'N S 8/28/2023 21:35:33'!
+TimesToDivide: aNaturalNumber
+	aNaturalNumber = self ifTrue: [^I].
+	^((aNaturalNumber  - self) / self) + I! !
 
 !II class methodsFor: 'PeanoAxiomas' stamp: 'N S 8/26/2023 13:15:06'!
 multiplicateA: aNaturalNumber
 	^ (aNaturalNumber + aNaturalNumber) * self previous! !
 
-!II class methodsFor: 'PeanoAxiomas' stamp: 'N S 8/24/2023 21:20:34'!
+!II class methodsFor: 'PeanoAxiomas' stamp: 'N S 8/28/2023 21:13:14'!
 next
 	next ifNotNil: [^next] .
-	next := self cloneNamed: self name, 'I' .
+	"next := self cloneNamed: self name, 'I' . << Asi era para clonarlo asi nomas"
+	"Asi para que los siguientes sean childOf del II, es decir que tengan al II como prototipo"
+	next := II createChildNamed: self name, 'I'.
 	"Le envia al objeto next el mensaje previous, diciendo quien es"
 	"Ejemplo: II next -> Le manda III previous II"
 	next previous: self .
@@ -113,12 +119,78 @@ restateA: aNaturalNumber
 	^ aNaturalNumber previous - self previous ! !
 
 
-!II class methodsFor: '--** private fileout/in **--' stamp: 'N S 8/26/2023 16:56:14'!
+!II class methodsFor: '--** private fileout/in **--' stamp: 'N S 8/28/2023 21:39:37'!
 initializeCollaboratorsFromFile
 	"Auto generated method for loading purposes - Do not modify it"
 
-	next := AnObsoleteIII.
+	next := III.
 	previous := I.! !
+
+
+!classDefinition: #III category: '4.24-08.NumerosNaturales'!
+II subclass: #III
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: '4.24-08.NumerosNaturales'!
+
+"-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
+
+!classDefinition: 'III class' category: '4.24-08.NumerosNaturales'!
+III class
+	instanceVariableNames: ''!
+
+!III class methodsFor: '--** private fileout/in **--' stamp: 'N S 8/28/2023 21:39:37'!
+initializeCollaboratorsFromFile
+	"Auto generated method for loading purposes - Do not modify it"
+
+	next := IIII.
+	previous := II.! !
+
+
+!classDefinition: #IIII category: '4.24-08.NumerosNaturales'!
+II subclass: #IIII
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: '4.24-08.NumerosNaturales'!
+
+"-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
+
+!classDefinition: 'IIII class' category: '4.24-08.NumerosNaturales'!
+IIII class
+	instanceVariableNames: ''!
+
+!IIII class methodsFor: '--** private fileout/in **--' stamp: 'N S 8/28/2023 21:39:37'!
+initializeCollaboratorsFromFile
+	"Auto generated method for loading purposes - Do not modify it"
+
+	next := IIIII.
+	previous := III.! !
+
+
+!classDefinition: #IIIII category: '4.24-08.NumerosNaturales'!
+II subclass: #IIIII
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: '4.24-08.NumerosNaturales'!
+
+"-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
+
+!classDefinition: 'IIIII class' category: '4.24-08.NumerosNaturales'!
+IIIII class
+	instanceVariableNames: ''!
+
+!IIIII class methodsFor: '--** private fileout/in **--' stamp: 'N S 8/28/2023 21:39:37'!
+initializeCollaboratorsFromFile
+	"Auto generated method for loading purposes - Do not modify it"
+
+	next := nil.
+	previous := IIII.! !
 
 I initializeAfterFileIn!
 II initializeAfterFileIn!
+III initializeAfterFileIn!
+IIII initializeAfterFileIn!
+IIIII initializeAfterFileIn!
