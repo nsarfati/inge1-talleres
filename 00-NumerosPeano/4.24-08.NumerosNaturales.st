@@ -11,6 +11,15 @@ DenotativeObject subclass: #I
 I class
 	instanceVariableNames: 'next'!
 
+!I class methodsFor: 'ErrorMessages' stamp: 'N S 8/29/2023 11:55:35'!
+descripcionDeErrorDeNoSePuedeDividirPorUnNumeroMayor
+	^'No se puede dividir por un numero mayor'! !
+
+!I class methodsFor: 'ErrorMessages' stamp: 'N S 8/29/2023 11:55:46'!
+descripcionDeErrorDeNumerosNegativosNoSoportados
+	^'No se soportan numeros negativos'! !
+
+
 !I class methodsFor: 'PeanoAxiomas' stamp: 'N S 8/26/2023 12:22:48'!
 * aNaturalNumber
 	^aNaturalNumber ! !
@@ -19,13 +28,14 @@ I class
 + aNaturalNumber
 	^aNaturalNumber next! !
 
-!I class methodsFor: 'PeanoAxiomas' stamp: 'N S 8/28/2023 21:33:58'!
+!I class methodsFor: 'PeanoAxiomas' stamp: 'N S 8/29/2023 11:41:19'!
 - aNaturalNumber
-	^self error: self NoPuedoRestar ! !
+	^self error: self descripcionDeErrorDeNumerosNegativosNoSoportados ! !
 
-!I class methodsFor: 'PeanoAxiomas' stamp: 'N S 8/28/2023 21:33:48'!
-NoPuedoRestar
-	^'No puedo restar porque soy el I'! !
+!I class methodsFor: 'PeanoAxiomas' stamp: 'N S 8/29/2023 11:41:24'!
+/ aNaturalNumber
+	aNaturalNumber = I ifTrue: [^I].
+	^self error: self descripcionDeErrorDeNoSePuedeDividirPorUnNumeroMayor ! !
 
 !I class methodsFor: 'PeanoAxiomas' stamp: 'N S 8/28/2023 20:53:09'!
 TimesToDivide: aNaturalNumber
@@ -49,7 +59,7 @@ restateA: aNaturalNumber
 	^aNaturalNumber previous! !
 
 
-!I class methodsFor: '--** private fileout/in **--' stamp: 'N S 8/28/2023 21:39:37'!
+!I class methodsFor: '--** private fileout/in **--' stamp: 'N S 8/29/2023 11:58:06'!
 initializeCollaboratorsFromFile
 	"Auto generated method for loading purposes - Do not modify it"
 
@@ -69,6 +79,11 @@ DenotativeObject subclass: #II
 II class
 	instanceVariableNames: 'next previous'!
 
+!II class methodsFor: 'ErrorMessages' stamp: 'N S 8/29/2023 11:56:30'!
+descripcionDeErrorDeNoSePuedeDividirPorUnNumeroMayor
+	^'No se puede dividir por un numero mayor'! !
+
+
 !II class methodsFor: 'PeanoAxiomas' stamp: 'N S 8/26/2023 13:15:06'!
 * aNaturalNumber
 	^ aNaturalNumber multiplicateA: self! !
@@ -86,10 +101,12 @@ II class
 / aNaturalNumber
 	^aNaturalNumber TimesToDivide: self .! !
 
-!II class methodsFor: 'PeanoAxiomas' stamp: 'N S 8/28/2023 21:35:33'!
+!II class methodsFor: 'PeanoAxiomas' stamp: 'N S 8/29/2023 11:53:46'!
 TimesToDivide: aNaturalNumber
 	aNaturalNumber = self ifTrue: [^I].
-	^((aNaturalNumber  - self) / self) + I! !
+	^[((aNaturalNumber  - self) / self) + I]
+		on: Error
+		do: [self error: self descripcionDeErrorDeNoSePuedeDividirPorUnNumeroMayor ]! !
 
 !II class methodsFor: 'PeanoAxiomas' stamp: 'N S 8/26/2023 13:15:06'!
 multiplicateA: aNaturalNumber
@@ -119,7 +136,7 @@ restateA: aNaturalNumber
 	^ aNaturalNumber previous - self previous ! !
 
 
-!II class methodsFor: '--** private fileout/in **--' stamp: 'N S 8/28/2023 21:39:37'!
+!II class methodsFor: '--** private fileout/in **--' stamp: 'N S 8/29/2023 11:58:06'!
 initializeCollaboratorsFromFile
 	"Auto generated method for loading purposes - Do not modify it"
 
@@ -140,7 +157,7 @@ II subclass: #III
 III class
 	instanceVariableNames: ''!
 
-!III class methodsFor: '--** private fileout/in **--' stamp: 'N S 8/28/2023 21:39:37'!
+!III class methodsFor: '--** private fileout/in **--' stamp: 'N S 8/29/2023 11:58:06'!
 initializeCollaboratorsFromFile
 	"Auto generated method for loading purposes - Do not modify it"
 
@@ -161,7 +178,7 @@ II subclass: #IIII
 IIII class
 	instanceVariableNames: ''!
 
-!IIII class methodsFor: '--** private fileout/in **--' stamp: 'N S 8/28/2023 21:39:37'!
+!IIII class methodsFor: '--** private fileout/in **--' stamp: 'N S 8/29/2023 11:58:06'!
 initializeCollaboratorsFromFile
 	"Auto generated method for loading purposes - Do not modify it"
 
@@ -182,7 +199,7 @@ II subclass: #IIIII
 IIIII class
 	instanceVariableNames: ''!
 
-!IIIII class methodsFor: '--** private fileout/in **--' stamp: 'N S 8/28/2023 21:39:37'!
+!IIIII class methodsFor: '--** private fileout/in **--' stamp: 'N S 8/29/2023 11:58:06'!
 initializeCollaboratorsFromFile
 	"Auto generated method for loading purposes - Do not modify it"
 
