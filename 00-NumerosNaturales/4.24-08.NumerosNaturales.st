@@ -37,10 +37,6 @@ descripcionDeErrorDeNumerosNegativosNoSoportados
 	aNaturalNumber = I ifTrue: [^I].
 	^self error: self descripcionDeErrorDeNoSePuedeDividirPorUnNumeroMayor ! !
 
-!I class methodsFor: 'PeanoAxiomas' stamp: 'N S 8/28/2023 20:53:09'!
-TimesToDivide: aNaturalNumber
-	^aNaturalNumber! !
-
 !I class methodsFor: 'PeanoAxiomas' stamp: 'N S 8/26/2023 12:36:24'!
 multiplicateA: aNaturalNumber
 	^aNaturalNumber! !
@@ -58,8 +54,12 @@ next
 restateA: aNaturalNumber
 	^aNaturalNumber previous! !
 
+!I class methodsFor: 'PeanoAxiomas' stamp: 'N S 9/2/2023 13:11:54'!
+vecesADividirte: aNaturalNumber
+	^aNaturalNumber! !
 
-!I class methodsFor: '--** private fileout/in **--' stamp: 'N S 8/29/2023 11:58:06'!
+
+!I class methodsFor: '--** private fileout/in **--' stamp: 'N S 9/2/2023 13:17:22'!
 initializeCollaboratorsFromFile
 	"Auto generated method for loading purposes - Do not modify it"
 
@@ -97,16 +97,9 @@ descripcionDeErrorDeNoSePuedeDividirPorUnNumeroMayor
 - aNaturalNumber
 	^ aNaturalNumber  restateA: self! !
 
-!II class methodsFor: 'PeanoAxiomas' stamp: 'N S 8/28/2023 21:30:41'!
+!II class methodsFor: 'PeanoAxiomas' stamp: 'N S 9/2/2023 13:11:39'!
 / aNaturalNumber
-	^aNaturalNumber TimesToDivide: self .! !
-
-!II class methodsFor: 'PeanoAxiomas' stamp: 'N S 8/29/2023 11:53:46'!
-TimesToDivide: aNaturalNumber
-	aNaturalNumber = self ifTrue: [^I].
-	^[((aNaturalNumber  - self) / self) + I]
-		on: Error
-		do: [self error: self descripcionDeErrorDeNoSePuedeDividirPorUnNumeroMayor ]! !
+	^aNaturalNumber vecesADividirte: self .! !
 
 !II class methodsFor: 'PeanoAxiomas' stamp: 'N S 8/26/2023 13:15:06'!
 multiplicateA: aNaturalNumber
@@ -135,8 +128,19 @@ previous: aNaturalNumber
 restateA: aNaturalNumber
 	^ aNaturalNumber previous - self previous ! !
 
+!II class methodsFor: 'PeanoAxiomas' stamp: 'N S 9/2/2023 13:17:13'!
+vecesADividirte: aNaturalNumber
+	|resultadoResta|
+	aNaturalNumber = self ifTrue: [^I] .
 
-!II class methodsFor: '--** private fileout/in **--' stamp: 'N S 8/29/2023 11:58:06'!
+	resultadoResta := [^(aNaturalNumber  - self)]
+		on: Error
+		do: [self error: self descripcionDeErrorDeNoSePuedeDividirPorUnNumeroMayor ] .
+
+	^((resultadoResta / self) + I)! !
+
+
+!II class methodsFor: '--** private fileout/in **--' stamp: 'N S 9/2/2023 13:17:22'!
 initializeCollaboratorsFromFile
 	"Auto generated method for loading purposes - Do not modify it"
 
@@ -157,7 +161,7 @@ II subclass: #III
 III class
 	instanceVariableNames: ''!
 
-!III class methodsFor: '--** private fileout/in **--' stamp: 'N S 8/29/2023 11:58:06'!
+!III class methodsFor: '--** private fileout/in **--' stamp: 'N S 9/2/2023 13:17:22'!
 initializeCollaboratorsFromFile
 	"Auto generated method for loading purposes - Do not modify it"
 
@@ -178,7 +182,7 @@ II subclass: #IIII
 IIII class
 	instanceVariableNames: ''!
 
-!IIII class methodsFor: '--** private fileout/in **--' stamp: 'N S 8/29/2023 11:58:06'!
+!IIII class methodsFor: '--** private fileout/in **--' stamp: 'N S 9/2/2023 13:17:22'!
 initializeCollaboratorsFromFile
 	"Auto generated method for loading purposes - Do not modify it"
 
@@ -199,7 +203,7 @@ II subclass: #IIIII
 IIIII class
 	instanceVariableNames: ''!
 
-!IIIII class methodsFor: '--** private fileout/in **--' stamp: 'N S 8/29/2023 11:58:06'!
+!IIIII class methodsFor: '--** private fileout/in **--' stamp: 'N S 9/2/2023 13:17:22'!
 initializeCollaboratorsFromFile
 	"Auto generated method for loading purposes - Do not modify it"
 
