@@ -29,14 +29,6 @@ vecesADividirte: aNaturalNumber
 	^aNaturalNumber! !
 
 
-!I class methodsFor: 'Next' stamp: 'gg 9/3/2023 15:34:48'!
-next
-	next ifNotNil: [^next] .
-	next := self cloneNamed: self name, 'I' .
-	next previous: self .
-	^next .! !
-
-
 !I class methodsFor: 'Axiomas' stamp: 'N S 8/26/2023 12:22:48'!
 * aNaturalNumber
 	^aNaturalNumber ! !
@@ -54,8 +46,15 @@ next
 	aNaturalNumber = I ifTrue: [^I].
 	^self error: self descripcionDeErrorDeNoSePuedeDividirPorUnNumeroMayor ! !
 
+!I class methodsFor: 'Axiomas' stamp: 'gg 9/3/2023 15:34:48'!
+next
+	next ifNotNil: [^next] .
+	next := self cloneNamed: self name, 'I' .
+	next previous: self .
+	^next .! !
 
-!I class methodsFor: '--** private fileout/in **--' stamp: 'gg 9/3/2023 16:13:08'!
+
+!I class methodsFor: '--** private fileout/in **--' stamp: 'gg 9/3/2023 19:26:34'!
 initializeCollaboratorsFromFile
 	"Auto generated method for loading purposes - Do not modify it"
 
@@ -88,31 +87,17 @@ previous: aNaturalNumber
 restateA: aNaturalNumber
 	^ aNaturalNumber previous - self previous ! !
 
-!II class methodsFor: 'Mensajes auxiliares' stamp: 'gg 9/3/2023 16:08:19'!
+!II class methodsFor: 'Mensajes auxiliares' stamp: 'gg 9/3/2023 19:26:10'!
 vecesADividirte: aNaturalNumber
-
 	aNaturalNumber = self ifTrue: [^I] .
-	^[((aNaturalNumber  - self)/self) + I]
+	^[((aNaturalNumber  - self) / self) + I]
 		on: Error
 		do: [self error: self descripcionDeErrorDeNoSePuedeDividirPorUnNumeroMayor].! !
 
 
-!II class methodsFor: 'Next - previous' stamp: 'gg 9/3/2023 15:36:51'!
-next
-	next ifNotNil: [^next] .
-	next := II createChildNamed: self name, 'I'.
-	next previous: self .
-	^next .! !
-
-!II class methodsFor: 'Next - previous' stamp: 'N S 8/24/2023 21:21:26'!
-previous
-	^previous! !
-
-
-!II class methodsFor: 'Axiomas' stamp: 'gg 9/3/2023 15:48:37'!
-* aNaturalNumber
-	
-	^ (self - I) * aNaturalNumber + aNaturalNumber! !
+!II class methodsFor: 'Axiomas' stamp: 'gg 9/3/2023 19:26:17'!
+* aNaturalNumber	
+	^ (self previous) * aNaturalNumber + aNaturalNumber! !
 
 !II class methodsFor: 'Axiomas' stamp: 'gg 9/3/2023 15:39:46'!
 + aNaturalNumber
@@ -127,8 +112,19 @@ previous
 / aNaturalNumber
 	^aNaturalNumber vecesADividirte: self .! !
 
+!II class methodsFor: 'Axiomas' stamp: 'gg 9/3/2023 15:36:51'!
+next
+	next ifNotNil: [^next] .
+	next := II createChildNamed: self name, 'I'.
+	next previous: self .
+	^next .! !
 
-!II class methodsFor: '--** private fileout/in **--' stamp: 'gg 9/3/2023 16:13:08'!
+!II class methodsFor: 'Axiomas' stamp: 'N S 8/24/2023 21:21:26'!
+previous
+	^previous! !
+
+
+!II class methodsFor: '--** private fileout/in **--' stamp: 'gg 9/3/2023 19:26:34'!
 initializeCollaboratorsFromFile
 	"Auto generated method for loading purposes - Do not modify it"
 
@@ -149,7 +145,7 @@ II subclass: #III
 III class
 	instanceVariableNames: ''!
 
-!III class methodsFor: '--** private fileout/in **--' stamp: 'gg 9/3/2023 16:13:08'!
+!III class methodsFor: '--** private fileout/in **--' stamp: 'gg 9/3/2023 19:26:34'!
 initializeCollaboratorsFromFile
 	"Auto generated method for loading purposes - Do not modify it"
 
@@ -170,7 +166,7 @@ II subclass: #IIII
 IIII class
 	instanceVariableNames: ''!
 
-!IIII class methodsFor: '--** private fileout/in **--' stamp: 'gg 9/3/2023 16:13:08'!
+!IIII class methodsFor: '--** private fileout/in **--' stamp: 'gg 9/3/2023 19:26:34'!
 initializeCollaboratorsFromFile
 	"Auto generated method for loading purposes - Do not modify it"
 
