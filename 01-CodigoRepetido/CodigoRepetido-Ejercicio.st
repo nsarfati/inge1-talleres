@@ -24,23 +24,23 @@ TestCase subclass: #CustomerBookTest
 	poolDictionaries: ''
 	category: 'CodigoRepetido-Ejercicio'!
 
-!CustomerBookTest methodsFor: 'testing' stamp: 'gg 9/6/2023 00:01:46'!
+!CustomerBookTest methodsFor: 'testing' stamp: 'N S 9/6/2023 17:20:42'!
 test01AddingCustomerShouldNotTakeMoreThan50Milliseconds
 
 	| customerBook|
 
 	customerBook := CustomerBook new.
-	self theExecutionOf: [customerBook addCustomerNamed: 'John Lennon'.] takesLessThan: 50 * millisecond.
+	self theExecutionOf: [ customerBook addCustomerNamed: 'John Lennon' ] takesLessThan: 50 * millisecond.
 ! !
 
-!CustomerBookTest methodsFor: 'testing' stamp: 'gg 9/6/2023 00:01:46'!
+!CustomerBookTest methodsFor: 'testing' stamp: 'N S 9/6/2023 17:20:47'!
 test02RemovingCustomerShouldNotTakeMoreThan100Milliseconds
 
 	| customerBook |
 
 	customerBook := self createNewBookAndAddCustomerNamed: 'Paul McCartney'.
 
-	self theExecutionOf: [customerBook removeCustomerNamed: 'Paul McCartney'.] takesLessThan: 100 * millisecond.
+	self theExecutionOf: [ customerBook removeCustomerNamed: 'Paul McCartney' ] takesLessThan: 100 * millisecond.
 ! !
 
 !CustomerBookTest methodsFor: 'testing' stamp: 'HernanWilkinson 5/9/2012 18:12'!
@@ -125,10 +125,10 @@ test08CanNotSuspendAnAlreadySuspendedCustomer
 	self cantSuspendCustomerNamed: johnLennon inBook: customerBook.! !
 
 
-!CustomerBookTest methodsFor: 'testing abstractions' stamp: 'gg 9/5/2023 23:30:52'!
+!CustomerBookTest methodsFor: 'testing abstractions' stamp: 'N S 9/6/2023 17:20:08'!
 cantSuspendCustomerNamed: aCustomerName inBook: aCustomerBook
 
-	[aCustomerBook suspendCustomerNamed: aCustomerName .
+	[ aCustomerBook suspendCustomerNamed: aCustomerName .
 		self fail ]
 			on: CantSuspend
 			do: [ :anError |
@@ -224,17 +224,11 @@ numberOfSuspendedCustomers
 
 	^suspended size! !
 
-!CustomerBook methodsFor: 'customer management' stamp: 'N S 9/6/2023 00:38:55'!
+!CustomerBook methodsFor: 'customer management' stamp: 'N S 9/6/2023 17:19:53'!
 removeCustomerNamed: aName
-
-	| nameOfTheClientRemoved |
-	nameOfTheClientRemoved := self findAndRemoveInCollection: active aCustomerNamed: aName .
-	nameOfTheClientRemoved = aName ifTrue: [^nameOfTheClientRemoved] .
-
-	nameOfTheClientRemoved := self findAndRemoveInCollection: suspended aCustomerNamed: aName .
-	nameOfTheClientRemoved = aName ifTrue: [^nameOfTheClientRemoved] .
-
-	^ NotFound signal! !
+	[ self findAndRemoveInCollection: active aCustomerNamed: aName ]
+	on: NotFound
+	do: [ self findAndRemoveInCollection: suspended aCustomerNamed: aName ]! !
 
 !CustomerBook methodsFor: 'customer management' stamp: 'HernanWilkinson 7/6/2011 17:52'!
 signalCustomerAlreadyExists
@@ -257,7 +251,7 @@ suspendCustomerNamed: aName
 ! !
 
 
-!CustomerBook methodsFor: 'collection abstraction' stamp: 'N S 9/6/2023 00:30:39'!
+!CustomerBook methodsFor: 'collection abstraction' stamp: 'N S 9/6/2023 17:18:19'!
 findAndRemoveInCollection: anOrderedCollection aCustomerNamed: aName
 
 	1 to: anOrderedCollection size do:
@@ -267,7 +261,9 @@ findAndRemoveInCollection: anOrderedCollection aCustomerNamed: aName
 				anOrderedCollection removeAt: index.
 				^ aName
 			]
-	].! !
+	].
+
+	^ NotFound signal! !
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
