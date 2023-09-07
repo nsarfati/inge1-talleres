@@ -24,10 +24,10 @@ TestCase subclass: #CustomerBookTest
 	poolDictionaries: ''
 	category: 'CodigoRepetido-Ejercicio'!
 
-!CustomerBookTest methodsFor: 'testing' stamp: 'N S 9/6/2023 17:20:42'!
+!CustomerBookTest methodsFor: 'testing' stamp: 'N S 9/6/2023 22:36:42'!
 test01AddingCustomerShouldNotTakeMoreThan50Milliseconds
 
-	| customerBook|
+	| customerBook |
 
 	customerBook := CustomerBook new.
 	self theExecutionOf: [ customerBook addCustomerNamed: 'John Lennon' ] takesLessThan: 50 * millisecond.
@@ -71,33 +71,31 @@ test04CanNotRemoveAnInvalidCustomer
 			self customerBookOnlyHasJohnLennon: customerBook ]
 ! !
 
-!CustomerBookTest methodsFor: 'testing' stamp: 'gg 9/5/2023 23:49:26'!
+!CustomerBookTest methodsFor: 'testing' stamp: 'N S 9/6/2023 22:28:13'!
 test05SuspendingACustomerShouldNotRemoveItFromCustomerBook
 
-	| customerBook paulMcCartney|
+	| customerBook |
 
-	paulMcCartney := 'Paul McCartney'.
-	customerBook := self createNewBookAddAndSuspendCustomerNamed: paulMcCartney.
+	customerBook := self createNewBookAddAndSuspendPaulMcCartney.
 
 	self verifyCustomerBook: customerBook hasActive: 0 hasSuspended: 1 hasTotal: 1.
-	self assert: (customerBook includesCustomerNamed: paulMcCartney).
+	self assert: (customerBook includesCustomerNamed: 'Paul McCartney').
 
 
 
 ! !
 
-!CustomerBookTest methodsFor: 'testing' stamp: 'gg 9/5/2023 23:50:03'!
+!CustomerBookTest methodsFor: 'testing' stamp: 'N S 9/6/2023 22:28:54'!
 test06RemovingASuspendedCustomerShouldRemoveItFromCustomerBook
 
-	| customerBook paulMcCartney|
+	| customerBook |
 
-	paulMcCartney := 'Paul McCartney'.
-	customerBook := self createNewBookAddAndSuspendCustomerNamed: paulMcCartney.
+	customerBook := self createNewBookAddAndSuspendPaulMcCartney.
 
-	customerBook removeCustomerNamed: paulMcCartney.
+	customerBook removeCustomerNamed: 'Paul McCartney'.
 	self verifyCustomerBook: customerBook hasActive: 0 hasSuspended: 0 hasTotal: 0.
 
-	self deny: (customerBook includesCustomerNamed: paulMcCartney).
+	self deny: (customerBook includesCustomerNamed: 'Paul McCartney').
 
 
 
@@ -113,16 +111,15 @@ test07CanNotSuspendAnInvalidCustomer
 	self cantSuspendCustomerNamed: 'George Harrison' inBook: customerBook.
 ! !
 
-!CustomerBookTest methodsFor: 'testing' stamp: 'gg 9/5/2023 23:22:21'!
+!CustomerBookTest methodsFor: 'testing' stamp: 'N S 9/6/2023 22:36:24'!
 test08CanNotSuspendAnAlreadySuspendedCustomer
 
-	| customerBook johnLennon |
+	| customerBook |
 
-	johnLennon := 'John Lennon'.
-	customerBook := self createNewBookAndAddCustomerNamed: johnLennon.
-	customerBook suspendCustomerNamed: johnLennon.
+	customerBook := self createNewBookAndAddCustomerNamed: 'John Lennon'.
+	customerBook suspendCustomerNamed: 'John Lennon'.
 
-	self cantSuspendCustomerNamed: johnLennon inBook: customerBook.! !
+	self cantSuspendCustomerNamed: 'John Lennon' inBook: customerBook.! !
 
 
 !CustomerBookTest methodsFor: 'testing abstractions' stamp: 'N S 9/6/2023 17:20:08'!
@@ -134,13 +131,14 @@ cantSuspendCustomerNamed: aCustomerName inBook: aCustomerBook
 			do: [ :anError |
 				self customerBookOnlyHasJohnLennon: aCustomerBook ]! !
 
-!CustomerBookTest methodsFor: 'testing abstractions' stamp: 'gg 9/5/2023 23:37:23'!
-createNewBookAddAndSuspendCustomerNamed: aName
+!CustomerBookTest methodsFor: 'testing abstractions' stamp: 'N S 9/6/2023 22:27:42'!
+createNewBookAddAndSuspendPaulMcCartney
 
-	| customerBook |
+	| customerBook paulMcCartney |
 
-	customerBook := self createNewBookAndAddCustomerNamed: aName.
-	customerBook suspendCustomerNamed: aName.
+	paulMcCartney := 'Paul McCartney'.
+	customerBook := self createNewBookAndAddCustomerNamed: paulMcCartney.
+	customerBook suspendCustomerNamed: paulMcCartney.
 	^customerBook! !
 
 !CustomerBookTest methodsFor: 'testing abstractions' stamp: 'gg 9/5/2023 23:37:44'!
