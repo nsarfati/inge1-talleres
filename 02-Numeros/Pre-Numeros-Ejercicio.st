@@ -144,14 +144,6 @@ Object subclass: #Numero
 + anAdder
 	^self subclassResponsibility! !
 
-!Numero methodsFor: 'arithmetic operations' stamp: 'N S 9/11/2023 13:28:38'!
-// aDivisor 
-	^self subclassResponsibility! !
-
-!Numero methodsFor: 'arithmetic operations' stamp: 'N S 9/11/2023 13:27:31'!
-greatestCommonDivisorWith: anEntero 
-	^self subclassResponsibility! !
-
 !Numero methodsFor: 'arithmetic operations' stamp: 'N S 9/11/2023 13:25:24'!
 negated
 	^self subclassResponsibility! !
@@ -172,8 +164,6 @@ isOne
 !Numero methodsFor: 'testing' stamp: 'N S 9/11/2023 13:05:20'!
 isZero
 	^self subclassResponsibility! !
-
-
 
 
 !Numero methodsFor: 'comparing' stamp: 'N S 9/11/2023 13:37:18'!
@@ -342,14 +332,6 @@ hash
 	newDenominator := denominator * anAdder denominator.
 
 	^ self class with: newNumerator over: newDenominator! !
-
-!Fraccion methodsFor: 'arithmetic operations' stamp: 'N S 9/11/2023 13:28:21'!
-// aDivisor 
-	self error: 'Tipo de número no soportado'! !
-
-!Fraccion methodsFor: 'arithmetic operations' stamp: 'N S 9/11/2023 13:27:13'!
-greatestCommonDivisorWith: anEntero		
-	self error: 'Tipo de número no soportado'! !
 
 !Fraccion methodsFor: 'arithmetic operations' stamp: 'N S 9/11/2023 13:24:26'!
 negated
