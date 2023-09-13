@@ -426,47 +426,25 @@ substractToFraction: aFractionalMinuend
 
 	^ anAdder addToEntero: self! !
 
-!Entero methodsFor: 'arithmetic operations' stamp: 'gg 9/11/2023 21:09:14'!
+!Entero methodsFor: 'arithmetic operations' stamp: 'gg 9/13/2023 17:50:59'!
 - aSubtrahend 
 	
-	^ aSubtrahend substractToEntero: self
-	
-	"
-	(aSubtrahend isKindOf: self class) ifTrue: [^ self class with: value - aSubtrahend integerValue].
-	(aSubtrahend isKindOf: Fraccion) ifTrue: 
-		[^ self * aSubtrahend denominator - aSubtrahend numerator / aSubtrahend denominator]."! !
+	^ aSubtrahend substractToEntero: self! !
 
-!Entero methodsFor: 'arithmetic operations' stamp: 'gg 9/11/2023 21:44:45'!
+!Entero methodsFor: 'arithmetic operations' stamp: 'gg 9/13/2023 17:51:08'!
 / aDivisor 
 	
-	^ aDivisor divideEntero: self
-	
-	"
-	(aDivisor isKindOf: self class) ifTrue: [^Fraccion with: self over: aDivisor].
-	
-	(aDivisor isKindOf: Fraccion) ifTrue: 
-		[^self * aDivisor denominator / aDivisor numerator]."! !
+	^ aDivisor divideEntero: self! !
 
 !Entero methodsFor: 'arithmetic operations' stamp: 'gg 9/10/2023 16:49:03'!
 // aDivisor 
 	
 	^self class with: value // aDivisor integerValue! !
 
-!Entero methodsFor: 'arithmetic operations' stamp: 'gg 9/12/2023 23:36:03'!
+!Entero methodsFor: 'arithmetic operations' stamp: 'gg 9/13/2023 17:51:18'!
 fibonacci
 
 	self subclassResponsibility 
-
-	"
-	| one two |
-	
-	one := Entero with: 1.
-	two := Entero with: 2.
-	
-	self isNegative ifTrue: [self error: Entero negativeFibonacciErrorDescription ].	
-	(self isZero or: [self isOne]) ifTrue: [^one].
-	
-	^ (self - one) fibonacci + (self - two) fibonacci"
 		! !
 
 !Entero methodsFor: 'arithmetic operations' stamp: 'HernanWilkinson 5/7/2016 21:00'!
@@ -486,8 +464,8 @@ hash
 	^value hash! !
 
 
-!Entero methodsFor: 'initialization' stamp: 'HernanWilkinson 5/7/2016 20:09'!
-initalizeWith: aValue 
+!Entero methodsFor: 'initialization' stamp: 'gg 9/13/2023 18:20:43'!
+initializeWith: aValue 
 	
 	value := aValue! !
 
@@ -531,7 +509,7 @@ Entero class
 negativeFibonacciErrorDescription
 	^ ' Fibonacci no está definido aquí para Enteros Negativos!!!!!!'! !
 
-!Entero class methodsFor: 'instance creation' stamp: 'gg 9/12/2023 23:11:48'!
+!Entero class methodsFor: 'instance creation' stamp: 'gg 9/13/2023 18:20:43'!
 with: aValue 
 	
 	"Esta verificacion esta puesta por si se equivocan y quieren crear un Entero pasando otra cosa que un Integer - Hernan"
@@ -540,9 +518,7 @@ with: aValue
 	(aValue = 0) ifTrue: [^Cero new initialize].
 	(aValue = 1) ifTrue: [^Uno new initialize].
 	(aValue > 1) ifTrue: [^EnteroPositivoMayorAUno new initializeWith: aValue].
-	^ EnteroNegativo new initializeWith: aValue.
-	
-	" ^self new initalizeWith: aValue "! !
+	^ EnteroNegativo new initializeWith: aValue.! !
 
 
 !classDefinition: #Cero category: 'Numero-Exercise'!
@@ -552,17 +528,18 @@ Entero subclass: #Cero
 	poolDictionaries: ''
 	category: 'Numero-Exercise'!
 
-!Cero methodsFor: 'as yet unclassified' stamp: 'gg 9/12/2023 22:56:37'!
+!Cero methodsFor: 'initialization' stamp: 'gg 9/12/2023 23:08:19'!
+initialize 
+
+	value := 0! !
+
+
+!Cero methodsFor: 'fibonacci' stamp: 'gg 9/12/2023 22:56:37'!
 fibonacci
 	
 	^ Entero with: 1.
 
 		! !
-
-!Cero methodsFor: 'as yet unclassified' stamp: 'gg 9/12/2023 23:08:19'!
-initialize 
-
-	value := 0! !
 
 
 !classDefinition: #EnteroNegativo category: 'Numero-Exercise'!
@@ -572,16 +549,11 @@ Entero subclass: #EnteroNegativo
 	poolDictionaries: ''
 	category: 'Numero-Exercise'!
 
-!EnteroNegativo methodsFor: 'as yet unclassified' stamp: 'gg 9/12/2023 22:57:19'!
+!EnteroNegativo methodsFor: 'fibonacci' stamp: 'gg 9/12/2023 22:57:19'!
 fibonacci
 
 	self error: Entero negativeFibonacciErrorDescription
 			! !
-
-!EnteroNegativo methodsFor: 'as yet unclassified' stamp: 'gg 9/12/2023 23:12:09'!
-initializeWith: aValue 
-	
-	value := aValue! !
 
 
 !classDefinition: #EnteroPositivoMayorAUno category: 'Numero-Exercise'!
@@ -591,24 +563,16 @@ Entero subclass: #EnteroPositivoMayorAUno
 	poolDictionaries: ''
 	category: 'Numero-Exercise'!
 
-!EnteroPositivoMayorAUno methodsFor: 'as yet unclassified' stamp: 'gg 9/12/2023 23:35:37'!
+!EnteroPositivoMayorAUno methodsFor: 'fibonacci' stamp: 'gg 9/13/2023 18:23:30'!
 fibonacci
 
 	| one two |
 	
 	one := Entero with: 1.
 	two := Entero with: 2.
-	"
-	self isNegative ifTrue: [self error: Entero negativeFibonacciErrorDescription ].	
-	(self isZero or: [self isOne]) ifTrue: [^one]."
 	
 	^ (self - one) fibonacci + (self - two) fibonacci
 		! !
-
-!EnteroPositivoMayorAUno methodsFor: 'as yet unclassified' stamp: 'gg 9/12/2023 23:12:32'!
-initializeWith: aValue 
-	
-	value := aValue! !
 
 
 !classDefinition: #Uno category: 'Numero-Exercise'!
@@ -618,13 +582,14 @@ Entero subclass: #Uno
 	poolDictionaries: ''
 	category: 'Numero-Exercise'!
 
-!Uno methodsFor: 'as yet unclassified' stamp: 'gg 9/12/2023 22:56:54'!
+!Uno methodsFor: 'fibonacci' stamp: 'gg 9/12/2023 22:56:54'!
 fibonacci
 
 	^ Entero with: 1.
 		! !
 
-!Uno methodsFor: 'as yet unclassified' stamp: 'gg 9/12/2023 23:08:24'!
+
+!Uno methodsFor: 'initialization' stamp: 'gg 9/12/2023 23:08:24'!
 initialize 
 
 	value := 1! !
@@ -691,15 +656,10 @@ substractToFraction: aFractionalMinuend
 		^newNumerator / newDenominator		! !
 
 
-!Fraccion methodsFor: 'arithmetic operations' stamp: 'gg 9/10/2023 22:22:44'!
+!Fraccion methodsFor: 'arithmetic operations' stamp: 'gg 9/13/2023 18:24:26'!
 * aMultiplier 
 
 	^ aMultiplier multiplyToFraccion: self
-	"
-	(aMultiplier isKindOf: self class) ifTrue: 
-		[^(numerator * aMultiplier numerator) / (denominator * aMultiplier denominator)].
-		
-	(aMultiplier isKindOf: Entero) ifTrue: [^numerator * aMultiplier / denominator ]."
 	! !
 
 !Fraccion methodsFor: 'arithmetic operations' stamp: 'gg 9/10/2023 21:36:32'!
@@ -707,32 +667,16 @@ substractToFraction: aFractionalMinuend
 
 	^ anAdder addToFraccion: self! !
 
-!Fraccion methodsFor: 'arithmetic operations' stamp: 'gg 9/11/2023 21:22:37'!
+!Fraccion methodsFor: 'arithmetic operations' stamp: 'gg 9/13/2023 18:24:37'!
 - aSubtrahend 
 	
 	^ aSubtrahend substractToFraction: self
-	
-	"
-	| newNumerator newDenominator |
-	
-	(aSubtrahend isKindOf: self class) ifTrue: 
-		[newNumerator := (numerator * aSubtrahend denominator) - (denominator * aSubtrahend numerator).
-		newDenominator := denominator * aSubtrahend denominator.
-		
-		^newNumerator / newDenominator].
-	
-	(aSubtrahend isKindOf: Entero) ifTrue: [^numerator - (aSubtrahend * denominator) / denominator ]"
 		! !
 
-!Fraccion methodsFor: 'arithmetic operations' stamp: 'gg 9/11/2023 23:37:09'!
+!Fraccion methodsFor: 'arithmetic operations' stamp: 'gg 9/13/2023 18:24:46'!
 / aDivisor 
 		
-	^ aDivisor divideFraccion: self
-	"
-	(aDivisor isKindOf: self class) ifTrue: 
-		[^(numerator * aDivisor denominator) / (denominator * aDivisor numerator)].
-	
-	(aDivisor isKindOf: Entero) ifTrue: [^numerator / (denominator * aDivisor)]."! !
+	^ aDivisor divideFraccion: self! !
 
 
 !Fraccion methodsFor: 'comparing' stamp: 'HernanWilkinson 5/7/2016 20:42'!
