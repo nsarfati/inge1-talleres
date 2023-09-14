@@ -364,10 +364,10 @@ Numero subclass: #Entero
 	poolDictionaries: ''
 	category: 'Numero-Exercise'!
 
-!Entero methodsFor: 'auxiliary arithmetic operations' stamp: 'gg 9/11/2023 21:57:12'!
-addToEntero: anIntegerAddend
+!Entero methodsFor: 'auxiliary arithmetic operations' stamp: 'gg 9/13/2023 22:41:10'!
+addToEntero: anEnteroAddend
 	
-	^self class with: value + anIntegerAddend integerValue
+	^self class with: value + anEnteroAddend integerValue
 	
 ! !
 
@@ -392,10 +392,10 @@ divideFraccion: aFractionalDividend
 	
 	^aFractionalDividend numerator / (aFractionalDividend denominator * self)! !
 
-!Entero methodsFor: 'auxiliary arithmetic operations' stamp: 'gg 9/10/2023 21:44:46'!
-multiplyToEntero: anIntegerMultiplier
+!Entero methodsFor: 'auxiliary arithmetic operations' stamp: 'gg 9/13/2023 22:41:32'!
+multiplyToEntero: anEnteroMultiplier
 
-	^self class with: value * anIntegerMultiplier integerValue! !
+	^self class with: value * anEnteroMultiplier integerValue! !
 
 !Entero methodsFor: 'auxiliary arithmetic operations' stamp: 'gg 9/10/2023 22:20:43'!
 multiplyToFraccion: aFractionalMultiplier
@@ -403,10 +403,10 @@ multiplyToFraccion: aFractionalMultiplier
 	^ self * aFractionalMultiplier numerator / aFractionalMultiplier denominator
 ! !
 
-!Entero methodsFor: 'auxiliary arithmetic operations' stamp: 'gg 9/11/2023 21:00:02'!
-substractToEntero: anIntegerMinuend 
+!Entero methodsFor: 'auxiliary arithmetic operations' stamp: 'gg 9/13/2023 22:42:17'!
+substractToEntero: anEnteroMinuend 
 	
-	^ self class with: anIntegerMinuend integerValue - value ! !
+	^ self class with: anEnteroMinuend integerValue - value ! !
 
 !Entero methodsFor: 'auxiliary arithmetic operations' stamp: 'gg 9/11/2023 21:21:38'!
 substractToFraction: aFractionalMinuend
@@ -464,12 +464,6 @@ hash
 	^value hash! !
 
 
-!Entero methodsFor: 'initialization' stamp: 'gg 9/13/2023 18:20:43'!
-initializeWith: aValue 
-	
-	value := aValue! !
-
-
 !Entero methodsFor: 'value' stamp: 'HernanWilkinson 5/7/2016 21:02'!
 integerValue
 
@@ -484,20 +478,20 @@ printOn: aStream
 	aStream print: value ! !
 
 
-!Entero methodsFor: 'testing' stamp: 'NR 9/23/2018 22:17:55'!
+!Entero methodsFor: 'testing' stamp: 'gg 9/13/2023 22:39:29'!
 isNegative
 	
-	^value < 0! !
+	self subclassResponsibility ! !
 
-!Entero methodsFor: 'testing' stamp: 'HernanWilkinson 5/7/2016 20:14'!
+!Entero methodsFor: 'testing' stamp: 'gg 9/13/2023 22:39:40'!
 isOne
 	
-	^value = 1! !
+	self subclassResponsibility ! !
 
-!Entero methodsFor: 'testing' stamp: 'HernanWilkinson 5/7/2016 20:12'!
+!Entero methodsFor: 'testing' stamp: 'gg 9/13/2023 22:39:49'!
 isZero
 	
-	^value = 0! !
+	self subclassResponsibility ! !
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
@@ -534,12 +528,26 @@ initialize
 	value := 0! !
 
 
-!Cero methodsFor: 'fibonacci' stamp: 'gg 9/12/2023 22:56:37'!
+!Cero methodsFor: 'fibonacci' stamp: 'gg 9/13/2023 22:43:52'!
 fibonacci
 	
-	^ Entero with: 1.
+	^ Entero with: 1! !
 
-		! !
+
+!Cero methodsFor: 'testing' stamp: 'gg 9/13/2023 22:35:43'!
+isNegative
+	
+	^false! !
+
+!Cero methodsFor: 'testing' stamp: 'gg 9/13/2023 22:35:48'!
+isOne
+	
+	^false! !
+
+!Cero methodsFor: 'testing' stamp: 'gg 9/13/2023 22:35:53'!
+isZero
+	
+	^true! !
 
 
 !classDefinition: #EnteroNegativo category: 'Numero-Exercise'!
@@ -555,6 +563,28 @@ fibonacci
 	self error: Entero negativeFibonacciErrorDescription
 			! !
 
+
+!EnteroNegativo methodsFor: 'testing' stamp: 'gg 9/13/2023 22:37:23'!
+isNegative
+	
+	^true! !
+
+!EnteroNegativo methodsFor: 'testing' stamp: 'gg 9/13/2023 22:37:32'!
+isOne
+	
+	^false! !
+
+!EnteroNegativo methodsFor: 'testing' stamp: 'gg 9/13/2023 22:37:29'!
+isZero
+	
+	^false! !
+
+
+!EnteroNegativo methodsFor: 'initialization' stamp: 'gg 9/13/2023 22:29:14'!
+initializeWith: aValue
+
+	value := aValue! !
+
 
 !classDefinition: #EnteroPositivoMayorAUno category: 'Numero-Exercise'!
 Entero subclass: #EnteroPositivoMayorAUno
@@ -562,6 +592,22 @@ Entero subclass: #EnteroPositivoMayorAUno
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'Numero-Exercise'!
+
+!EnteroPositivoMayorAUno methodsFor: 'testing' stamp: 'gg 9/13/2023 22:37:49'!
+isNegative
+	
+	^false! !
+
+!EnteroPositivoMayorAUno methodsFor: 'testing' stamp: 'gg 9/13/2023 22:37:56'!
+isOne
+	
+	^false! !
+
+!EnteroPositivoMayorAUno methodsFor: 'testing' stamp: 'gg 9/13/2023 22:37:58'!
+isZero
+	
+	^false! !
+
 
 !EnteroPositivoMayorAUno methodsFor: 'fibonacci' stamp: 'gg 9/13/2023 18:23:30'!
 fibonacci
@@ -574,6 +620,12 @@ fibonacci
 	^ (self - one) fibonacci + (self - two) fibonacci
 		! !
 
+
+!EnteroPositivoMayorAUno methodsFor: 'initialization' stamp: 'gg 9/13/2023 22:29:28'!
+initializeWith: aValue
+
+	value := aValue! !
+
 
 !classDefinition: #Uno category: 'Numero-Exercise'!
 Entero subclass: #Uno
@@ -582,10 +634,26 @@ Entero subclass: #Uno
 	poolDictionaries: ''
 	category: 'Numero-Exercise'!
 
-!Uno methodsFor: 'fibonacci' stamp: 'gg 9/12/2023 22:56:54'!
+!Uno methodsFor: 'testing' stamp: 'gg 9/13/2023 22:38:57'!
+isNegative
+	
+	^false! !
+
+!Uno methodsFor: 'testing' stamp: 'gg 9/13/2023 22:44:55'!
+isOne
+	
+	^true! !
+
+!Uno methodsFor: 'testing' stamp: 'gg 9/13/2023 22:39:13'!
+isZero
+	
+	^false! !
+
+
+!Uno methodsFor: 'fibonacci' stamp: 'gg 9/13/2023 22:44:27'!
 fibonacci
 
-	^ Entero with: 1.
+	^ Entero with: 1
 		! !
 
 
@@ -602,10 +670,10 @@ Numero subclass: #Fraccion
 	poolDictionaries: ''
 	category: 'Numero-Exercise'!
 
-!Fraccion methodsFor: 'auxiliary arithmetic operations' stamp: 'gg 9/10/2023 21:20:17'!
-addToEntero: anIntegerAddend 
+!Fraccion methodsFor: 'auxiliary arithmetic operations' stamp: 'gg 9/13/2023 22:45:30'!
+addToEntero: anEnteroAddend 
 
-	^ (denominator * anIntegerAddend ) + numerator / denominator 
+	^ (denominator * anEnteroAddend ) + numerator / denominator 
 	
 ! !
 
@@ -629,10 +697,10 @@ divideFraccion: aFractionalDividend
  
 	^aFractionalDividend numerator * denominator / (aFractionalDividend denominator * numerator)! !
 
-!Fraccion methodsFor: 'auxiliary arithmetic operations' stamp: 'gg 9/10/2023 21:58:45'!
-multiplyToEntero: anIntegerMultiplier	
+!Fraccion methodsFor: 'auxiliary arithmetic operations' stamp: 'gg 9/13/2023 22:46:02'!
+multiplyToEntero: anEnteroMultiplier	
 
-	^ (numerator * anIntegerMultiplier) / denominator! !
+	^ (numerator * anEnteroMultiplier) / denominator! !
 
 !Fraccion methodsFor: 'auxiliary arithmetic operations' stamp: 'gg 9/10/2023 22:18:42'!
 multiplyToFraccion: aFractionalMultiplier	
@@ -640,10 +708,10 @@ multiplyToFraccion: aFractionalMultiplier
 	^(numerator * aFractionalMultiplier numerator) / (denominator * aFractionalMultiplier denominator)
 	! !
 
-!Fraccion methodsFor: 'auxiliary arithmetic operations' stamp: 'gg 9/11/2023 21:01:37'!
-substractToEntero: anIntegerMinuend
+!Fraccion methodsFor: 'auxiliary arithmetic operations' stamp: 'gg 9/13/2023 22:46:21'!
+substractToEntero: anEnteroMinuend
 
-	^ anIntegerMinuend value * denominator - numerator / denominator! !
+	^ anEnteroMinuend value * denominator - numerator / denominator! !
 
 !Fraccion methodsFor: 'auxiliary arithmetic operations' stamp: 'gg 9/11/2023 21:14:53'!
 substractToFraction: aFractionalMinuend
