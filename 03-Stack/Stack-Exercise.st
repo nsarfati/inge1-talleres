@@ -147,45 +147,46 @@ TestCase subclass: #SentenceFinderByPrefixTest
 
 !classDefinition: #OOStack category: 'Stack-Exercise'!
 Object subclass: #OOStack
-	instanceVariableNames: 'size stackPointer'
+	instanceVariableNames: 'size topOfStack'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'Stack-Exercise'!
 
-!OOStack methodsFor: 'stack messages' stamp: 'gg 9/16/2023 16:17:54'!
+!OOStack methodsFor: 'stack messages' stamp: 'gg 9/16/2023 19:54:16'!
 initialize 
 	
-	|stackBase|
-	stackBase := 	StackBase new.
-	stackPointer := PointerToStackTop new pointsTo: stackBase.
+	topOfStack := 	StackBase new.
 	size := 0.! !
 
-!OOStack methodsFor: 'stack messages' stamp: 'gg 9/16/2023 18:07:14'!
+!OOStack methodsFor: 'stack messages' stamp: 'gg 9/16/2023 19:54:39'!
 isEmpty
 
-	^ stackPointer accessPointedElement stackIsEmpty ! !
+	^ topOfStack stackIsEmpty ! !
 
-!OOStack methodsFor: 'stack messages' stamp: 'gg 9/16/2023 18:07:24'!
+!OOStack methodsFor: 'stack messages' stamp: 'gg 9/17/2023 16:31:53'!
 pop
 
-	 ^ stackPointer accessPointedElement popElementFromStack: self! !
+	| poppedElement |
+	poppedElement := self top.
+	topOfStack := topOfStack previousElement.
+	self decrementSize.
+	^ poppedElement .! !
 
-!OOStack methodsFor: 'stack messages' stamp: 'gg 9/16/2023 18:09:57'!
+!OOStack methodsFor: 'stack messages' stamp: 'gg 9/16/2023 20:12:49'!
 push: anElementValue 
 	
-	|elementToPush|
-	elementToPush := StackElement new initializeElementWith: anElementValue.
-	elementToPush pushTo: self.! !
+	topOfStack := StackElement new pushAfter: topOfStack withValue: anElementValue on: self.
+	! !
 
 !OOStack methodsFor: 'stack messages' stamp: 'gg 9/14/2023 21:51:13'!
 size 
 
 	^size! !
 
-!OOStack methodsFor: 'stack messages' stamp: 'gg 9/16/2023 18:07:46'!
+!OOStack methodsFor: 'stack messages' stamp: 'gg 9/16/2023 20:15:28'!
 top
 	
-	^stackPointer accessPointedElement topElementOfStack: self.! !
+	^topOfStack accessValue! !
 
 
 !OOStack methodsFor: 'private messages' stamp: 'gg 9/16/2023 16:37:14'!
@@ -197,11 +198,6 @@ decrementSize
 incrementSize
 
 	size := size + 1! !
-
-!OOStack methodsFor: 'private messages' stamp: 'gg 9/16/2023 16:33:56'!
-stackPointer
-
-	^stackPointer ! !
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
@@ -222,20 +218,12 @@ Object subclass: #OOStackElements
 	poolDictionaries: ''
 	category: 'Stack-Exercise'!
 
-!OOStackElements methodsFor: 'as yet unclassified' stamp: 'gg 9/16/2023 17:58:26'!
-popElementFromStack: anOOStack
-	
-	self subclassResponsibility 
-	! !
+!OOStackElements methodsFor: 'as yet unclassified'!
+! !
 
 !OOStackElements methodsFor: 'as yet unclassified' stamp: 'gg 9/16/2023 16:21:42'!
 stackIsEmpty
 
-	self subclassResponsibility ! !
-
-!OOStackElements methodsFor: 'as yet unclassified' stamp: 'gg 9/16/2023 17:58:46'!
-topElementOfStack: anOOStack
-	
 	self subclassResponsibility ! !
 
 
@@ -246,8 +234,8 @@ OOStackElements subclass: #StackBase
 	poolDictionaries: ''
 	category: 'Stack-Exercise'!
 
-!StackBase methodsFor: 'as yet unclassified' stamp: 'gg 9/16/2023 18:10:58'!
-popElementFromStack: anOOStack
+!StackBase methodsFor: 'as yet unclassified' stamp: 'gg 9/16/2023 20:14:51'!
+accessValue
 
 	self error: OOStack stackEmptyErrorDescription! !
 
@@ -256,87 +244,35 @@ stackIsEmpty
 
 	^ true! !
 
-!StackBase methodsFor: 'as yet unclassified' stamp: 'gg 9/16/2023 18:11:06'!
-topElementOfStack: anOOStack
-	
-	self error: OOStack stackEmptyErrorDescription! !
-
 
 !classDefinition: #StackElement category: 'Stack-Exercise'!
 OOStackElements subclass: #StackElement
-	instanceVariableNames: 'elementValue pointerToPreviousElement'
+	instanceVariableNames: 'elementValue previousElement'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'Stack-Exercise'!
 
-!StackElement methodsFor: 'as yet unclassified' stamp: 'gg 9/16/2023 18:02:14'!
-initializeElementWith: aValue
+!StackElement methodsFor: 'as yet unclassified' stamp: 'gg 9/16/2023 20:14:42'!
+accessValue
 
-	elementValue := aValue ! !
+	^ elementValue! !
 
-!StackElement methodsFor: 'as yet unclassified' stamp: 'gg 9/16/2023 18:08:10'!
-popElementFromStack: anOOStack
+!StackElement methodsFor: 'as yet unclassified' stamp: 'gg 9/16/2023 20:24:09'!
+previousElement
+
+	^previousElement ! !
+
+!StackElement methodsFor: 'as yet unclassified' stamp: 'gg 9/16/2023 20:12:36'!
+pushAfter: anElement withValue: aValue on: anOOStack
 	
-	|newTop|
-	newTop := 	pointerToPreviousElement accessPointedElement.
-	anOOStack stackPointer pointsTo: newTop.
-	anOOStack decrementSize.
-	^ elementValue
-	! !
-
-!StackElement methodsFor: 'as yet unclassified' stamp: 'gg 9/16/2023 18:08:50'!
-pushTo: anOOStack
-
-	pointerToPreviousElement := ElementPointer new pointsTo: 
-									anOOStack stackPointer accessPointedElement .
-	anOOStack stackPointer pointsTo: self.
+	elementValue := aValue.
+	previousElement := anElement.
 	anOOStack incrementSize.! !
 
 !StackElement methodsFor: 'as yet unclassified' stamp: 'gg 9/16/2023 16:21:11'!
 stackIsEmpty
 
 	^false! !
-
-!StackElement methodsFor: 'as yet unclassified' stamp: 'gg 9/16/2023 17:58:56'!
-topElementOfStack: anOOStack
-
-	^ elementValue! !
-
-
-!classDefinition: #OOStackPointers category: 'Stack-Exercise'!
-Object subclass: #OOStackPointers
-	instanceVariableNames: 'elementPointed'
-	classVariableNames: ''
-	poolDictionaries: ''
-	category: 'Stack-Exercise'!
-
-!OOStackPointers methodsFor: 'as yet unclassified' stamp: 'gg 9/16/2023 18:07:02'!
-accessPointedElement 
-
-	^ elementPointed
-
-	! !
-
-!OOStackPointers methodsFor: 'as yet unclassified' stamp: 'gg 9/16/2023 18:03:08'!
-pointsTo: aStackElement
-
-	elementPointed := aStackElement! !
-
-
-!classDefinition: #ElementPointer category: 'Stack-Exercise'!
-OOStackPointers subclass: #ElementPointer
-	instanceVariableNames: ''
-	classVariableNames: ''
-	poolDictionaries: ''
-	category: 'Stack-Exercise'!
-
-
-!classDefinition: #PointerToStackTop category: 'Stack-Exercise'!
-OOStackPointers subclass: #PointerToStackTop
-	instanceVariableNames: ''
-	classVariableNames: ''
-	poolDictionaries: ''
-	category: 'Stack-Exercise'!
 
 
 !classDefinition: #SentenceFinderByPrefix category: 'Stack-Exercise'!
