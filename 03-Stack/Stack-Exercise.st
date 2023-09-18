@@ -218,8 +218,10 @@ Object subclass: #OOStackElements
 	poolDictionaries: ''
 	category: 'Stack-Exercise'!
 
-!OOStackElements methodsFor: 'as yet unclassified'!
-! !
+!OOStackElements methodsFor: 'as yet unclassified' stamp: 'gg 9/17/2023 22:15:15'!
+accessValue
+
+	self subclassResponsibility ! !
 
 !OOStackElements methodsFor: 'as yet unclassified' stamp: 'gg 9/16/2023 16:21:42'!
 stackIsEmpty
@@ -277,7 +279,7 @@ stackIsEmpty
 
 !classDefinition: #SentenceFinderByPrefix category: 'Stack-Exercise'!
 Object subclass: #SentenceFinderByPrefix
-	instanceVariableNames: 'stack prefix sentencesWithPrefix stackAux'
+	instanceVariableNames: 'stack prefix sentencesWithPrefix checkedSentences'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'Stack-Exercise'!
@@ -289,11 +291,11 @@ initializeWithPrefix: aPrefix on: anOOStack
 	prefix := aPrefix.! !
 
 
-!SentenceFinderByPrefix methodsFor: 'as yet unclassified' stamp: 'gg 9/17/2023 21:06:21'!
+!SentenceFinderByPrefix methodsFor: 'as yet unclassified' stamp: 'gg 9/17/2023 22:12:10'!
 find
 
 	sentencesWithPrefix := OrderedCollection new.
-	stackAux := OrderedCollection new.
+	checkedSentences := OrderedCollection new.
 	self findSentencesWithGivenPrefix.
 	self reconstructStack.! !
 
@@ -302,25 +304,25 @@ findSentencesWithGivenPrefix
 
 	stack size timesRepeat: [ self verifyTopSentenceStartsWithPrefix ].! !
 
-!SentenceFinderByPrefix methodsFor: 'as yet unclassified' stamp: 'gg 9/17/2023 21:06:29'!
+!SentenceFinderByPrefix methodsFor: 'as yet unclassified' stamp: 'gg 9/17/2023 22:12:10'!
 reconstructStack
 
-	stackAux size timesRepeat: [
-		stack push: stackAux first.
-		stackAux removeFirst ].! !
+	checkedSentences size timesRepeat: [
+		stack push: checkedSentences first.
+		checkedSentences removeFirst ].! !
 
 !SentenceFinderByPrefix methodsFor: 'as yet unclassified' stamp: 'gg 9/17/2023 21:06:32'!
 sentences
 
 	^ sentencesWithPrefix.! !
 
-!SentenceFinderByPrefix methodsFor: 'as yet unclassified' stamp: 'gg 9/17/2023 21:33:23'!
+!SentenceFinderByPrefix methodsFor: 'as yet unclassified' stamp: 'gg 9/17/2023 22:12:10'!
 verifyTopSentenceStartsWithPrefix
 
 	| topSentence | 
 	topSentence := stack top.
 	(topSentence beginsWith: prefix) ifTrue: [ sentencesWithPrefix addFirst: topSentence ].
-	stackAux addFirst: topSentence .
+	checkedSentences addFirst: topSentence .
 	stack pop.! !
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
