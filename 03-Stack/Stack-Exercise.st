@@ -152,7 +152,7 @@ Object subclass: #OOStack
 	poolDictionaries: ''
 	category: 'Stack-Exercise'!
 
-!OOStack methodsFor: 'stack messages' stamp: 'gg 9/16/2023 19:54:16'!
+!OOStack methodsFor: 'stack messages' stamp: 'gg 9/17/2023 21:49:22'!
 initialize 
 	
 	topOfStack := 	StackBase new.
@@ -277,7 +277,84 @@ stackIsEmpty
 
 !classDefinition: #SentenceFinderByPrefix category: 'Stack-Exercise'!
 Object subclass: #SentenceFinderByPrefix
-	instanceVariableNames: ''
+	instanceVariableNames: 'stack prefix sentencesWithPrefix stackAux'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'Stack-Exercise'!
+
+!SentenceFinderByPrefix methodsFor: 'initializing' stamp: 'gg 9/17/2023 21:07:22'!
+initializeWithPrefix: aPrefix on: anOOStack
+
+	stack := anOOStack .
+	prefix := aPrefix.! !
+
+
+!SentenceFinderByPrefix methodsFor: 'as yet unclassified' stamp: 'gg 9/17/2023 21:06:21'!
+find
+
+	sentencesWithPrefix := OrderedCollection new.
+	stackAux := OrderedCollection new.
+	self findSentencesWithGivenPrefix.
+	self reconstructStack.! !
+
+!SentenceFinderByPrefix methodsFor: 'as yet unclassified' stamp: 'gg 9/17/2023 21:06:26'!
+findSentencesWithGivenPrefix
+
+	stack size timesRepeat: [ self verifyTopSentenceStartsWithPrefix ].! !
+
+!SentenceFinderByPrefix methodsFor: 'as yet unclassified' stamp: 'gg 9/17/2023 21:06:29'!
+reconstructStack
+
+	stackAux size timesRepeat: [
+		stack push: stackAux first.
+		stackAux removeFirst ].! !
+
+!SentenceFinderByPrefix methodsFor: 'as yet unclassified' stamp: 'gg 9/17/2023 21:06:32'!
+sentences
+
+	^ sentencesWithPrefix.! !
+
+!SentenceFinderByPrefix methodsFor: 'as yet unclassified' stamp: 'gg 9/17/2023 21:33:23'!
+verifyTopSentenceStartsWithPrefix
+
+	| topSentence | 
+	topSentence := stack top.
+	(topSentence beginsWith: prefix) ifTrue: [ sentencesWithPrefix addFirst: topSentence ].
+	stackAux addFirst: topSentence .
+	stack pop.! !
+
+"-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
+
+!classDefinition: 'SentenceFinderByPrefix class' category: 'Stack-Exercise'!
+SentenceFinderByPrefix class
+	instanceVariableNames: ''!
+
+!SentenceFinderByPrefix class methodsFor: 'prefix verifications' stamp: 'gg 9/17/2023 21:46:31'!
+verifyNotEmpty: aPrefix
+
+	aPrefix ='' ifTrue: [self error: self errorEmptyPrefix]! !
+
+!SentenceFinderByPrefix class methodsFor: 'prefix verifications' stamp: 'gg 9/17/2023 21:45:26'!
+verifyNotEmptySpaces: aPrefix
+
+	(aPrefix includesSubString: ' ') ifTrue: [self error: self errorEmptySpacesInPrefix]! !
+
+
+!SentenceFinderByPrefix class methodsFor: 'instance creation' stamp: 'gg 9/17/2023 21:10:09'!
+initializeFinderWithPrefix: aPrefix on: anOOStack
+
+	self verifyNotEmpty: aPrefix.
+	self verifyNotEmptySpaces: aPrefix.
+	
+	SentenceFinderByPrefix new initializeWithPrefix: aPrefix on: anOOStack. ! !
+
+
+!SentenceFinderByPrefix class methodsFor: 'error messages' stamp: 'gg 9/17/2023 21:12:39'!
+errorEmptyPrefix
+
+	^ 'Empty prefix!!'! !
+
+!SentenceFinderByPrefix class methodsFor: 'error messages' stamp: 'gg 9/17/2023 21:12:57'!
+errorEmptySpacesInPrefix
+
+	^ 'Prefix has spaces!!'! !
