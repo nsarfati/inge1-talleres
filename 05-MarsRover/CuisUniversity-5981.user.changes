@@ -1,0 +1,3899 @@
+
+
+----QUIT----(13 August 2023 19:14:09) CuisUniversity-5981.image priorSource: 5713367!
+
+----STARTUP---- (13 August 2023 19:14:10) as /Users/hernan/Documents/Cuis/5.0-64Bits/Cuis-University-Installer/CuisUniversity-5981.image!
+
+
+----QUIT----(13 August 2023 19:14:10) CuisUniversity-5981.image priorSource: 10197065!
+
+----STARTUP---- (8 October 2023 18:26:47) as /home/gero/Documents/FACULTAD/inge 1/Cuis TDD/Cuis Mars Rover/Cuis 8.10/linux64/CuisUniversity-5981.image!
+
+
+TestCase subclass: #TestsMarsRover
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Mars Rover'!
+
+!classDefinition: #TestsMarsRover category: 'Mars Rover' stamp: 'GG 10/8/2023 18:28:03'!
+TestCase subclass: #TestsMarsRover
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Mars Rover'!
+
+!classDefinition: #MarsRover category: 'Mars Rover' stamp: 'GG 10/8/2023 18:29:27'!
+Object subclass: #MarsRover
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Mars Rover'!
+!TestsMarsRover methodsFor: 'no messages' stamp: 'GG 10/8/2023 18:29:21'!
+test01
+
+	|marsRover|
+	marsRover := MarsRover at: 0@0 pointing: #North.
+	marsRover process: ''.
+	
+	self assert: (marsRover isAtPosition: 0@0 pointing: #North)! !
+
+!testRun: #TestsMarsRover #test01 stamp: 'GG 10/8/2023 18:29:37'!
+ERROR!
+
+!testRun: #TestsMarsRover #test01 stamp: 'GG 10/8/2023 18:29:38'!
+ERROR!
+!MarsRover class methodsFor: 'instance creation' stamp: 'GG 10/8/2023 18:29:52'!
+at: aRenameMe1 pointing: aRenameMe2 
+	"DO NOT FORGET TO RENAME COLLABORATORS AND REMOVE THIS COMMENT!!!!"
+	self shouldBeImplemented.
+	^self new initializeAt: aRenameMe1 pointing: aRenameMe2 ! !
+!MarsRover class methodsFor: 'instance creation' stamp: 'GG 10/8/2023 18:30:16' prior: 50650355!
+at: aStartingPosition pointing: aCardinalPoint
+
+	^self new initializeAt: aStartingPosition pointing: aCardinalPoint ! !
+
+!testRun: #TestsMarsRover #test01 stamp: 'GG 10/8/2023 18:30:26'!
+ERROR!
+
+!testRun: #TestsMarsRover #test01 stamp: 'GG 10/8/2023 18:30:26'!
+ERROR!
+
+!classDefinition: #MarsRover category: 'Mars Rover' stamp: 'GG 10/8/2023 18:30:52'!
+Object subclass: #MarsRover
+	instanceVariableNames: 'startingPosition'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Mars Rover'!
+
+!classDefinition: #MarsRover category: 'Mars Rover' stamp: 'GG 10/8/2023 18:30:52'!
+Object subclass: #MarsRover
+	instanceVariableNames: 'startingPosition cardinalPoint'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Mars Rover'!
+!MarsRover methodsFor: 'initialization' stamp: 'GG 10/8/2023 18:30:52'!
+initializeAt: aStartingPosition pointing: aCardinalPoint 
+	self shouldBeImplemented.
+	startingPosition := aStartingPosition.
+	cardinalPoint := aCardinalPoint.! !
+!MarsRover methodsFor: 'initialization' stamp: 'GG 10/8/2023 18:31:12' prior: 50650391!
+initializeAt: aStartingPosition pointing: aCardinalPoint 
+
+	startingPosition := aStartingPosition.
+	cardinalPoint := aCardinalPoint.! !
+
+Object subclass: #MarsRover
+	instanceVariableNames: 'position cardinalPoint'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Mars Rover'!
+
+!classDefinition: #MarsRover category: 'Mars Rover' stamp: 'GG 10/8/2023 18:31:50'!
+Object subclass: #MarsRover
+	instanceVariableNames: 'position cardinalPoint'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Mars Rover'!
+!MarsRover methodsFor: 'initialization' stamp: 'GG 10/8/2023 18:32:00' prior: 50650399!
+initializeAt: aStartingPosition pointing: aCardinalPoint 
+
+	position := aStartingPosition.
+	cardinalPoint := aCardinalPoint.! !
+
+!testRun: #TestsMarsRover #test01 stamp: 'GG 10/8/2023 18:32:55'!
+ERROR!
+
+!testRun: #TestsMarsRover #test01 stamp: 'GG 10/8/2023 18:32:55'!
+ERROR!
+
+!testRun: #TestsMarsRover #test01 stamp: 'GG 10/8/2023 18:33:05'!
+ERROR!
+
+!testRun: #TestsMarsRover #test01 stamp: 'GG 10/8/2023 18:33:05'!
+ERROR!
+
+!testRun: #TestsMarsRover #test01 stamp: 'GG 10/8/2023 18:33:34'!
+ERROR!
+
+!testRun: #TestsMarsRover #test01 stamp: 'GG 10/8/2023 18:33:34'!
+ERROR!
+!MarsRover methodsFor: 'process' stamp: 'GG 10/8/2023 18:33:45'!
+process: aRenameMe1 
+	self shouldBeImplemented.! !
+!MarsRover methodsFor: 'process' stamp: 'GG 10/8/2023 18:33:52' prior: 50650438!
+process: aSetOfCommands
+
+	! !
+
+!testRun: #TestsMarsRover #test01 stamp: 'GG 10/8/2023 18:33:58'!
+ERROR!
+
+!testRun: #TestsMarsRover #test01 stamp: 'GG 10/8/2023 18:33:58'!
+ERROR!
+!MarsRover methodsFor: 'testing' stamp: 'GG 10/8/2023 18:34:05'!
+isAtPosition: aRenameMe1 pointing: aRenameMe2 
+	self shouldBeImplemented.! !
+!MarsRover methodsFor: 'testing' stamp: 'GG 10/8/2023 18:34:30' prior: 50650451!
+isAtPosition: aPosition pointing: aCardinalPoint
+
+	^ position = aPosition and: [cardinalPoint = aCardinalPoint].! !
+
+!testRun: #TestsMarsRover #test01 stamp: 'GG 10/8/2023 18:34:32'!
+PASSED!
+!TestsMarsRover methodsFor: 'as yet unclassified' stamp: 'GG 10/8/2023 18:34:48'!
+test02
+
+	|marsRover|
+	marsRover := MarsRover at: 0@0 pointing: #North.
+	marsRover process: 'f'.
+	
+	self assert: (marsRover isAtPosition: 0@1 pointing: #North)! !
+
+!testRun: #TestsMarsRover #test02 stamp: 'GG 10/8/2023 18:34:50'!
+FAILURE!
+
+!testRun: #TestsMarsRover #test02 stamp: 'GG 10/8/2023 18:34:50'!
+FAILURE!
+!MarsRover methodsFor: 'process' stamp: 'GG 10/8/2023 18:35:49' prior: 50650443!
+process: aSetOfCommands
+
+	aSetOfCommands = '' ifTrue: [^self].
+	position := 0@1.! !
+
+!testRun: #TestsMarsRover #test01 stamp: 'GG 10/8/2023 18:35:52'!
+PASSED!
+
+!testRun: #TestsMarsRover #test02 stamp: 'GG 10/8/2023 18:35:54'!
+PASSED!
+
+!testRun: #TestsMarsRover #test01 stamp: 'GG 10/8/2023 18:35:57'!
+PASSED!
+
+!testRun: #TestsMarsRover #test02 stamp: 'GG 10/8/2023 18:35:57'!
+PASSED!
+!MarsRover methodsFor: 'initialization' stamp: 'GG 10/8/2023 18:39:30' prior: 50650418!
+initializeAt: aStartingPosition pointing: aCardinalPoint 
+
+	position := aStartingPosition.
+	cardinalPoint := aCardinalPoint.! !
+
+!testRun: #TestsMarsRover #test01 stamp: 'GG 10/8/2023 18:39:32'!
+PASSED!
+
+!testRun: #TestsMarsRover #test02 stamp: 'GG 10/8/2023 18:39:32'!
+PASSED!
+!TestsMarsRover methodsFor: 'as yet unclassified' stamp: 'GG 10/8/2023 19:01:36'!
+test03
+
+	|marsRover|
+	marsRover := MarsRover at: 0@0 pointing: #North.
+	marsRover process: 'fff'.
+	
+	self assert: (marsRover isAtPosition: 0@3 pointing: #North)! !
+
+!testRun: #TestsMarsRover #test03 stamp: 'GG 10/8/2023 19:01:38'!
+FAILURE!
+
+!testRun: #TestsMarsRover #test03 stamp: 'GG 10/8/2023 19:01:38'!
+FAILURE!
+!MarsRover methodsFor: 'process' stamp: 'GG 10/8/2023 19:02:50' prior: 50650478!
+process: aSetOfCommands
+
+	aSetOfCommands do: [:command | position := position + (0@1)].! !
+
+!testRun: #TestsMarsRover #test03 stamp: 'GG 10/8/2023 19:03:11'!
+PASSED!
+
+!testRun: #TestsMarsRover #test03 stamp: 'GG 10/8/2023 19:03:13'!
+PASSED!
+
+!testRun: #TestsMarsRover #test01 stamp: 'GG 10/8/2023 19:03:23'!
+PASSED!
+
+!testRun: #TestsMarsRover #test02 stamp: 'GG 10/8/2023 19:03:23'!
+PASSED!
+
+!testRun: #TestsMarsRover #test03 stamp: 'GG 10/8/2023 19:03:23'!
+PASSED!
+
+!testRun: #TestsMarsRover #test01 stamp: 'GG 10/8/2023 19:03:27'!
+PASSED!
+
+!testRun: #TestsMarsRover #test02 stamp: 'GG 10/8/2023 19:03:27'!
+PASSED!
+
+!testRun: #TestsMarsRover #test03 stamp: 'GG 10/8/2023 19:03:27'!
+PASSED!
+!TestsMarsRover methodsFor: 'as yet unclassified' stamp: 'GG 10/8/2023 19:03:40'!
+test04
+
+	|marsRover|
+	marsRover := MarsRover at: 0@0 pointing: #North.
+	marsRover process: 'b'.
+	
+	self assert: (marsRover isAtPosition: 0@3 pointing: #North)! !
+!TestsMarsRover methodsFor: 'as yet unclassified' stamp: 'GG 10/8/2023 19:03:54' prior: 50650543!
+test04
+
+	|marsRover|
+	marsRover := MarsRover at: 0@0 pointing: #North.
+	marsRover process: 'b'.
+	
+	self assert: (marsRover isAtPosition: 0@-1 pointing: #North)! !
+
+!testRun: #TestsMarsRover #test04 stamp: 'GG 10/8/2023 19:03:58'!
+FAILURE!
+
+!testRun: #TestsMarsRover #test04 stamp: 'GG 10/8/2023 19:03:58'!
+FAILURE!
+!MarsRover methodsFor: 'process' stamp: 'GG 10/8/2023 19:06:05' prior: 50650518!
+process: aSetOfCommands
+
+	aSetOfCommands do: [:command | command='f' ifTrue: [position := position + (0@1)] 
+											ifFalse:  [position := position + (0@-1)]].! !
+
+!testRun: #TestsMarsRover #test04 stamp: 'GG 10/8/2023 19:06:10'!
+PASSED!
+
+!testRun: #TestsMarsRover #test01 stamp: 'GG 10/8/2023 19:06:13'!
+PASSED!
+
+!testRun: #TestsMarsRover #test02 stamp: 'GG 10/8/2023 19:06:13'!
+FAILURE!
+
+!testRun: #TestsMarsRover #test03 stamp: 'GG 10/8/2023 19:06:14'!
+FAILURE!
+
+!testRun: #TestsMarsRover #test04 stamp: 'GG 10/8/2023 19:06:14'!
+PASSED!
+
+!testRun: #TestsMarsRover #test02 stamp: 'GG 10/8/2023 19:06:22'!
+FAILURE!
+!MarsRover methodsFor: 'process' stamp: 'GG 10/8/2023 19:07:46' prior: 50650565!
+process: aSetOfCommands
+
+	aSetOfCommands do: [:command | command='f' ifTrue: [position := position + (0@1)]
+											ifFalse:  [position := position + (0@-1)]].! !
+!MarsRover methodsFor: 'process' stamp: 'GG 10/8/2023 19:08:30' prior: 50650587!
+process: aSetOfCommands
+
+	aSetOfCommands do: [:command | command='f' ifTrue: [position := position + (0@1)] 
+									ifFalse: [position := position + (0@-1)]].! !
+
+!testRun: #TestsMarsRover #test01 stamp: 'GG 10/8/2023 19:08:31'!
+PASSED!
+
+!testRun: #TestsMarsRover #test02 stamp: 'GG 10/8/2023 19:08:31'!
+FAILURE!
+
+!testRun: #TestsMarsRover #test03 stamp: 'GG 10/8/2023 19:08:31'!
+FAILURE!
+
+!testRun: #TestsMarsRover #test04 stamp: 'GG 10/8/2023 19:08:31'!
+PASSED!
+!MarsRover methodsFor: 'process' stamp: 'GG 10/8/2023 19:08:44' prior: 50650595!
+process: aSetOfCommands
+
+	aSetOfCommands do: [:command | (command='f') ifTrue: [position := position + (0@1)] 
+									ifFalse: [position := position + (0@-1)]].! !
+
+!testRun: #TestsMarsRover #test01 stamp: 'GG 10/8/2023 19:08:47'!
+PASSED!
+
+!testRun: #TestsMarsRover #test02 stamp: 'GG 10/8/2023 19:08:47'!
+FAILURE!
+
+!testRun: #TestsMarsRover #test03 stamp: 'GG 10/8/2023 19:08:47'!
+FAILURE!
+
+!testRun: #TestsMarsRover #test04 stamp: 'GG 10/8/2023 19:08:47'!
+PASSED!
+!MarsRover methodsFor: 'process' stamp: 'GG 10/8/2023 19:08:59' prior: 50650613!
+process: aSetOfCommands
+
+	aSetOfCommands do: [:command | command='f' ifTrue: [position := position + (0@1)] 
+									ifFalse: [position := position + (0@-1)]].! !
+
+!testRun: #TestsMarsRover #test03 stamp: 'GG 10/8/2023 19:09:14'!
+FAILURE!
+
+!testRun: #TestsMarsRover #test03 stamp: 'GG 10/8/2023 19:09:14'!
+FAILURE!
+!MarsRover methodsFor: 'process' stamp: 'GG 10/8/2023 19:09:40' prior: 50650631!
+process: aSetOfCommands
+
+	aSetOfCommands do: [:command | command=$f ifTrue: [position := position + (0@1)] 
+									ifFalse: [position := position + (0@-1)]].! !
+
+!testRun: #TestsMarsRover #test01 stamp: 'GG 10/8/2023 19:09:42'!
+PASSED!
+
+!testRun: #TestsMarsRover #test02 stamp: 'GG 10/8/2023 19:09:42'!
+PASSED!
+
+!testRun: #TestsMarsRover #test03 stamp: 'GG 10/8/2023 19:09:42'!
+PASSED!
+
+!testRun: #TestsMarsRover #test04 stamp: 'GG 10/8/2023 19:09:42'!
+PASSED!
+!TestsMarsRover methodsFor: 'as yet unclassified' stamp: 'GG 10/8/2023 19:10:59' prior: 50650552!
+test04
+
+	|marsRover|
+	marsRover := MarsRover at: 0@0 pointing: #North.
+	marsRover process: 'l'.
+	
+	self assert: (marsRover isAtPosition: 0@0 pointing: #West)! !
+!TestsMarsRover methodsFor: 'as yet unclassified' stamp: 'GG 10/8/2023 19:11:10'!
+test05
+
+	|marsRover|
+	marsRover := MarsRover at: 0@0 pointing: #North.
+	marsRover process: 'l'.
+	
+	self assert: (marsRover isAtPosition: 0@-1 pointing: #North)! !
+!TestsMarsRover methodsFor: 'as yet unclassified' stamp: 'GG 10/8/2023 19:11:21' prior: 50650662!
+test04
+
+	|marsRover|
+	marsRover := MarsRover at: 0@0 pointing: #North.
+	marsRover process: 'b'.
+	
+	self assert: (marsRover isAtPosition: 0@0 pointing: #North)! !
+
+!testRun: #TestsMarsRover #test04 stamp: 'GG 10/8/2023 19:11:24'!
+FAILURE!
+
+!testRun: #TestsMarsRover #test04 stamp: 'GG 10/8/2023 19:11:24'!
+FAILURE!
+!TestsMarsRover methodsFor: 'as yet unclassified' stamp: 'GG 10/8/2023 19:11:29' prior: 50650679!
+test04
+
+	|marsRover|
+	marsRover := MarsRover at: 0@0 pointing: #North.
+	marsRover process: 'b'.
+	
+	self assert: (marsRover isAtPosition: 0@-1 pointing: #North)! !
+
+!testRun: #TestsMarsRover #test04 stamp: 'GG 10/8/2023 19:11:31'!
+PASSED!
+!TestsMarsRover methodsFor: 'as yet unclassified' stamp: 'GG 10/8/2023 19:11:39' prior: 50650670!
+test05
+
+	|marsRover|
+	marsRover := MarsRover at: 0@0 pointing: #North.
+	marsRover process: 'l'.
+	
+	self assert: (marsRover isAtPosition: 0@0 pointing: #West)! !
+
+!testRun: #TestsMarsRover #test01 stamp: 'GG 10/8/2023 19:11:42'!
+PASSED!
+
+!testRun: #TestsMarsRover #test02 stamp: 'GG 10/8/2023 19:11:43'!
+PASSED!
+
+!testRun: #TestsMarsRover #test03 stamp: 'GG 10/8/2023 19:11:44'!
+PASSED!
+
+!testRun: #TestsMarsRover #test04 stamp: 'GG 10/8/2023 19:11:44'!
+PASSED!
+
+!testRun: #TestsMarsRover #test01 stamp: 'GG 10/8/2023 19:11:47'!
+PASSED!
+
+!testRun: #TestsMarsRover #test02 stamp: 'GG 10/8/2023 19:11:47'!
+PASSED!
+
+!testRun: #TestsMarsRover #test03 stamp: 'GG 10/8/2023 19:11:47'!
+PASSED!
+
+!testRun: #TestsMarsRover #test04 stamp: 'GG 10/8/2023 19:11:47'!
+PASSED!
+
+!testRun: #TestsMarsRover #test05 stamp: 'GG 10/8/2023 19:11:47'!
+FAILURE!
+
+!testRun: #TestsMarsRover #test05 stamp: 'GG 10/8/2023 19:11:47'!
+FAILURE!
+
+----SNAPSHOT----(8 October 2023 19:11:55) CuisUniversity-5981.image priorSource: 10197292!
+!MarsRover methodsFor: 'process' stamp: 'GG 10/8/2023 19:13:14' prior: 50650644!
+process: aSetOfCommands
+
+	aSetOfCommands do: [:command | command=$f ifTrue: [position := position + (0@1)].
+								 command = $b 	ifTrue: [position := position + (0@-1)] 
+								ifFalse: [cardinalPoint := #West]].! !
+
+!testRun: #TestsMarsRover #test01 stamp: 'GG 10/8/2023 19:13:18'!
+PASSED!
+
+!testRun: #TestsMarsRover #test02 stamp: 'GG 10/8/2023 19:13:18'!
+FAILURE!
+
+!testRun: #TestsMarsRover #test03 stamp: 'GG 10/8/2023 19:13:18'!
+FAILURE!
+
+!testRun: #TestsMarsRover #test04 stamp: 'GG 10/8/2023 19:13:18'!
+PASSED!
+
+!testRun: #TestsMarsRover #test05 stamp: 'GG 10/8/2023 19:13:18'!
+PASSED!
+!MarsRover methodsFor: 'process' stamp: 'GG 10/8/2023 19:14:19' prior: 50650737!
+process: aSetOfCommands
+
+	aSetOfCommands do: [:command | command=$f ifTrue: [position := position + (0@1)] 
+							ifFalse: [
+									command = $b 	ifTrue: [position := position + (0@-1)] 
+									ifFalse: [cardinalPoint := #West]]]! !
+
+!testRun: #TestsMarsRover #test01 stamp: 'GG 10/8/2023 19:14:22'!
+PASSED!
+
+!testRun: #TestsMarsRover #test02 stamp: 'GG 10/8/2023 19:14:22'!
+PASSED!
+
+!testRun: #TestsMarsRover #test03 stamp: 'GG 10/8/2023 19:14:22'!
+PASSED!
+
+!testRun: #TestsMarsRover #test04 stamp: 'GG 10/8/2023 19:14:22'!
+PASSED!
+
+!testRun: #TestsMarsRover #test05 stamp: 'GG 10/8/2023 19:14:22'!
+PASSED!
+!TestsMarsRover methodsFor: 'as yet unclassified' stamp: 'GG 10/8/2023 19:15:16'!
+test06
+
+	|marsRover|
+	marsRover := MarsRover at: 0@0 pointing: #South.
+	marsRover process: 'l'.
+	
+	self assert: (marsRover isAtPosition: 0@0 pointing: #East)! !
+
+!testRun: #TestsMarsRover #test06 stamp: 'GG 10/8/2023 19:15:18'!
+FAILURE!
+
+!testRun: #TestsMarsRover #test06 stamp: 'GG 10/8/2023 19:15:18'!
+FAILURE!
+!MarsRover methodsFor: 'process' stamp: 'GG 10/8/2023 19:16:36' prior: 50650759!
+process: aSetOfCommands
+
+	aSetOfCommands do: [:command | command=$f ifTrue: [position := position + (0@1)] 
+							ifFalse: [
+									command = $b 	ifTrue: [position := position + (0@-1)] 
+									ifFalse: 
+										[cardinalPoint = #North ifTrue: [cardinalPoint := #West]
+														ifFalse: [cardinalPoint := #East]]]].! !
+
+!testRun: #TestsMarsRover #test01 stamp: 'GG 10/8/2023 19:16:43'!
+PASSED!
+
+!testRun: #TestsMarsRover #test02 stamp: 'GG 10/8/2023 19:16:43'!
+PASSED!
+
+!testRun: #TestsMarsRover #test03 stamp: 'GG 10/8/2023 19:16:43'!
+PASSED!
+
+!testRun: #TestsMarsRover #test04 stamp: 'GG 10/8/2023 19:16:43'!
+PASSED!
+
+!testRun: #TestsMarsRover #test05 stamp: 'GG 10/8/2023 19:16:43'!
+PASSED!
+
+!testRun: #TestsMarsRover #test06 stamp: 'GG 10/8/2023 19:16:43'!
+PASSED!
+
+!testRun: #TestsMarsRover #test01 stamp: 'GG 10/8/2023 19:16:46'!
+PASSED!
+
+!testRun: #TestsMarsRover #test02 stamp: 'GG 10/8/2023 19:16:46'!
+PASSED!
+
+!testRun: #TestsMarsRover #test03 stamp: 'GG 10/8/2023 19:16:46'!
+PASSED!
+
+!testRun: #TestsMarsRover #test04 stamp: 'GG 10/8/2023 19:16:46'!
+PASSED!
+
+!testRun: #TestsMarsRover #test05 stamp: 'GG 10/8/2023 19:16:46'!
+PASSED!
+
+!testRun: #TestsMarsRover #test06 stamp: 'GG 10/8/2023 19:16:46'!
+PASSED!
+!TestsMarsRover methodsFor: 'as yet unclassified' stamp: 'GG 10/8/2023 19:17:08'!
+test01MarsRoverStaysInPositionIfCommandIsEmpty
+
+	|marsRover|
+	marsRover := MarsRover at: 0@0 pointing: #North.
+	marsRover process: ''.
+	
+	self assert: (marsRover isAtPosition: 0@0 pointing: #North)! !
+
+!methodRemoval: TestsMarsRover #test01 stamp: 'GG 10/8/2023 19:17:13'!
+test01
+
+	|marsRover|
+	marsRover := MarsRover at: 0@0 pointing: #North.
+	marsRover process: ''.
+	
+	self assert: (marsRover isAtPosition: 0@0 pointing: #North)!
+!TestsMarsRover methodsFor: 'as yet unclassified' stamp: 'GG 10/8/2023 19:17:40'!
+test02MoveOnePositionForward
+
+	|marsRover|
+	marsRover := MarsRover at: 0@0 pointing: #North.
+	marsRover process: 'f'.
+	
+	self assert: (marsRover isAtPosition: 0@1 pointing: #North)! !
+
+!methodRemoval: TestsMarsRover #test02 stamp: 'GG 10/8/2023 19:17:40'!
+test02
+
+	|marsRover|
+	marsRover := MarsRover at: 0@0 pointing: #North.
+	marsRover process: 'f'.
+	
+	self assert: (marsRover isAtPosition: 0@1 pointing: #North)!
+!TestsMarsRover methodsFor: 'as yet unclassified' stamp: 'GG 10/8/2023 19:18:01'!
+test03MoveForwardThreePositions
+
+	|marsRover|
+	marsRover := MarsRover at: 0@0 pointing: #North.
+	marsRover process: 'fff'.
+	
+	self assert: (marsRover isAtPosition: 0@3 pointing: #North)! !
+
+!methodRemoval: TestsMarsRover #test03 stamp: 'GG 10/8/2023 19:18:01'!
+test03
+
+	|marsRover|
+	marsRover := MarsRover at: 0@0 pointing: #North.
+	marsRover process: 'fff'.
+	
+	self assert: (marsRover isAtPosition: 0@3 pointing: #North)!
+!TestsMarsRover methodsFor: 'as yet unclassified' stamp: 'GG 10/8/2023 19:18:16'!
+test02MovesOnePositionForward
+
+	|marsRover|
+	marsRover := MarsRover at: 0@0 pointing: #North.
+	marsRover process: 'f'.
+	
+	self assert: (marsRover isAtPosition: 0@1 pointing: #North)! !
+
+!methodRemoval: TestsMarsRover #test02MoveOnePositionForward stamp: 'GG 10/8/2023 19:18:16'!
+test02MoveOnePositionForward
+
+	|marsRover|
+	marsRover := MarsRover at: 0@0 pointing: #North.
+	marsRover process: 'f'.
+	
+	self assert: (marsRover isAtPosition: 0@1 pointing: #North)!
+!TestsMarsRover methodsFor: 'as yet unclassified' stamp: 'GG 10/8/2023 19:18:22'!
+test03MovesForwardThreePositions
+
+	|marsRover|
+	marsRover := MarsRover at: 0@0 pointing: #North.
+	marsRover process: 'fff'.
+	
+	self assert: (marsRover isAtPosition: 0@3 pointing: #North)! !
+
+!methodRemoval: TestsMarsRover #test03MoveForwardThreePositions stamp: 'GG 10/8/2023 19:18:22'!
+test03MoveForwardThreePositions
+
+	|marsRover|
+	marsRover := MarsRover at: 0@0 pointing: #North.
+	marsRover process: 'fff'.
+	
+	self assert: (marsRover isAtPosition: 0@3 pointing: #North)!
+!TestsMarsRover methodsFor: 'as yet unclassified' stamp: 'GG 10/8/2023 19:18:38'!
+test04MovesOnePositionBackwards
+
+	|marsRover|
+	marsRover := MarsRover at: 0@0 pointing: #North.
+	marsRover process: 'b'.
+	
+	self assert: (marsRover isAtPosition: 0@-1 pointing: #North)! !
+
+!methodRemoval: TestsMarsRover #test04 stamp: 'GG 10/8/2023 19:18:38'!
+test04
+
+	|marsRover|
+	marsRover := MarsRover at: 0@0 pointing: #North.
+	marsRover process: 'b'.
+	
+	self assert: (marsRover isAtPosition: 0@-1 pointing: #North)!
+!TestsMarsRover methodsFor: 'as yet unclassified' stamp: 'GG 10/8/2023 19:18:59'!
+test05RotateLeftWhenPointingNorth
+
+	|marsRover|
+	marsRover := MarsRover at: 0@0 pointing: #North.
+	marsRover process: 'l'.
+	
+	self assert: (marsRover isAtPosition: 0@0 pointing: #West)! !
+
+!methodRemoval: TestsMarsRover #test05 stamp: 'GG 10/8/2023 19:18:59'!
+test05
+
+	|marsRover|
+	marsRover := MarsRover at: 0@0 pointing: #North.
+	marsRover process: 'l'.
+	
+	self assert: (marsRover isAtPosition: 0@0 pointing: #West)!
+!TestsMarsRover methodsFor: 'as yet unclassified' stamp: 'GG 10/8/2023 19:19:26'!
+test06RotateLeftWhenPointingSouth
+
+	|marsRover|
+	marsRover := MarsRover at: 0@0 pointing: #South.
+	marsRover process: 'l'.
+	
+	self assert: (marsRover isAtPosition: 0@0 pointing: #East)! !
+
+!methodRemoval: TestsMarsRover #test06 stamp: 'GG 10/8/2023 19:19:27'!
+test06
+
+	|marsRover|
+	marsRover := MarsRover at: 0@0 pointing: #South.
+	marsRover process: 'l'.
+	
+	self assert: (marsRover isAtPosition: 0@0 pointing: #East)!
+
+Object subclass: #MarsRoverCommand
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Mars Rover'!
+
+!classDefinition: #MarsRoverCommand category: 'Mars Rover' stamp: 'GG 10/8/2023 19:20:00'!
+Object subclass: #MarsRoverCommand
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Mars Rover'!
+
+MarsRoverCommand subclass: #ForwardCommand
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Mars Rover'!
+
+!classDefinition: #ForwardCommand category: 'Mars Rover' stamp: 'GG 10/8/2023 19:20:20'!
+MarsRoverCommand subclass: #ForwardCommand
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Mars Rover'!
+
+MarsRoverCommand subclass: #BackwardCommand
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Mars Rover'!
+
+!classDefinition: #BackwardCommand category: 'Mars Rover' stamp: 'GG 10/8/2023 19:20:30'!
+MarsRoverCommand subclass: #BackwardCommand
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Mars Rover'!
+
+MarsRoverCommand subclass: #LeftCommand
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Mars Rover'!
+
+!classDefinition: #LeftCommand category: 'Mars Rover' stamp: 'GG 10/8/2023 19:20:41'!
+MarsRoverCommand subclass: #LeftCommand
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Mars Rover'!
+
+MarsRoverCommand subclass: #LeftRotation
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Mars Rover'!
+
+!classDefinition: #LeftRotation category: 'Mars Rover' stamp: 'GG 10/8/2023 19:21:03'!
+MarsRoverCommand subclass: #LeftRotation
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Mars Rover'!
+
+!classRemoval: #LeftCommand stamp: 'GG 10/8/2023 19:21:07'!
+MarsRoverCommand subclass: #LeftCommand
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Mars Rover'!
+
+MarsRoverCommand subclass: #Forward
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Mars Rover'!
+
+!classDefinition: #Forward category: 'Mars Rover' stamp: 'GG 10/8/2023 19:21:10'!
+MarsRoverCommand subclass: #Forward
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Mars Rover'!
+
+MarsRoverCommand subclass: #Backward
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Mars Rover'!
+
+!classDefinition: #Backward category: 'Mars Rover' stamp: 'GG 10/8/2023 19:21:13'!
+MarsRoverCommand subclass: #Backward
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Mars Rover'!
+
+!classRemoval: #BackwardCommand stamp: 'GG 10/8/2023 19:21:16'!
+MarsRoverCommand subclass: #BackwardCommand
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Mars Rover'!
+
+!classRemoval: #ForwardCommand stamp: 'GG 10/8/2023 19:21:18'!
+MarsRoverCommand subclass: #ForwardCommand
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Mars Rover'!
+!TestsMarsRover methodsFor: 'as yet unclassified' stamp: 'GG 10/8/2023 19:21:43'!
+test01StaysInPositionIfCommandIsEmpty
+
+	|marsRover|
+	marsRover := MarsRover at: 0@0 pointing: #North.
+	marsRover process: ''.
+	
+	self assert: (marsRover isAtPosition: 0@0 pointing: #North)! !
+
+!methodRemoval: TestsMarsRover #test01MarsRoverStaysInPositionIfCommandIsEmpty stamp: 'GG 10/8/2023 19:21:43'!
+test01MarsRoverStaysInPositionIfCommandIsEmpty
+
+	|marsRover|
+	marsRover := MarsRover at: 0@0 pointing: #North.
+	marsRover process: ''.
+	
+	self assert: (marsRover isAtPosition: 0@0 pointing: #North)!
+!MarsRoverCommand class methodsFor: 'no messages' stamp: 'GG 10/8/2023 19:24:56'!
+with: aCommand 
+
+	aCommand = $f ifTrue: [^Forward new].
+	aCommand = $b ifTrue: [^Backward new].
+	aCommand = $l ifTrue: [^LeftRotation new].! !
+!MarsRoverCommand class methodsFor: 'as yet unclassified' stamp: 'GG 10/8/2023 19:29:05' prior: 50651086!
+with: aCommand 
+
+	aCommand = $f ifTrue: [^Forward new].
+	aCommand = $b ifTrue: [^Backward new].
+	^LeftRotation new! !
+!MarsRoverCommand methodsFor: 'no messages' stamp: 'GG 10/8/2023 19:29:29'!
+processCommand 
+
+	self subclassResponsibility ! !
+!LeftRotation methodsFor: 'as yet unclassified' stamp: 'GG 10/8/2023 19:29:42' overrides: 50651101!
+processCommand 
+
+	self subclassResponsibility ! !
+!Forward methodsFor: 'as yet unclassified' stamp: 'GG 10/8/2023 19:29:42' overrides: 50651101!
+processCommand 
+
+	self subclassResponsibility ! !
+!Backward methodsFor: 'as yet unclassified' stamp: 'GG 10/8/2023 19:29:42' overrides: 50651101!
+processCommand 
+
+	self subclassResponsibility ! !
+!MarsRoverCommand methodsFor: 'as yet unclassified' stamp: 'GG 10/8/2023 19:29:42' prior: 50651101!
+processCommand
+
+	self subclassResponsibility! !
+
+!methodRemoval: LeftRotation #processCommand stamp: 'GG 10/8/2023 19:30:23'!
+processCommand 
+
+	self subclassResponsibility !
+
+!methodRemoval: Forward #processCommand stamp: 'GG 10/8/2023 19:30:26'!
+processCommand 
+
+	self subclassResponsibility !
+
+!methodRemoval: Backward #processCommand stamp: 'GG 10/8/2023 19:30:29'!
+processCommand 
+
+	self subclassResponsibility !
+
+!methodRemoval: MarsRoverCommand #processCommand stamp: 'GG 10/8/2023 19:30:32'!
+processCommand
+
+	self subclassResponsibility!
+!MarsRoverCommand methodsFor: 'nil' stamp: 'GG 10/8/2023 19:30:57'!
+processCommandFrom: aMarsRover
+
+	self subclassResponsibility ! !
+!LeftRotation methodsFor: 'as yet unclassified' stamp: 'GG 10/8/2023 19:31:02' overrides: 50651141!
+processCommandFrom: aMarsRover
+
+	self subclassResponsibility ! !
+!Forward methodsFor: 'as yet unclassified' stamp: 'GG 10/8/2023 19:31:02' overrides: 50651141!
+processCommandFrom: aMarsRover
+
+	self subclassResponsibility ! !
+!Backward methodsFor: 'as yet unclassified' stamp: 'GG 10/8/2023 19:31:02' overrides: 50651141!
+processCommandFrom: aMarsRover
+
+	self subclassResponsibility ! !
+!MarsRoverCommand methodsFor: 'as yet unclassified' stamp: 'GG 10/8/2023 19:31:02' prior: 50651141!
+processCommandFrom: aMarsRover
+
+	self subclassResponsibility! !
+!Backward methodsFor: 'as yet unclassified' stamp: 'GG 10/8/2023 19:31:51' prior: 50651158 overrides: 50651164!
+processCommandFrom: aMarsRover
+
+	aMarsRover processBackwardCommand! !
+!Forward methodsFor: 'as yet unclassified' stamp: 'GG 10/8/2023 19:32:01' prior: 50651152 overrides: 50651164!
+processCommandFrom: aMarsRover
+
+	aMarsRover processForwardCommand! !
+!LeftRotation methodsFor: 'as yet unclassified' stamp: 'GG 10/8/2023 19:32:27' prior: 50651147 overrides: 50651164!
+processCommandFrom: aMarsRover
+
+	aMarsRover rotateLeft! !
+!Forward methodsFor: 'as yet unclassified' stamp: 'GG 10/8/2023 19:32:36' prior: 50651176 overrides: 50651164!
+processCommandFrom: aMarsRover
+
+	aMarsRover moveForward! !
+!Backward methodsFor: 'as yet unclassified' stamp: 'GG 10/8/2023 19:32:43' prior: 50651170 overrides: 50651164!
+processCommandFrom: aMarsRover
+
+	aMarsRover moveBackward! !
+!MarsRover methodsFor: 'process - private' stamp: 'GG 10/8/2023 19:33:19'!
+moveForward
+
+	position := position + (0@1).! !
+!MarsRover methodsFor: 'process - private' stamp: 'GG 10/8/2023 19:33:26'!
+moveBackward
+
+	position := position + (0@-1).! !
+!MarsRover methodsFor: 'process - private' stamp: 'GG 10/8/2023 19:34:58'!
+rotateLeft
+
+	cardinalPoint = #North ifTrue: [cardinalPoint := #West]
+						ifFalse: [cardinalPoint := #East].! !
+!MarsRover methodsFor: 'process' stamp: 'GG 10/8/2023 19:35:47' prior: 50650794!
+process: aSetOfCommands
+
+	aSetOfCommands do: [:command | (MarsRoverCommand with: command) processCommandFrom: self]
+		"
+		command=$f ifTrue: [position := position + (0@1)] 
+							ifFalse: [
+									command = $b 	ifTrue: [position := position + (0@-1)] 
+									ifFalse: 
+										[cardinalPoint = #North ifTrue: [cardinalPoint := #West]
+														ifFalse: [cardinalPoint := #East]]]]."! !
+
+!testRun: #TestsMarsRover #test01StaysInPositionIfCommandIsEmpty stamp: 'GG 10/8/2023 19:35:49'!
+PASSED!
+
+!testRun: #TestsMarsRover #test02MovesOnePositionForward stamp: 'GG 10/8/2023 19:35:49'!
+PASSED!
+
+!testRun: #TestsMarsRover #test03MovesForwardThreePositions stamp: 'GG 10/8/2023 19:35:49'!
+PASSED!
+
+!testRun: #TestsMarsRover #test04MovesOnePositionBackwards stamp: 'GG 10/8/2023 19:35:49'!
+PASSED!
+
+!testRun: #TestsMarsRover #test05RotateLeftWhenPointingNorth stamp: 'GG 10/8/2023 19:35:49'!
+PASSED!
+
+!testRun: #TestsMarsRover #test06RotateLeftWhenPointingSouth stamp: 'GG 10/8/2023 19:35:49'!
+PASSED!
+!MarsRover methodsFor: 'process' stamp: 'GG 10/8/2023 19:36:04' prior: 50651214!
+process: aSetOfCommands
+
+	aSetOfCommands do: [:command | (MarsRoverCommand with: command) processCommandFrom: self]
+! !
+!TestsMarsRover methodsFor: 'as yet unclassified' stamp: 'GG 10/8/2023 19:37:50'!
+test06RotateLeftWhenPointingEast
+
+	|marsRover|
+	marsRover := MarsRover at: 1@1 pointing: #East.
+	marsRover process: 'l'.
+	
+	self assert: (marsRover isAtPosition: 1@1 pointing: #North)! !
+!TestsMarsRover methodsFor: 'as yet unclassified' stamp: 'GG 10/8/2023 19:38:25'!
+test07RotateLeftWhenPointingEast
+
+	|marsRover|
+	marsRover := MarsRover at: 1@1 pointing: #East.
+	marsRover process: 'l'.
+	
+	self assert: (marsRover isAtPosition: 1@1 pointing: #North)! !
+
+!methodRemoval: TestsMarsRover #test06RotateLeftWhenPointingEast stamp: 'GG 10/8/2023 19:38:26'!
+test06RotateLeftWhenPointingEast
+
+	|marsRover|
+	marsRover := MarsRover at: 1@1 pointing: #East.
+	marsRover process: 'l'.
+	
+	self assert: (marsRover isAtPosition: 1@1 pointing: #North)!
+
+!testRun: #TestsMarsRover #test07RotateLeftWhenPointingEast stamp: 'GG 10/8/2023 19:38:28'!
+FAILURE!
+
+!testRun: #TestsMarsRover #test07RotateLeftWhenPointingEast stamp: 'GG 10/8/2023 19:38:28'!
+FAILURE!
+!MarsRover methodsFor: 'process - private' stamp: 'GG 10/8/2023 19:39:58' prior: 50651207!
+rotateLeft
+
+	cardinalPoint = #North ifTrue: [cardinalPoint := #West]
+						ifFalse: [cardinalPoint = #South ifTrue: [cardinalPoint := #East]
+													ifFalse: [cardinalPoint := #North]].! !
+
+----SNAPSHOT----(8 October 2023 19:40:10) CuisUniversity-5981.image priorSource: 10210672!
+
+!testRun: #TestsMarsRover #test01StaysInPositionIfCommandIsEmpty stamp: 'GG 10/8/2023 19:40:13'!
+PASSED!
+
+!testRun: #TestsMarsRover #test02MovesOnePositionForward stamp: 'GG 10/8/2023 19:40:13'!
+PASSED!
+
+!testRun: #TestsMarsRover #test03MovesForwardThreePositions stamp: 'GG 10/8/2023 19:40:13'!
+PASSED!
+
+!testRun: #TestsMarsRover #test04MovesOnePositionBackwards stamp: 'GG 10/8/2023 19:40:13'!
+PASSED!
+
+!testRun: #TestsMarsRover #test05RotateLeftWhenPointingNorth stamp: 'GG 10/8/2023 19:40:13'!
+PASSED!
+
+!testRun: #TestsMarsRover #test06RotateLeftWhenPointingSouth stamp: 'GG 10/8/2023 19:40:13'!
+PASSED!
+
+!testRun: #TestsMarsRover #test07RotateLeftWhenPointingEast stamp: 'GG 10/8/2023 19:40:13'!
+PASSED!
+!TestsMarsRover methodsFor: 'as yet unclassified' stamp: 'GG 10/8/2023 19:40:32'!
+test08RotateLeftWhenPointingWest
+
+	|marsRover|
+	marsRover := MarsRover at: 1@1 pointing: #West.
+	marsRover process: 'l'.
+	
+	self assert: (marsRover isAtPosition: 1@1 pointing: #South)! !
+
+!testRun: #TestsMarsRover #test01StaysInPositionIfCommandIsEmpty stamp: 'GG 10/8/2023 19:40:38'!
+PASSED!
+
+!testRun: #TestsMarsRover #test02MovesOnePositionForward stamp: 'GG 10/8/2023 19:40:38'!
+PASSED!
+
+!testRun: #TestsMarsRover #test03MovesForwardThreePositions stamp: 'GG 10/8/2023 19:40:38'!
+PASSED!
+
+!testRun: #TestsMarsRover #test04MovesOnePositionBackwards stamp: 'GG 10/8/2023 19:40:38'!
+PASSED!
+
+!testRun: #TestsMarsRover #test05RotateLeftWhenPointingNorth stamp: 'GG 10/8/2023 19:40:38'!
+PASSED!
+
+!testRun: #TestsMarsRover #test06RotateLeftWhenPointingSouth stamp: 'GG 10/8/2023 19:40:38'!
+PASSED!
+
+!testRun: #TestsMarsRover #test07RotateLeftWhenPointingEast stamp: 'GG 10/8/2023 19:40:38'!
+PASSED!
+
+!testRun: #TestsMarsRover #test08RotateLeftWhenPointingWest stamp: 'GG 10/8/2023 19:40:38'!
+FAILURE!
+
+!testRun: #TestsMarsRover #test08RotateLeftWhenPointingWest stamp: 'GG 10/8/2023 19:40:38'!
+FAILURE!
+!MarsRover methodsFor: 'process - private' stamp: 'GG 10/8/2023 19:42:14' prior: 50651288!
+rotateLeft
+
+	cardinalPoint = #North ifTrue: [cardinalPoint := #West]
+						ifFalse: [cardinalPoint = #South 
+								ifTrue:  [cardinalPoint := #East]
+								ifFalse: [cardinalPoint = #East ifTrue: [cardinalPoint := #North]
+														ifFalse: [cardinalPoint := #South]]].! !
+
+!testRun: #TestsMarsRover #test01StaysInPositionIfCommandIsEmpty stamp: 'GG 10/8/2023 19:42:19'!
+PASSED!
+
+!testRun: #TestsMarsRover #test02MovesOnePositionForward stamp: 'GG 10/8/2023 19:42:19'!
+PASSED!
+
+!testRun: #TestsMarsRover #test03MovesForwardThreePositions stamp: 'GG 10/8/2023 19:42:19'!
+PASSED!
+
+!testRun: #TestsMarsRover #test04MovesOnePositionBackwards stamp: 'GG 10/8/2023 19:42:19'!
+PASSED!
+
+!testRun: #TestsMarsRover #test05RotateLeftWhenPointingNorth stamp: 'GG 10/8/2023 19:42:19'!
+PASSED!
+
+!testRun: #TestsMarsRover #test06RotateLeftWhenPointingSouth stamp: 'GG 10/8/2023 19:42:19'!
+PASSED!
+
+!testRun: #TestsMarsRover #test07RotateLeftWhenPointingEast stamp: 'GG 10/8/2023 19:42:19'!
+PASSED!
+
+!testRun: #TestsMarsRover #test08RotateLeftWhenPointingWest stamp: 'GG 10/8/2023 19:42:19'!
+PASSED!
+!MarsRover methodsFor: 'process - private' stamp: 'GG 10/8/2023 19:46:20' prior: 50651360!
+rotateLeft
+
+	cardinalPoint = #North ifTrue: [cardinalPoint := #West]
+						ifFalse: [cardinalPoint = #South 
+								ifTrue:  [cardinalPoint := #East]
+								ifFalse: [cardinalPoint = #East ifTrue: [cardinalPoint := #North]
+														ifFalse: [cardinalPoint := #South]]].! !
+
+Object subclass: #CardinalPoint
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Mars Rover'!
+
+!classDefinition: #CardinalPoint category: 'Mars Rover' stamp: 'GG 10/8/2023 19:48:23'!
+Object subclass: #CardinalPoint
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Mars Rover'!
+
+CardinalPoint subclass: #North
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Mars Rover'!
+
+!classDefinition: #North category: 'Mars Rover' stamp: 'GG 10/8/2023 19:48:32'!
+CardinalPoint subclass: #North
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Mars Rover'!
+
+CardinalPoint subclass: #South
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Mars Rover'!
+
+!classDefinition: #South category: 'Mars Rover' stamp: 'GG 10/8/2023 19:48:38'!
+CardinalPoint subclass: #South
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Mars Rover'!
+
+CardinalPoint subclass: #East
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Mars Rover'!
+
+!classDefinition: #East category: 'Mars Rover' stamp: 'GG 10/8/2023 19:48:42'!
+CardinalPoint subclass: #East
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Mars Rover'!
+
+CardinalPoint subclass: #West
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Mars Rover'!
+
+!classDefinition: #West category: 'Mars Rover' stamp: 'GG 10/8/2023 19:48:43'!
+CardinalPoint subclass: #West
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Mars Rover'!
+!CardinalPoint methodsFor: 'rotation' stamp: 'GG 10/8/2023 19:49:14'!
+rotateLeft
+
+	self subclassResponsibility ! !
+!North methodsFor: 'rotation' stamp: 'GG 10/8/2023 19:49:17' overrides: 50651462!
+rotateLeft
+
+	self subclassResponsibility ! !
+!South methodsFor: 'rotation' stamp: 'GG 10/8/2023 19:49:17' overrides: 50651462!
+rotateLeft
+
+	self subclassResponsibility ! !
+!East methodsFor: 'rotation' stamp: 'GG 10/8/2023 19:49:17' overrides: 50651462!
+rotateLeft
+
+	self subclassResponsibility ! !
+!West methodsFor: 'rotation' stamp: 'GG 10/8/2023 19:49:17' overrides: 50651462!
+rotateLeft
+
+	self subclassResponsibility ! !
+!CardinalPoint methodsFor: 'rotation' stamp: 'GG 10/8/2023 19:49:17' prior: 50651462!
+rotateLeft
+
+	self subclassResponsibility! !
+
+!methodRemoval: South #rotateLeft stamp: 'GG 10/8/2023 19:50:14'!
+rotateLeft
+
+	self subclassResponsibility !
+
+!methodRemoval: West #rotateLeft stamp: 'GG 10/8/2023 19:50:16'!
+rotateLeft
+
+	self subclassResponsibility !
+
+!methodRemoval: North #rotateLeft stamp: 'GG 10/8/2023 19:50:20'!
+rotateLeft
+
+	self subclassResponsibility !
+
+!methodRemoval: East #rotateLeft stamp: 'GG 10/8/2023 19:50:22'!
+rotateLeft
+
+	self subclassResponsibility !
+
+!methodRemoval: CardinalPoint #rotateLeft stamp: 'GG 10/8/2023 19:50:26'!
+rotateLeft
+
+	self subclassResponsibility!
+!CardinalPoint methodsFor: 'rotation' stamp: 'GG 10/8/2023 19:50:37'!
+rotateLeft: aMarsRover
+
+	self subclassResponsibility ! !
+!North methodsFor: 'rotation' stamp: 'GG 10/8/2023 19:50:44' overrides: 50651504!
+rotateLeft: aMarsRover
+
+	self subclassResponsibility ! !
+!South methodsFor: 'rotation' stamp: 'GG 10/8/2023 19:50:44' overrides: 50651504!
+rotateLeft: aMarsRover
+
+	self subclassResponsibility ! !
+!East methodsFor: 'rotation' stamp: 'GG 10/8/2023 19:50:44' overrides: 50651504!
+rotateLeft: aMarsRover
+
+	self subclassResponsibility ! !
+!West methodsFor: 'rotation' stamp: 'GG 10/8/2023 19:50:44' overrides: 50651504!
+rotateLeft: aMarsRover
+
+	self subclassResponsibility ! !
+!CardinalPoint methodsFor: 'rotation' stamp: 'GG 10/8/2023 19:50:44' prior: 50651504!
+rotateLeft: aMarsRover
+
+	self subclassResponsibility! !
+!East methodsFor: 'rotation' stamp: 'GG 10/8/2023 19:51:19' prior: 50651519 overrides: 50651529!
+rotateLeft: aMarsRover
+
+	aMarsRover pointToNorth! !
+!North methodsFor: 'rotation' stamp: 'GG 10/8/2023 19:51:31' prior: 50651509 overrides: 50651529!
+rotateLeft: aMarsRover
+
+	aMarsRover pointWest! !
+!East methodsFor: 'rotation' stamp: 'GG 10/8/2023 19:51:38' prior: 50651534 overrides: 50651529!
+rotateLeft: aMarsRover
+
+	aMarsRover pointNorth! !
+!South methodsFor: 'rotation' stamp: 'GG 10/8/2023 19:51:49' prior: 50651514 overrides: 50651529!
+rotateLeft: aMarsRover
+
+	aMarsRover pointEast! !
+!West methodsFor: 'rotation' stamp: 'GG 10/8/2023 19:52:01' prior: 50651524 overrides: 50651529!
+rotateLeft: aMarsRover
+
+	aMarsRover pointSouth! !
+!MarsRover methodsFor: 'rotation - private' stamp: 'GG 10/8/2023 19:52:38'!
+pointNorth
+
+	cardinalPoint := North new.! !
+!MarsRover methodsFor: 'rotation - private' stamp: 'GG 10/8/2023 19:52:38' prior: 50651558!
+pointNorth
+
+	cardinalPoint := North new! !
+!MarsRover methodsFor: 'rotation - private' stamp: 'GG 10/8/2023 19:52:57'!
+pointSouth
+
+	cardinalPoint := South new! !
+!MarsRover methodsFor: 'rotation - private' stamp: 'GG 10/8/2023 19:53:07'!
+pointEast
+
+	cardinalPoint := East new! !
+!MarsRover methodsFor: 'rotation - private' stamp: 'GG 10/8/2023 19:53:14'!
+pointWest
+
+	cardinalPoint := West new! !
+
+!testRun: #TestsMarsRover #test01StaysInPositionIfCommandIsEmpty stamp: 'GG 10/8/2023 19:53:32'!
+PASSED!
+
+!testRun: #TestsMarsRover #test02MovesOnePositionForward stamp: 'GG 10/8/2023 19:53:34'!
+PASSED!
+
+!testRun: #TestsMarsRover #test03MovesForwardThreePositions stamp: 'GG 10/8/2023 19:53:34'!
+PASSED!
+
+!testRun: #TestsMarsRover #test04MovesOnePositionBackwards stamp: 'GG 10/8/2023 19:53:35'!
+PASSED!
+
+!testRun: #TestsMarsRover #test05RotateLeftWhenPointingNorth stamp: 'GG 10/8/2023 19:53:36'!
+PASSED!
+
+!testRun: #TestsMarsRover #test06RotateLeftWhenPointingSouth stamp: 'GG 10/8/2023 19:53:37'!
+PASSED!
+
+!testRun: #TestsMarsRover #test07RotateLeftWhenPointingEast stamp: 'GG 10/8/2023 19:53:37'!
+PASSED!
+
+!testRun: #TestsMarsRover #test08RotateLeftWhenPointingWest stamp: 'GG 10/8/2023 19:53:38'!
+PASSED!
+!MarsRover methodsFor: 'process - private' stamp: 'GG 10/8/2023 19:54:15' prior: 50651397!
+rotateLeft
+
+	cardinalPoint rotateLeft: self 
+
+	"cardinalPoint = #North ifTrue: [cardinalPoint := #West]
+						ifFalse: [cardinalPoint = #South 
+								ifTrue:  [cardinalPoint := #East]
+								ifFalse: [cardinalPoint = #East ifTrue: [cardinalPoint := #North]
+														ifFalse: [cardinalPoint := #South]]]."! !
+
+!testRun: #TestsMarsRover #test01StaysInPositionIfCommandIsEmpty stamp: 'GG 10/8/2023 19:54:20'!
+PASSED!
+
+!testRun: #TestsMarsRover #test02MovesOnePositionForward stamp: 'GG 10/8/2023 19:54:20'!
+PASSED!
+
+!testRun: #TestsMarsRover #test03MovesForwardThreePositions stamp: 'GG 10/8/2023 19:54:20'!
+PASSED!
+
+!testRun: #TestsMarsRover #test04MovesOnePositionBackwards stamp: 'GG 10/8/2023 19:54:20'!
+PASSED!
+
+!testRun: #TestsMarsRover #test05RotateLeftWhenPointingNorth stamp: 'GG 10/8/2023 19:54:20'!
+ERROR!
+
+!testRun: #TestsMarsRover #test06RotateLeftWhenPointingSouth stamp: 'GG 10/8/2023 19:54:20'!
+ERROR!
+
+!testRun: #TestsMarsRover #test07RotateLeftWhenPointingEast stamp: 'GG 10/8/2023 19:54:20'!
+ERROR!
+
+!testRun: #TestsMarsRover #test08RotateLeftWhenPointingWest stamp: 'GG 10/8/2023 19:54:20'!
+ERROR!
+!TestsMarsRover methodsFor: 'as yet unclassified' stamp: 'GG 10/8/2023 19:54:34' prior: 50651067!
+test01StaysInPositionIfCommandIsEmpty
+
+	|marsRover|
+	marsRover := MarsRover at: 0@0 pointing: North new
+	marsRover process: ''.
+	
+	self assert: (marsRover isAtPosition: 0@0 pointing: #North)! !
+!TestsMarsRover methodsFor: 'as yet unclassified' stamp: 'GG 10/8/2023 19:54:50' prior: 50651644!
+test01StaysInPositionIfCommandIsEmpty
+
+	|marsRover|
+	marsRover := MarsRover at: 0@0 pointing: North new.
+	marsRover process: ''.
+	
+	self assert: (marsRover isAtPosition: 0@0 pointing: North new)! !
+
+!testRun: #TestsMarsRover #test01StaysInPositionIfCommandIsEmpty stamp: 'GG 10/8/2023 19:55:11'!
+FAILURE!
+
+!testRun: #TestsMarsRover #test01StaysInPositionIfCommandIsEmpty stamp: 'GG 10/8/2023 19:55:11'!
+FAILURE!
+!TestsMarsRover methodsFor: 'as yet unclassified' stamp: 'GG 10/8/2023 19:56:45' prior: 50651654!
+test01StaysInPositionIfCommandIsEmpty
+
+	|marsRover initialCardinalPoint|
+	
+	initialCardinalPoint := North new.
+	marsRover := MarsRover at: 0@0 pointing: initialCardinalPoint.
+	marsRover process: ''.
+	
+	self assert: (marsRover isAtPosition: 0@0 pointing: initialCardinalPoint )! !
+
+!testRun: #TestsMarsRover #test01StaysInPositionIfCommandIsEmpty stamp: 'GG 10/8/2023 19:56:47'!
+PASSED!
+!TestsMarsRover methodsFor: 'as yet unclassified' stamp: 'GG 10/8/2023 19:57:44' prior: 50651264!
+test07RotateLeftWhenPointingEast
+
+	|marsRover initialCardinalPoint finalCardinalPoint|
+	
+	initialCardinalPoint := East new.
+	finalCardinalPoint := North new.
+	
+	marsRover := MarsRover at: 1@1 pointing: initialCardinalPoint.
+	marsRover process: 'l'.
+	
+	self assert: (marsRover isAtPosition: 1@1 pointing: finalCardinalPoint)! !
+
+!testRun: #TestsMarsRover #test07RotateLeftWhenPointingEast stamp: 'GG 10/8/2023 19:57:46'!
+FAILURE!
+
+!testRun: #TestsMarsRover #test07RotateLeftWhenPointingEast stamp: 'GG 10/8/2023 19:57:46'!
+FAILURE!
+
+!testRun: #TestsMarsRover #test07RotateLeftWhenPointingEast stamp: 'GG 10/8/2023 19:58:14'!
+FAILURE!
+
+!testRun: #TestsMarsRover #test07RotateLeftWhenPointingEast stamp: 'GG 10/8/2023 19:58:14'!
+FAILURE!
+
+^self == anObject!
+!CardinalPoint methodsFor: 'nil' stamp: 'GG 10/8/2023 20:01:04'!
+equals: aCardinalPoint 
+
+	self subclassResponsibility ! !
+!North methodsFor: 'comparing' stamp: 'GG 10/8/2023 20:01:16' overrides: 50651712!
+equals: aCardinalPoint 
+
+	self subclassResponsibility ! !
+!South methodsFor: 'comparing' stamp: 'GG 10/8/2023 20:01:16' overrides: 50651712!
+equals: aCardinalPoint 
+
+	self subclassResponsibility ! !
+!East methodsFor: 'comparing' stamp: 'GG 10/8/2023 20:01:16' overrides: 50651712!
+equals: aCardinalPoint 
+
+	self subclassResponsibility ! !
+!West methodsFor: 'comparing' stamp: 'GG 10/8/2023 20:01:16' overrides: 50651712!
+equals: aCardinalPoint 
+
+	self subclassResponsibility ! !
+!CardinalPoint methodsFor: 'comparing' stamp: 'GG 10/8/2023 20:01:16' prior: 50651712!
+equals: aCardinalPoint
+
+	self subclassResponsibility! !
+!East methodsFor: 'comparing' stamp: 'GG 10/8/2023 20:01:34' prior: 50651727 overrides: 50651737!
+equals: aCardinalPoint 
+
+	^ aCardinalPoint class = self class! !
+!CardinalPoint methodsFor: 'comparing' stamp: 'GG 10/8/2023 20:01:49' prior: 50651737!
+equals: aCardinalPoint
+
+	^ aCardinalPoint class = self class! !
+
+!methodRemoval: East #equals: stamp: 'GG 10/8/2023 20:01:54'!
+equals: aCardinalPoint 
+
+	^ aCardinalPoint class = self class!
+
+!methodRemoval: North #equals: stamp: 'GG 10/8/2023 20:01:58'!
+equals: aCardinalPoint 
+
+	self subclassResponsibility !
+
+!methodRemoval: South #equals: stamp: 'GG 10/8/2023 20:02:00'!
+equals: aCardinalPoint 
+
+	self subclassResponsibility !
+
+!methodRemoval: West #equals: stamp: 'GG 10/8/2023 20:02:03'!
+equals: aCardinalPoint 
+
+	self subclassResponsibility !
+
+!testRun: #TestsMarsRover #test01StaysInPositionIfCommandIsEmpty stamp: 'GG 10/8/2023 20:02:14'!
+PASSED!
+
+!testRun: #TestsMarsRover #test07RotateLeftWhenPointingEast stamp: 'GG 10/8/2023 20:02:15'!
+FAILURE!
+
+!testRun: #TestsMarsRover #test07RotateLeftWhenPointingEast stamp: 'GG 10/8/2023 20:02:15'!
+FAILURE!
+!MarsRover methodsFor: 'testing' stamp: 'GG 10/8/2023 20:02:26' prior: 50650456!
+isAtPosition: aPosition pointing: aCardinalPoint
+
+	^ position = aPosition and: [cardinalPoint equals: aCardinalPoint].! !
+
+!testRun: #TestsMarsRover #test07RotateLeftWhenPointingEast stamp: 'GG 10/8/2023 20:02:29'!
+PASSED!
+!TestsMarsRover methodsFor: 'as yet unclassified' stamp: 'GG 10/8/2023 20:02:48' prior: 50651670!
+test01StaysInPositionIfCommandIsEmpty
+
+	|marsRover initialCardinalPoint|
+	
+	initialCardinalPoint := North new.
+	marsRover := MarsRover at: 0@0 pointing: initialCardinalPoint.
+	marsRover process: ''.
+	
+	self assert: (marsRover isAtPosition: 0@0 pointing: initialCardinalPoint)! !
+!TestsMarsRover methodsFor: 'as yet unclassified' stamp: 'GG 10/8/2023 20:03:15' prior: 50650885!
+test02MovesOnePositionForward
+
+	|marsRover initialCardinalPoint|
+	
+	initialCardinalPoint := North new.
+	marsRover := MarsRover at: 0@0 pointing: initialCardinalPoint .
+	marsRover process: 'f'.
+	
+	self assert: (marsRover isAtPosition: 0@1 pointing: #North)! !
+!TestsMarsRover methodsFor: 'as yet unclassified' stamp: 'GG 10/8/2023 20:03:15' prior: 50651800!
+test02MovesOnePositionForward
+
+	|marsRover initialCardinalPoint|
+	
+	initialCardinalPoint := North new.
+	marsRover := MarsRover at: 0@0 pointing: initialCardinalPoint.
+	marsRover process: 'f'.
+	
+	self assert: (marsRover isAtPosition: 0@1 pointing: #North)! !
+!TestsMarsRover methodsFor: 'as yet unclassified' stamp: 'GG 10/8/2023 20:03:20' prior: 50651812!
+test02MovesOnePositionForward
+
+	|marsRover initialCardinalPoint|
+	
+	initialCardinalPoint := North new.
+	marsRover := MarsRover at: 0@0 pointing: initialCardinalPoint.
+	marsRover process: 'f'.
+	
+	self assert: (marsRover isAtPosition: 0@1 pointing: initialCardinalPoint )! !
+!TestsMarsRover methodsFor: 'as yet unclassified' stamp: 'GG 10/8/2023 20:03:20' prior: 50651824!
+test02MovesOnePositionForward
+
+	|marsRover initialCardinalPoint|
+	
+	initialCardinalPoint := North new.
+	marsRover := MarsRover at: 0@0 pointing: initialCardinalPoint.
+	marsRover process: 'f'.
+	
+	self assert: (marsRover isAtPosition: 0@1 pointing: initialCardinalPoint)! !
+!TestsMarsRover methodsFor: 'as yet unclassified' stamp: 'GG 10/8/2023 20:03:38' prior: 50650902!
+test03MovesForwardThreePositions
+
+	|marsRover initialCardinalPoint|
+	
+	initialCardinalPoint := North new.
+	marsRover := MarsRover at: 0@0 pointing: initialCardinalPoint .
+	marsRover process: 'fff'.
+	
+	self assert: (marsRover isAtPosition: 0@3 pointing: #North)! !
+!TestsMarsRover methodsFor: 'as yet unclassified' stamp: 'GG 10/8/2023 20:03:39' prior: 50651848!
+test03MovesForwardThreePositions
+
+	|marsRover initialCardinalPoint|
+	
+	initialCardinalPoint := North new.
+	marsRover := MarsRover at: 0@0 pointing: initialCardinalPoint.
+	marsRover process: 'fff'.
+	
+	self assert: (marsRover isAtPosition: 0@3 pointing: #North)! !
+!TestsMarsRover methodsFor: 'as yet unclassified' stamp: 'GG 10/8/2023 20:03:56' prior: 50651860!
+test03MovesForwardThreePositions
+
+	|marsRover initialCardinalPoint|
+	
+	initialCardinalPoint := North new.
+	marsRover := MarsRover at: 0@0 pointing: initialCardinalPoint.
+	marsRover process: 'fff'.
+	
+	self assert: (marsRover isAtPosition: 0@3 pointing: initialCardinalPoint)! !
+!TestsMarsRover methodsFor: 'as yet unclassified' stamp: 'GG 10/8/2023 20:04:26' prior: 50650920!
+test04MovesOnePositionBackwards
+
+	|marsRover initialCardinalPoint|
+	
+	initialCardinalPoint := North new.
+	marsRover := MarsRover at: 0@0 pointing: initialCardinalPoint.
+	marsRover process: 'b'.
+	
+	self assert: (marsRover isAtPosition: 0@-1 pointing: #North)! !
+!TestsMarsRover methodsFor: 'as yet unclassified' stamp: 'GG 10/8/2023 20:04:29' prior: 50651884!
+test04MovesOnePositionBackwards
+
+	|marsRover initialCardinalPoint|
+	
+	initialCardinalPoint := North new.
+	marsRover := MarsRover at: 0@0 pointing: initialCardinalPoint.
+	marsRover process: 'b'.
+	
+	self assert: (marsRover isAtPosition: 0@-1 pointing: initialCardinalPoint )! !
+!TestsMarsRover methodsFor: 'as yet unclassified' stamp: 'GG 10/8/2023 20:04:29' prior: 50651896!
+test04MovesOnePositionBackwards
+
+	|marsRover initialCardinalPoint|
+	
+	initialCardinalPoint := North new.
+	marsRover := MarsRover at: 0@0 pointing: initialCardinalPoint.
+	marsRover process: 'b'.
+	
+	self assert: (marsRover isAtPosition: 0@-1 pointing: initialCardinalPoint)! !
+!TestsMarsRover methodsFor: 'as yet unclassified' stamp: 'GG 10/8/2023 20:05:06' prior: 50650936!
+test05RotateLeftWhenPointingNorth
+
+	|marsRover initialCardinalPoint finalCardinalPoint|
+	
+	initialCardinalPoint := North new.
+	finalCardinalPoint := West new.
+	marsRover := MarsRover at: 0@0 pointing: initialCardinalPoint.
+	marsRover process: 'l'.
+	
+	self assert: (marsRover isAtPosition: 0@0 pointing: #West)! !
+!TestsMarsRover methodsFor: 'as yet unclassified' stamp: 'GG 10/8/2023 20:05:10' prior: 50651920!
+test05RotateLeftWhenPointingNorth
+
+	|marsRover initialCardinalPoint finalCardinalPoint|
+	
+	initialCardinalPoint := North new.
+	finalCardinalPoint := West new.
+	marsRover := MarsRover at: 0@0 pointing: initialCardinalPoint.
+	marsRover process: 'l'.
+	
+	self assert: (marsRover isAtPosition: 0@0 pointing: finalCardinalPoint)! !
+
+!testRun: #TestsMarsRover #test05RotateLeftWhenPointingNorth stamp: 'GG 10/8/2023 20:05:12'!
+PASSED!
+!TestsMarsRover methodsFor: 'as yet unclassified' stamp: 'GG 10/8/2023 20:05:38' prior: 50650952!
+test06RotateLeftWhenPointingSouth
+
+	|marsRover initialCardinalPoint finalCardinalPoint|
+	
+	initialCardinalPoint := South new.
+	finalCardinalPoint := East new.
+	marsRover := MarsRover at: 0@0 pointing: initialCardinalPoint.
+	marsRover process: 'l'.
+	
+	self assert: (marsRover isAtPosition: 0@0 pointing: finalCardinalPoint)! !
+!TestsMarsRover methodsFor: 'as yet unclassified' stamp: 'GG 10/8/2023 20:05:44' prior: 50651686!
+test07RotateLeftWhenPointingEast
+
+	|marsRover initialCardinalPoint finalCardinalPoint|
+	
+	initialCardinalPoint := East new.
+	finalCardinalPoint := North new.
+	marsRover := MarsRover at: 1@1 pointing: initialCardinalPoint.
+	marsRover process: 'l'.
+	
+	self assert: (marsRover isAtPosition: 1@1 pointing: finalCardinalPoint)! !
+
+!testRun: #TestsMarsRover #test07RotateLeftWhenPointingEast stamp: 'GG 10/8/2023 20:05:46'!
+PASSED!
+!TestsMarsRover methodsFor: 'as yet unclassified' stamp: 'GG 10/8/2023 20:06:14' prior: 50651322!
+test08RotateLeftWhenPointingWest
+
+	|marsRover initialCardinalPoint finalCardinalPoint|
+	
+	initialCardinalPoint := West new.
+	finalCardinalPoint := South new.
+	marsRover := MarsRover at: 1@1 pointing: initialCardinalPoint.
+	marsRover process: 'l'.
+	
+	self assert: (marsRover isAtPosition: 1@1 pointing: finalCardinalPoint )! !
+!TestsMarsRover methodsFor: 'as yet unclassified' stamp: 'GG 10/8/2023 20:06:15' prior: 50651981!
+test08RotateLeftWhenPointingWest
+
+	|marsRover initialCardinalPoint finalCardinalPoint|
+	
+	initialCardinalPoint := West new.
+	finalCardinalPoint := South new.
+	marsRover := MarsRover at: 1@1 pointing: initialCardinalPoint.
+	marsRover process: 'l'.
+	
+	self assert: (marsRover isAtPosition: 1@1 pointing: finalCardinalPoint)! !
+
+!testRun: #TestsMarsRover #test01StaysInPositionIfCommandIsEmpty stamp: 'GG 10/8/2023 20:06:17'!
+PASSED!
+
+!testRun: #TestsMarsRover #test02MovesOnePositionForward stamp: 'GG 10/8/2023 20:06:17'!
+PASSED!
+
+!testRun: #TestsMarsRover #test03MovesForwardThreePositions stamp: 'GG 10/8/2023 20:06:17'!
+PASSED!
+
+!testRun: #TestsMarsRover #test04MovesOnePositionBackwards stamp: 'GG 10/8/2023 20:06:17'!
+PASSED!
+
+!testRun: #TestsMarsRover #test05RotateLeftWhenPointingNorth stamp: 'GG 10/8/2023 20:06:17'!
+PASSED!
+
+!testRun: #TestsMarsRover #test06RotateLeftWhenPointingSouth stamp: 'GG 10/8/2023 20:06:17'!
+PASSED!
+
+!testRun: #TestsMarsRover #test07RotateLeftWhenPointingEast stamp: 'GG 10/8/2023 20:06:17'!
+PASSED!
+
+!testRun: #TestsMarsRover #test08RotateLeftWhenPointingWest stamp: 'GG 10/8/2023 20:06:17'!
+PASSED!
+!TestsMarsRover methodsFor: 'as yet unclassified' stamp: 'GG 10/8/2023 20:06:59'!
+test09
+	|marsRover initialCardinalPoint finalCardinalPoint|
+	
+	initialCardinalPoint := West new.
+	finalCardinalPoint := South new.
+	marsRover := MarsRover at: 0@0 pointing: initialCardinalPoint.
+	marsRover process: 'lf'.
+	
+	self assert: (marsRover isAtPosition: 0@1 pointing: finalCardinalPoint)! !
+
+!testRun: #TestsMarsRover #test09 stamp: 'GG 10/8/2023 20:07:02'!
+PASSED!
+
+!methodRemoval: TestsMarsRover #test09 stamp: 'GG 10/8/2023 20:08:33'!
+test09
+	|marsRover initialCardinalPoint finalCardinalPoint|
+	
+	initialCardinalPoint := West new.
+	finalCardinalPoint := South new.
+	marsRover := MarsRover at: 0@0 pointing: initialCardinalPoint.
+	marsRover process: 'lf'.
+	
+	self assert: (marsRover isAtPosition: 0@1 pointing: finalCardinalPoint)!
+!TestsMarsRover methodsFor: 'as yet unclassified' stamp: 'GG 10/8/2023 20:09:15'!
+test09
+
+	|marsRover initialCardinalPoint finalCardinalPoint|
+	
+	initialCardinalPoint := West new.
+	finalCardinalPoint := East new.
+	marsRover := MarsRover at: 1@1 pointing: initialCardinalPoint.
+	marsRover process: 'l'.
+	
+	self assert: (marsRover isAtPosition: 1@1 pointing: finalCardinalPoint)! !
+!TestsMarsRover methodsFor: 'as yet unclassified' stamp: 'GG 10/8/2023 20:09:18' prior: 50652060!
+test09
+
+	|marsRover initialCardinalPoint finalCardinalPoint|
+	
+	initialCardinalPoint := West new.
+	finalCardinalPoint := East new.
+	marsRover := MarsRover at: 1@1 pointing: initialCardinalPoint.
+	marsRover process: 'll'.
+	
+	self assert: (marsRover isAtPosition: 1@1 pointing: finalCardinalPoint)! !
+
+!testRun: #TestsMarsRover #test09 stamp: 'GG 10/8/2023 20:09:20'!
+PASSED!
+!TestsMarsRover methodsFor: 'as yet unclassified' stamp: 'GG 10/8/2023 20:09:57'!
+test09RotateRightWhenPointNorth
+
+	|marsRover initialCardinalPoint finalCardinalPoint|
+	
+	initialCardinalPoint := North new.
+	finalCardinalPoint := East new.
+	marsRover := MarsRover at: 1@1 pointing: initialCardinalPoint.
+	marsRover process: 'r'.
+	
+	self assert: (marsRover isAtPosition: 1@1 pointing: finalCardinalPoint)! !
+
+!methodRemoval: TestsMarsRover #test09 stamp: 'GG 10/8/2023 20:10:00'!
+test09
+
+	|marsRover initialCardinalPoint finalCardinalPoint|
+	
+	initialCardinalPoint := West new.
+	finalCardinalPoint := East new.
+	marsRover := MarsRover at: 1@1 pointing: initialCardinalPoint.
+	marsRover process: 'll'.
+	
+	self assert: (marsRover isAtPosition: 1@1 pointing: finalCardinalPoint)!
+
+!testRun: #TestsMarsRover #test09RotateRightWhenPointNorth stamp: 'GG 10/8/2023 20:10:05'!
+FAILURE!
+
+!testRun: #TestsMarsRover #test09RotateRightWhenPointNorth stamp: 'GG 10/8/2023 20:10:05'!
+FAILURE!
+
+MarsRoverCommand subclass: #RightRotation
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Mars Rover'!
+
+!classDefinition: #RightRotation category: 'Mars Rover' stamp: 'GG 10/8/2023 20:10:49'!
+MarsRoverCommand subclass: #RightRotation
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Mars Rover'!
+!RightRotation methodsFor: 'no messages' stamp: 'GG 10/8/2023 20:11:08' overrides: 50651164!
+processCommandFrom: aMarsRover
+
+	aMarsRover rotateRight! !
+!MarsRover methodsFor: 'process - private' stamp: 'GG 10/8/2023 20:11:31' prior: 50651605!
+rotateLeft
+
+	cardinalPoint rotateLeft: self ! !
+!MarsRover methodsFor: 'process - private' stamp: 'GG 10/8/2023 20:11:41'!
+rotateRight
+
+	cardinalPoint rotateRight: self ! !
+!CardinalPoint methodsFor: 'rotation' stamp: 'GG 10/8/2023 20:11:49'!
+rotateRight: aMarsRover
+
+	self subclassResponsibility! !
+!North methodsFor: 'rotation' stamp: 'GG 10/8/2023 20:12:00' overrides: 50652144!
+rotateRight: aMarsRover
+
+	self subclassResponsibility! !
+!South methodsFor: 'rotation' stamp: 'GG 10/8/2023 20:12:00' overrides: 50652144!
+rotateRight: aMarsRover
+
+	self subclassResponsibility! !
+!East methodsFor: 'rotation' stamp: 'GG 10/8/2023 20:12:00' overrides: 50652144!
+rotateRight: aMarsRover
+
+	self subclassResponsibility! !
+!West methodsFor: 'rotation' stamp: 'GG 10/8/2023 20:12:00' overrides: 50652144!
+rotateRight: aMarsRover
+
+	self subclassResponsibility! !
+!CardinalPoint methodsFor: 'rotation' stamp: 'GG 10/8/2023 20:12:00' prior: 50652144!
+rotateRight: aMarsRover
+
+	self subclassResponsibility! !
+!North methodsFor: 'rotation' stamp: 'GG 10/8/2023 20:12:27' prior: 50652149 overrides: 50652169!
+rotateRight: aMarsRover
+
+	aMarsRover pointEast! !
+
+!testRun: #TestsMarsRover #test09RotateRightWhenPointNorth stamp: 'GG 10/8/2023 20:12:31'!
+FAILURE!
+
+!testRun: #TestsMarsRover #test09RotateRightWhenPointNorth stamp: 'GG 10/8/2023 20:12:31'!
+FAILURE!
+!MarsRoverCommand class methodsFor: 'as yet unclassified' stamp: 'GG 10/8/2023 20:13:06' prior: 50651094!
+with: aCommand 
+
+	aCommand = $f ifTrue: [^Forward new].
+	aCommand = $b ifTrue: [^Backward new].
+	aCommand = $l ifTrue: [^LeftRotation new].
+	^RightRotation ! !
+!MarsRoverCommand class methodsFor: 'as yet unclassified' stamp: 'GG 10/8/2023 20:13:08' prior: 50652186!
+with: aCommand 
+
+	aCommand = $f ifTrue: [^Forward new].
+	aCommand = $b ifTrue: [^Backward new].
+	aCommand = $l ifTrue: [^LeftRotation new].
+	^RightRotation new! !
+
+!testRun: #TestsMarsRover #test09RotateRightWhenPointNorth stamp: 'GG 10/8/2023 20:13:23'!
+PASSED!
+!TestsMarsRover methodsFor: 'as yet unclassified' stamp: 'GG 10/8/2023 20:13:30'!
+test09RotateRightWhenPointSouth
+
+	|marsRover initialCardinalPoint finalCardinalPoint|
+	
+	initialCardinalPoint := North new.
+	finalCardinalPoint := East new.
+	marsRover := MarsRover at: 1@1 pointing: initialCardinalPoint.
+	marsRover process: 'r'.
+	
+	self assert: (marsRover isAtPosition: 1@1 pointing: finalCardinalPoint)! !
+!TestsMarsRover methodsFor: 'as yet unclassified' stamp: 'GG 10/8/2023 20:13:37'!
+test10RotateRightWhenPointSouth
+
+	|marsRover initialCardinalPoint finalCardinalPoint|
+	
+	initialCardinalPoint := South new.
+	finalCardinalPoint := East new.
+	marsRover := MarsRover at: 1@1 pointing: initialCardinalPoint.
+	marsRover process: 'r'.
+	
+	self assert: (marsRover isAtPosition: 1@1 pointing: finalCardinalPoint)! !
+
+!methodRemoval: TestsMarsRover #test09RotateRightWhenPointSouth stamp: 'GG 10/8/2023 20:13:38'!
+test09RotateRightWhenPointSouth
+
+	|marsRover initialCardinalPoint finalCardinalPoint|
+	
+	initialCardinalPoint := North new.
+	finalCardinalPoint := East new.
+	marsRover := MarsRover at: 1@1 pointing: initialCardinalPoint.
+	marsRover process: 'r'.
+	
+	self assert: (marsRover isAtPosition: 1@1 pointing: finalCardinalPoint)!
+
+!testRun: #TestsMarsRover #test09RotateRightWhenPointNorth stamp: 'GG 10/8/2023 20:13:41'!
+PASSED!
+!TestsMarsRover methodsFor: 'as yet unclassified' stamp: 'GG 10/8/2023 20:14:33' prior: 50652219!
+test10RotateRightWhenPointSouth
+
+	|marsRover initialCardinalPoint finalCardinalPoint|
+	
+	initialCardinalPoint := South new.
+	finalCardinalPoint := West new.
+	marsRover := MarsRover at: 1@1 pointing: initialCardinalPoint.
+	marsRover process: 'r'.
+	
+	self assert: (marsRover isAtPosition: 1@1 pointing: finalCardinalPoint)! !
+
+!testRun: #TestsMarsRover #test10RotateRightWhenPointSouth stamp: 'GG 10/8/2023 20:14:42'!
+ERROR!
+
+!testRun: #TestsMarsRover #test10RotateRightWhenPointSouth stamp: 'GG 10/8/2023 20:14:42'!
+ERROR!
+!South methodsFor: 'rotation' stamp: 'GG 10/8/2023 20:15:02' prior: 50652154 overrides: 50652169!
+rotateRight: aMarsRover
+
+	aMarsRover pointWest ! !
+
+!testRun: #TestsMarsRover #test01StaysInPositionIfCommandIsEmpty stamp: 'GG 10/8/2023 20:15:04'!
+PASSED!
+
+!testRun: #TestsMarsRover #test02MovesOnePositionForward stamp: 'GG 10/8/2023 20:15:04'!
+PASSED!
+
+!testRun: #TestsMarsRover #test03MovesForwardThreePositions stamp: 'GG 10/8/2023 20:15:04'!
+PASSED!
+
+!testRun: #TestsMarsRover #test04MovesOnePositionBackwards stamp: 'GG 10/8/2023 20:15:04'!
+PASSED!
+
+!testRun: #TestsMarsRover #test05RotateLeftWhenPointingNorth stamp: 'GG 10/8/2023 20:15:04'!
+PASSED!
+
+!testRun: #TestsMarsRover #test06RotateLeftWhenPointingSouth stamp: 'GG 10/8/2023 20:15:04'!
+PASSED!
+
+!testRun: #TestsMarsRover #test07RotateLeftWhenPointingEast stamp: 'GG 10/8/2023 20:15:04'!
+PASSED!
+
+!testRun: #TestsMarsRover #test08RotateLeftWhenPointingWest stamp: 'GG 10/8/2023 20:15:04'!
+PASSED!
+
+!testRun: #TestsMarsRover #test09RotateRightWhenPointNorth stamp: 'GG 10/8/2023 20:15:04'!
+PASSED!
+
+!testRun: #TestsMarsRover #test10RotateRightWhenPointSouth stamp: 'GG 10/8/2023 20:15:04'!
+PASSED!
+!TestsMarsRover methodsFor: 'as yet unclassified' stamp: 'GG 10/8/2023 20:15:09'!
+test10RotateRightWhenPointEast
+
+	|marsRover initialCardinalPoint finalCardinalPoint|
+	
+	initialCardinalPoint := South new.
+	finalCardinalPoint := West new.
+	marsRover := MarsRover at: 1@1 pointing: initialCardinalPoint.
+	marsRover process: 'r'.
+	
+	self assert: (marsRover isAtPosition: 1@1 pointing: finalCardinalPoint)! !
+!TestsMarsRover methodsFor: 'as yet unclassified' stamp: 'GG 10/8/2023 20:15:22' prior: 50652305!
+test10RotateRightWhenPointEast
+
+	|marsRover initialCardinalPoint finalCardinalPoint|
+	
+	initialCardinalPoint := East new.
+	finalCardinalPoint := South new.
+	marsRover := MarsRover at: 1@1 pointing: initialCardinalPoint.
+	marsRover process: 'r'.
+	
+	self assert: (marsRover isAtPosition: 1@1 pointing: finalCardinalPoint)! !
+!TestsMarsRover methodsFor: 'as yet unclassified' stamp: 'GG 10/8/2023 20:15:37'!
+test11RotateRightWhenPointingSouth
+
+	|marsRover initialCardinalPoint finalCardinalPoint|
+	
+	initialCardinalPoint := South new.
+	finalCardinalPoint := West new.
+	marsRover := MarsRover at: 1@1 pointing: initialCardinalPoint.
+	marsRover process: 'r'.
+	
+	self assert: (marsRover isAtPosition: 1@1 pointing: finalCardinalPoint)! !
+!TestsMarsRover methodsFor: 'as yet unclassified' stamp: 'GG 10/8/2023 20:15:57'!
+test09RotateRightWhenPointingNorth
+
+	|marsRover initialCardinalPoint finalCardinalPoint|
+	
+	initialCardinalPoint := North new.
+	finalCardinalPoint := East new.
+	marsRover := MarsRover at: 1@1 pointing: initialCardinalPoint.
+	marsRover process: 'r'.
+	
+	self assert: (marsRover isAtPosition: 1@1 pointing: finalCardinalPoint)! !
+
+!methodRemoval: TestsMarsRover #test09RotateRightWhenPointNorth stamp: 'GG 10/8/2023 20:15:57'!
+test09RotateRightWhenPointNorth
+
+	|marsRover initialCardinalPoint finalCardinalPoint|
+	
+	initialCardinalPoint := North new.
+	finalCardinalPoint := East new.
+	marsRover := MarsRover at: 1@1 pointing: initialCardinalPoint.
+	marsRover process: 'r'.
+	
+	self assert: (marsRover isAtPosition: 1@1 pointing: finalCardinalPoint)!
+!TestsMarsRover methodsFor: 'as yet unclassified' stamp: 'GG 10/8/2023 20:16:01'!
+test10RotateRightWhenPointingEast
+
+	|marsRover initialCardinalPoint finalCardinalPoint|
+	
+	initialCardinalPoint := East new.
+	finalCardinalPoint := South new.
+	marsRover := MarsRover at: 1@1 pointing: initialCardinalPoint.
+	marsRover process: 'r'.
+	
+	self assert: (marsRover isAtPosition: 1@1 pointing: finalCardinalPoint)! !
+
+!methodRemoval: TestsMarsRover #test10RotateRightWhenPointEast stamp: 'GG 10/8/2023 20:16:01'!
+test10RotateRightWhenPointEast
+
+	|marsRover initialCardinalPoint finalCardinalPoint|
+	
+	initialCardinalPoint := East new.
+	finalCardinalPoint := South new.
+	marsRover := MarsRover at: 1@1 pointing: initialCardinalPoint.
+	marsRover process: 'r'.
+	
+	self assert: (marsRover isAtPosition: 1@1 pointing: finalCardinalPoint)!
+
+!testRun: #TestsMarsRover #test10RotateRightWhenPointSouth stamp: 'GG 10/8/2023 20:16:05'!
+PASSED!
+
+!testRun: #TestsMarsRover #test10RotateRightWhenPointingEast stamp: 'GG 10/8/2023 20:16:16'!
+ERROR!
+
+!testRun: #TestsMarsRover #test10RotateRightWhenPointingEast stamp: 'GG 10/8/2023 20:16:16'!
+ERROR!
+
+!testRun: #TestsMarsRover #test10RotateRightWhenPointSouth stamp: 'GG 10/8/2023 20:16:20'!
+PASSED!
+
+!testRun: #TestsMarsRover #test11RotateRightWhenPointingSouth stamp: 'GG 10/8/2023 20:16:24'!
+PASSED!
+
+!methodRemoval: TestsMarsRover #test10RotateRightWhenPointingEast stamp: 'GG 10/8/2023 20:16:27'!
+test10RotateRightWhenPointingEast
+
+	|marsRover initialCardinalPoint finalCardinalPoint|
+	
+	initialCardinalPoint := East new.
+	finalCardinalPoint := South new.
+	marsRover := MarsRover at: 1@1 pointing: initialCardinalPoint.
+	marsRover process: 'r'.
+	
+	self assert: (marsRover isAtPosition: 1@1 pointing: finalCardinalPoint)!
+
+!testRun: #TestsMarsRover #test10RotateRightWhenPointSouth stamp: 'GG 10/8/2023 20:16:33'!
+PASSED!
+
+!testRun: #TestsMarsRover #test09RotateRightWhenPointingNorth stamp: 'GG 10/8/2023 20:16:35'!
+PASSED!
+
+!testRun: #TestsMarsRover #test11RotateRightWhenPointingSouth stamp: 'GG 10/8/2023 20:16:37'!
+PASSED!
+!TestsMarsRover methodsFor: 'as yet unclassified' stamp: 'GG 10/8/2023 20:16:53'!
+test10RotateRightWhenPointingSouth
+
+	|marsRover initialCardinalPoint finalCardinalPoint|
+	
+	initialCardinalPoint := South new.
+	finalCardinalPoint := West new.
+	marsRover := MarsRover at: 1@1 pointing: initialCardinalPoint.
+	marsRover process: 'r'.
+	
+	self assert: (marsRover isAtPosition: 1@1 pointing: finalCardinalPoint)! !
+
+!methodRemoval: TestsMarsRover #test10RotateRightWhenPointSouth stamp: 'GG 10/8/2023 20:16:56'!
+test10RotateRightWhenPointSouth
+
+	|marsRover initialCardinalPoint finalCardinalPoint|
+	
+	initialCardinalPoint := South new.
+	finalCardinalPoint := West new.
+	marsRover := MarsRover at: 1@1 pointing: initialCardinalPoint.
+	marsRover process: 'r'.
+	
+	self assert: (marsRover isAtPosition: 1@1 pointing: finalCardinalPoint)!
+
+!testRun: #TestsMarsRover #test09RotateRightWhenPointingNorth stamp: 'GG 10/8/2023 20:16:58'!
+PASSED!
+
+!testRun: #TestsMarsRover #test10RotateRightWhenPointingSouth stamp: 'GG 10/8/2023 20:17:01'!
+PASSED!
+
+!testRun: #TestsMarsRover #test11RotateRightWhenPointingSouth stamp: 'GG 10/8/2023 20:17:03'!
+PASSED!
+!TestsMarsRover methodsFor: 'as yet unclassified' stamp: 'GG 10/8/2023 20:17:16'!
+test11RotateRightWhenPointingEast
+
+	|marsRover initialCardinalPoint finalCardinalPoint|
+	
+	initialCardinalPoint := South new.
+	finalCardinalPoint := West new.
+	marsRover := MarsRover at: 1@1 pointing: initialCardinalPoint.
+	marsRover process: 'r'.
+	
+	self assert: (marsRover isAtPosition: 1@1 pointing: finalCardinalPoint)! !
+
+!methodRemoval: TestsMarsRover #test11RotateRightWhenPointingSouth stamp: 'GG 10/8/2023 20:17:16'!
+test11RotateRightWhenPointingSouth
+
+	|marsRover initialCardinalPoint finalCardinalPoint|
+	
+	initialCardinalPoint := South new.
+	finalCardinalPoint := West new.
+	marsRover := MarsRover at: 1@1 pointing: initialCardinalPoint.
+	marsRover process: 'r'.
+	
+	self assert: (marsRover isAtPosition: 1@1 pointing: finalCardinalPoint)!
+!TestsMarsRover methodsFor: 'as yet unclassified' stamp: 'GG 10/8/2023 20:17:23' prior: 50652472!
+test11RotateRightWhenPointingEast
+
+	|marsRover initialCardinalPoint finalCardinalPoint|
+	
+	initialCardinalPoint := East new.
+	finalCardinalPoint := South new.
+	marsRover := MarsRover at: 1@1 pointing: initialCardinalPoint.
+	marsRover process: 'r'.
+	
+	self assert: (marsRover isAtPosition: 1@1 pointing: finalCardinalPoint)! !
+
+!testRun: #TestsMarsRover #test11RotateRightWhenPointingEast stamp: 'GG 10/8/2023 20:17:24'!
+ERROR!
+
+!testRun: #TestsMarsRover #test11RotateRightWhenPointingEast stamp: 'GG 10/8/2023 20:17:24'!
+ERROR!
+!East methodsFor: 'rotation' stamp: 'GG 10/8/2023 20:17:38' prior: 50652159 overrides: 50652169!
+rotateRight: aMarsRover
+
+	aMarsRover pointSouth ! !
+
+!testRun: #TestsMarsRover #test01StaysInPositionIfCommandIsEmpty stamp: 'GG 10/8/2023 20:17:46'!
+PASSED!
+
+!testRun: #TestsMarsRover #test02MovesOnePositionForward stamp: 'GG 10/8/2023 20:17:46'!
+PASSED!
+
+!testRun: #TestsMarsRover #test03MovesForwardThreePositions stamp: 'GG 10/8/2023 20:17:46'!
+PASSED!
+
+!testRun: #TestsMarsRover #test04MovesOnePositionBackwards stamp: 'GG 10/8/2023 20:17:46'!
+PASSED!
+
+!testRun: #TestsMarsRover #test05RotateLeftWhenPointingNorth stamp: 'GG 10/8/2023 20:17:46'!
+PASSED!
+
+!testRun: #TestsMarsRover #test06RotateLeftWhenPointingSouth stamp: 'GG 10/8/2023 20:17:46'!
+PASSED!
+
+!testRun: #TestsMarsRover #test07RotateLeftWhenPointingEast stamp: 'GG 10/8/2023 20:17:46'!
+PASSED!
+
+!testRun: #TestsMarsRover #test08RotateLeftWhenPointingWest stamp: 'GG 10/8/2023 20:17:46'!
+PASSED!
+
+!testRun: #TestsMarsRover #test09RotateRightWhenPointingNorth stamp: 'GG 10/8/2023 20:17:46'!
+PASSED!
+
+!testRun: #TestsMarsRover #test10RotateRightWhenPointingSouth stamp: 'GG 10/8/2023 20:17:46'!
+PASSED!
+
+!testRun: #TestsMarsRover #test11RotateRightWhenPointingEast stamp: 'GG 10/8/2023 20:17:46'!
+PASSED!
+!TestsMarsRover methodsFor: 'as yet unclassified' stamp: 'GG 10/8/2023 20:18:03'!
+test12RotateRightWhenPointingWest
+
+	|marsRover initialCardinalPoint finalCardinalPoint|
+	
+	initialCardinalPoint := West new.
+	finalCardinalPoint := North new.
+	marsRover := MarsRover at: 1@1 pointing: initialCardinalPoint.
+	marsRover process: 'r'.
+	
+	self assert: (marsRover isAtPosition: 1@1 pointing: finalCardinalPoint)! !
+
+!testRun: #TestsMarsRover #test12RotateRightWhenPointingWest stamp: 'GG 10/8/2023 20:18:05'!
+ERROR!
+
+!testRun: #TestsMarsRover #test12RotateRightWhenPointingWest stamp: 'GG 10/8/2023 20:18:05'!
+ERROR!
+!West methodsFor: 'rotation' stamp: 'GG 10/8/2023 20:19:04' prior: 50652164 overrides: 50652169!
+rotateRight: aMarsRover
+
+	aMarsRover pointNorth ! !
+
+!testRun: #TestsMarsRover #test01StaysInPositionIfCommandIsEmpty stamp: 'GG 10/8/2023 20:19:06'!
+PASSED!
+
+!testRun: #TestsMarsRover #test02MovesOnePositionForward stamp: 'GG 10/8/2023 20:19:06'!
+PASSED!
+
+!testRun: #TestsMarsRover #test03MovesForwardThreePositions stamp: 'GG 10/8/2023 20:19:06'!
+PASSED!
+
+!testRun: #TestsMarsRover #test04MovesOnePositionBackwards stamp: 'GG 10/8/2023 20:19:06'!
+PASSED!
+
+!testRun: #TestsMarsRover #test05RotateLeftWhenPointingNorth stamp: 'GG 10/8/2023 20:19:06'!
+PASSED!
+
+!testRun: #TestsMarsRover #test06RotateLeftWhenPointingSouth stamp: 'GG 10/8/2023 20:19:06'!
+PASSED!
+
+!testRun: #TestsMarsRover #test07RotateLeftWhenPointingEast stamp: 'GG 10/8/2023 20:19:06'!
+PASSED!
+
+!testRun: #TestsMarsRover #test08RotateLeftWhenPointingWest stamp: 'GG 10/8/2023 20:19:06'!
+PASSED!
+
+!testRun: #TestsMarsRover #test09RotateRightWhenPointingNorth stamp: 'GG 10/8/2023 20:19:06'!
+PASSED!
+
+!testRun: #TestsMarsRover #test10RotateRightWhenPointingSouth stamp: 'GG 10/8/2023 20:19:06'!
+PASSED!
+
+!testRun: #TestsMarsRover #test11RotateRightWhenPointingEast stamp: 'GG 10/8/2023 20:19:06'!
+PASSED!
+
+!testRun: #TestsMarsRover #test12RotateRightWhenPointingWest stamp: 'GG 10/8/2023 20:19:06'!
+PASSED!
+!TestsMarsRover methodsFor: 'as yet unclassified' stamp: 'GG 10/8/2023 20:20:33'!
+test13RotateRightAndMoveOnePositionForwardWhenPointEast
+
+	|marsRover initialCardinalPoint finalCardinalPoint|
+	
+	initialCardinalPoint := West new.
+	finalCardinalPoint := North new.
+	marsRover := MarsRover at: 1@1 pointing: initialCardinalPoint.
+	marsRover process: 'r'.
+	
+	self assert: (marsRover isAtPosition: 1@1 pointing: finalCardinalPoint)! !
+!TestsMarsRover methodsFor: 'as yet unclassified' stamp: 'GG 10/8/2023 20:20:36' prior: 50652622!
+test13RotateRightAndMoveOnePositionForwardWhenPointEast
+
+	|marsRover initialCardinalPoint finalCardinalPoint|
+	
+	initialCardinalPoint := East new.
+	finalCardinalPoint := North new.
+	marsRover := MarsRover at: 1@1 pointing: initialCardinalPoint.
+	marsRover process: 'r'.
+	
+	self assert: (marsRover isAtPosition: 1@1 pointing: finalCardinalPoint)! !
+!TestsMarsRover methodsFor: 'as yet unclassified' stamp: 'GG 10/8/2023 20:20:50'!
+test13RotateRightAndMoveOnePositionForwardWhenPointINGEast
+
+	|marsRover initialCardinalPoint finalCardinalPoint|
+	
+	initialCardinalPoint := East new.
+	finalCardinalPoint := North new.
+	marsRover := MarsRover at: 1@1 pointing: initialCardinalPoint.
+	marsRover process: 'r'.
+	
+	self assert: (marsRover isAtPosition: 1@1 pointing: finalCardinalPoint)! !
+
+!methodRemoval: TestsMarsRover #test13RotateRightAndMoveOnePositionForwardWhenPointEast stamp: 'GG 10/8/2023 20:20:50'!
+test13RotateRightAndMoveOnePositionForwardWhenPointEast
+
+	|marsRover initialCardinalPoint finalCardinalPoint|
+	
+	initialCardinalPoint := East new.
+	finalCardinalPoint := North new.
+	marsRover := MarsRover at: 1@1 pointing: initialCardinalPoint.
+	marsRover process: 'r'.
+	
+	self assert: (marsRover isAtPosition: 1@1 pointing: finalCardinalPoint)!
+!TestsMarsRover methodsFor: 'as yet unclassified' stamp: 'GG 10/8/2023 20:20:55'!
+test13RotateRightAndMoveOnePositionForwardWhenPointingEast
+
+	|marsRover initialCardinalPoint finalCardinalPoint|
+	
+	initialCardinalPoint := East new.
+	finalCardinalPoint := North new.
+	marsRover := MarsRover at: 1@1 pointing: initialCardinalPoint.
+	marsRover process: 'r'.
+	
+	self assert: (marsRover isAtPosition: 1@1 pointing: finalCardinalPoint)! !
+
+!methodRemoval: TestsMarsRover #test13RotateRightAndMoveOnePositionForwardWhenPointINGEast stamp: 'GG 10/8/2023 20:20:55'!
+test13RotateRightAndMoveOnePositionForwardWhenPointINGEast
+
+	|marsRover initialCardinalPoint finalCardinalPoint|
+	
+	initialCardinalPoint := East new.
+	finalCardinalPoint := North new.
+	marsRover := MarsRover at: 1@1 pointing: initialCardinalPoint.
+	marsRover process: 'r'.
+	
+	self assert: (marsRover isAtPosition: 1@1 pointing: finalCardinalPoint)!
+!TestsMarsRover methodsFor: 'as yet unclassified' stamp: 'GG 10/8/2023 20:21:21' prior: 50652679!
+test13RotateRightAndMoveOnePositionForwardWhenPointingEast
+
+	|marsRover initialCardinalPoint finalCardinalPoint|
+	
+	initialCardinalPoint := East new.
+	finalCardinalPoint := North new.
+	marsRover := MarsRover at: 1@1 pointing: initialCardinalPoint.
+	marsRover process: 'lf'.
+	
+	self assert: (marsRover isAtPosition: 1@1 pointing: finalCardinalPoint)! !
+!TestsMarsRover methodsFor: 'as yet unclassified' stamp: 'GG 10/8/2023 20:21:30'!
+test13RotateLeftAndMoveOnePositionForwardWhenPointingEast
+
+	|marsRover initialCardinalPoint finalCardinalPoint|
+	
+	initialCardinalPoint := East new.
+	finalCardinalPoint := North new.
+	marsRover := MarsRover at: 1@1 pointing: initialCardinalPoint.
+	marsRover process: 'lf'.
+	
+	self assert: (marsRover isAtPosition: 1@1 pointing: finalCardinalPoint)! !
+
+!methodRemoval: TestsMarsRover #test13RotateRightAndMoveOnePositionForwardWhenPointingEast stamp: 'GG 10/8/2023 20:21:30'!
+test13RotateRightAndMoveOnePositionForwardWhenPointingEast
+
+	|marsRover initialCardinalPoint finalCardinalPoint|
+	
+	initialCardinalPoint := East new.
+	finalCardinalPoint := North new.
+	marsRover := MarsRover at: 1@1 pointing: initialCardinalPoint.
+	marsRover process: 'lf'.
+	
+	self assert: (marsRover isAtPosition: 1@1 pointing: finalCardinalPoint)!
+!TestsMarsRover methodsFor: 'as yet unclassified' stamp: 'GG 10/8/2023 20:21:47' prior: 50652722!
+test13RotateLeftAndMoveOnePositionForwardWhenPointingEast
+
+	|marsRover initialCardinalPoint finalCardinalPoint|
+	
+	initialCardinalPoint := East new.
+	finalCardinalPoint := North new.
+	marsRover := MarsRover at: 0@0 pointing: initialCardinalPoint.
+	marsRover process: 'lf'.
+	
+	self assert: (marsRover isAtPosition: 1@1 pointing: finalCardinalPoint)! !
+!TestsMarsRover methodsFor: 'as yet unclassified' stamp: 'GG 10/8/2023 20:22:08' prior: 50652751!
+test13RotateLeftAndMoveOnePositionForwardWhenPointingEast
+
+	|marsRover initialCardinalPoint finalCardinalPoint|
+	
+	initialCardinalPoint := East new.
+	finalCardinalPoint := North new.
+	marsRover := MarsRover at: 0@0 pointing: initialCardinalPoint.
+	marsRover process: 'lf'.
+	
+	self assert: (marsRover isAtPosition: 0@1 pointing: finalCardinalPoint)! !
+
+!testRun: #TestsMarsRover #test13RotateLeftAndMoveOnePositionForwardWhenPointingEast stamp: 'GG 10/8/2023 20:22:09'!
+PASSED!
+!TestsMarsRover methodsFor: 'as yet unclassified' stamp: 'GG 10/8/2023 20:22:58'!
+test13RotateLeftAndMoveOnePositionForwardWhenPointingNorth
+
+	|marsRover initialCardinalPoint finalCardinalPoint|
+	
+	initialCardinalPoint := North new.
+	finalCardinalPoint := West new.
+	marsRover := MarsRover at: 0@0 pointing: initialCardinalPoint.
+	marsRover process: 'lf'.
+	
+	self assert: (marsRover isAtPosition: 0@1 pointing: finalCardinalPoint)! !
+
+!methodRemoval: TestsMarsRover #test13RotateLeftAndMoveOnePositionForwardWhenPointingEast stamp: 'GG 10/8/2023 20:23:01'!
+test13RotateLeftAndMoveOnePositionForwardWhenPointingEast
+
+	|marsRover initialCardinalPoint finalCardinalPoint|
+	
+	initialCardinalPoint := East new.
+	finalCardinalPoint := North new.
+	marsRover := MarsRover at: 0@0 pointing: initialCardinalPoint.
+	marsRover process: 'lf'.
+	
+	self assert: (marsRover isAtPosition: 0@1 pointing: finalCardinalPoint)!
+!TestsMarsRover methodsFor: 'as yet unclassified' stamp: 'GG 10/8/2023 20:23:17' prior: 50652784!
+test13RotateLeftAndMoveOnePositionForwardWhenPointingNorth
+
+	|marsRover initialCardinalPoint finalCardinalPoint|
+	
+	initialCardinalPoint := North new.
+	finalCardinalPoint := West new.
+	marsRover := MarsRover at: 0@0 pointing: initialCardinalPoint.
+	marsRover process: 'lf'.
+	
+	self assert: (marsRover isAtPosition: -1@0 pointing: finalCardinalPoint)! !
+
+!testRun: #TestsMarsRover #test13RotateLeftAndMoveOnePositionForwardWhenPointingNorth stamp: 'GG 10/8/2023 20:23:18'!
+FAILURE!
+
+!testRun: #TestsMarsRover #test13RotateLeftAndMoveOnePositionForwardWhenPointingNorth stamp: 'GG 10/8/2023 20:23:18'!
+FAILURE!
+
+----SNAPSHOT----(8 October 2023 20:29:49) CuisUniversity-5981.image priorSource: 10228673!
+
+!testRun: #TestsMarsRover #test13RotateLeftAndMoveOnePositionForwardWhenPointingNorth stamp: 'GG 10/8/2023 20:34:33'!
+FAILURE!
+!MarsRover methodsFor: 'process - private' stamp: 'GG 10/8/2023 20:35:10' prior: 50651199!
+moveForward
+	
+	cardinalPoint moveForward: self.
+	"position := position + (0@1)."! !
+!CardinalPoint methodsFor: 'comparing' stamp: 'GG 10/8/2023 20:35:25'!
+moveForward! !
+
+!methodRemoval: CardinalPoint #moveForward stamp: 'GG 10/8/2023 20:35:28'!
+moveForward!
+!CardinalPoint methodsFor: 'comparing' stamp: 'GG 10/8/2023 20:35:40'!
+moveForward: aMarsRover! !
+!CardinalPoint methodsFor: 'moving' stamp: 'GG 10/8/2023 20:36:08' prior: 50652853!
+moveForward: aMarsRover
+
+	self subclassResponsibility ! !
+!North methodsFor: 'moving' stamp: 'GG 10/8/2023 20:36:11' overrides: 50652857!
+moveForward: aMarsRover
+
+	self subclassResponsibility ! !
+!South methodsFor: 'moving' stamp: 'GG 10/8/2023 20:36:11' overrides: 50652857!
+moveForward: aMarsRover
+
+	self subclassResponsibility ! !
+!East methodsFor: 'moving' stamp: 'GG 10/8/2023 20:36:11' overrides: 50652857!
+moveForward: aMarsRover
+
+	self subclassResponsibility ! !
+!West methodsFor: 'moving' stamp: 'GG 10/8/2023 20:36:11' overrides: 50652857!
+moveForward: aMarsRover
+
+	self subclassResponsibility ! !
+!CardinalPoint methodsFor: 'moving' stamp: 'GG 10/8/2023 20:36:11' prior: 50652857!
+moveForward: aMarsRover
+
+	self subclassResponsibility! !
+!West methodsFor: 'moving' stamp: 'GG 10/8/2023 20:37:39' prior: 50652877 overrides: 50652882!
+moveForward: aMarsRover
+
+	aMarsRover moveForwardTowardsWest! !
+!MarsRover methodsFor: 'moving - private' stamp: 'GG 10/8/2023 20:38:15'!
+moveForwardTowardsWest! !
+!MarsRover methodsFor: 'moving - private' stamp: 'GG 10/8/2023 20:38:48' prior: 50652892!
+moveForwardTowardsWest
+	
+	position := position + (-1@0)! !
+
+!testRun: #TestsMarsRover #test01StaysInPositionIfCommandIsEmpty stamp: 'GG 10/8/2023 20:38:54'!
+PASSED!
+
+!testRun: #TestsMarsRover #test02MovesOnePositionForward stamp: 'GG 10/8/2023 20:38:54'!
+ERROR!
+
+!testRun: #TestsMarsRover #test03MovesForwardThreePositions stamp: 'GG 10/8/2023 20:38:54'!
+ERROR!
+
+!testRun: #TestsMarsRover #test04MovesOnePositionBackwards stamp: 'GG 10/8/2023 20:38:54'!
+PASSED!
+
+!testRun: #TestsMarsRover #test05RotateLeftWhenPointingNorth stamp: 'GG 10/8/2023 20:38:54'!
+PASSED!
+
+!testRun: #TestsMarsRover #test06RotateLeftWhenPointingSouth stamp: 'GG 10/8/2023 20:38:54'!
+PASSED!
+
+!testRun: #TestsMarsRover #test07RotateLeftWhenPointingEast stamp: 'GG 10/8/2023 20:38:54'!
+PASSED!
+
+!testRun: #TestsMarsRover #test08RotateLeftWhenPointingWest stamp: 'GG 10/8/2023 20:38:54'!
+PASSED!
+
+!testRun: #TestsMarsRover #test09RotateRightWhenPointingNorth stamp: 'GG 10/8/2023 20:38:54'!
+PASSED!
+
+!testRun: #TestsMarsRover #test10RotateRightWhenPointingSouth stamp: 'GG 10/8/2023 20:38:54'!
+PASSED!
+
+!testRun: #TestsMarsRover #test11RotateRightWhenPointingEast stamp: 'GG 10/8/2023 20:38:54'!
+PASSED!
+
+!testRun: #TestsMarsRover #test12RotateRightWhenPointingWest stamp: 'GG 10/8/2023 20:38:54'!
+PASSED!
+
+!testRun: #TestsMarsRover #test13RotateLeftAndMoveOnePositionForwardWhenPointingNorth stamp: 'GG 10/8/2023 20:38:54'!
+PASSED!
+!MarsRover methodsFor: 'process - private' stamp: 'GG 10/8/2023 20:40:31' prior: 50652842!
+moveForward
+	
+	(cardinalPoint equals: North new) ifTrue: [position := position + (0@1)] 
+								ifFalse: [	cardinalPoint moveForward: self]
+! !
+
+!testRun: #TestsMarsRover #test01StaysInPositionIfCommandIsEmpty stamp: 'GG 10/8/2023 20:40:34'!
+PASSED!
+
+!testRun: #TestsMarsRover #test02MovesOnePositionForward stamp: 'GG 10/8/2023 20:40:34'!
+PASSED!
+
+!testRun: #TestsMarsRover #test03MovesForwardThreePositions stamp: 'GG 10/8/2023 20:40:34'!
+PASSED!
+
+!testRun: #TestsMarsRover #test04MovesOnePositionBackwards stamp: 'GG 10/8/2023 20:40:34'!
+PASSED!
+
+!testRun: #TestsMarsRover #test05RotateLeftWhenPointingNorth stamp: 'GG 10/8/2023 20:40:34'!
+PASSED!
+
+!testRun: #TestsMarsRover #test06RotateLeftWhenPointingSouth stamp: 'GG 10/8/2023 20:40:34'!
+PASSED!
+
+!testRun: #TestsMarsRover #test07RotateLeftWhenPointingEast stamp: 'GG 10/8/2023 20:40:34'!
+PASSED!
+
+!testRun: #TestsMarsRover #test08RotateLeftWhenPointingWest stamp: 'GG 10/8/2023 20:40:34'!
+PASSED!
+
+!testRun: #TestsMarsRover #test09RotateRightWhenPointingNorth stamp: 'GG 10/8/2023 20:40:34'!
+PASSED!
+
+!testRun: #TestsMarsRover #test10RotateRightWhenPointingSouth stamp: 'GG 10/8/2023 20:40:34'!
+PASSED!
+
+!testRun: #TestsMarsRover #test11RotateRightWhenPointingEast stamp: 'GG 10/8/2023 20:40:34'!
+PASSED!
+
+!testRun: #TestsMarsRover #test12RotateRightWhenPointingWest stamp: 'GG 10/8/2023 20:40:34'!
+PASSED!
+
+!testRun: #TestsMarsRover #test13RotateLeftAndMoveOnePositionForwardWhenPointingNorth stamp: 'GG 10/8/2023 20:40:34'!
+PASSED!
+!North methodsFor: 'moving' stamp: 'GG 10/8/2023 20:41:45' prior: 50652862 overrides: 50652882!
+moveForward: aMarsRover
+
+	aMarsRover moveForwardTowardsNorth! !
+!MarsRover methodsFor: 'moving - private' stamp: 'GG 10/8/2023 20:42:01'!
+moveForwardTowardsNorth
+	
+	position := position + (0@1)! !
+!MarsRover methodsFor: 'process - private' stamp: 'GG 10/8/2023 20:42:26' prior: 50652943!
+moveForward
+	cardinalPoint moveForward: self
+! !
+
+!testRun: #TestsMarsRover #test01StaysInPositionIfCommandIsEmpty stamp: 'GG 10/8/2023 20:42:30'!
+PASSED!
+
+!testRun: #TestsMarsRover #test02MovesOnePositionForward stamp: 'GG 10/8/2023 20:42:30'!
+PASSED!
+
+!testRun: #TestsMarsRover #test03MovesForwardThreePositions stamp: 'GG 10/8/2023 20:42:30'!
+PASSED!
+
+!testRun: #TestsMarsRover #test04MovesOnePositionBackwards stamp: 'GG 10/8/2023 20:42:30'!
+PASSED!
+
+!testRun: #TestsMarsRover #test05RotateLeftWhenPointingNorth stamp: 'GG 10/8/2023 20:42:30'!
+PASSED!
+
+!testRun: #TestsMarsRover #test06RotateLeftWhenPointingSouth stamp: 'GG 10/8/2023 20:42:30'!
+PASSED!
+
+!testRun: #TestsMarsRover #test07RotateLeftWhenPointingEast stamp: 'GG 10/8/2023 20:42:30'!
+PASSED!
+
+!testRun: #TestsMarsRover #test08RotateLeftWhenPointingWest stamp: 'GG 10/8/2023 20:42:30'!
+PASSED!
+
+!testRun: #TestsMarsRover #test09RotateRightWhenPointingNorth stamp: 'GG 10/8/2023 20:42:30'!
+PASSED!
+
+!testRun: #TestsMarsRover #test10RotateRightWhenPointingSouth stamp: 'GG 10/8/2023 20:42:30'!
+PASSED!
+
+!testRun: #TestsMarsRover #test11RotateRightWhenPointingEast stamp: 'GG 10/8/2023 20:42:30'!
+PASSED!
+
+!testRun: #TestsMarsRover #test12RotateRightWhenPointingWest stamp: 'GG 10/8/2023 20:42:30'!
+PASSED!
+
+!testRun: #TestsMarsRover #test13RotateLeftAndMoveOnePositionForwardWhenPointingNorth stamp: 'GG 10/8/2023 20:42:30'!
+PASSED!
+!TestsMarsRover methodsFor: 'as yet unclassified' stamp: 'GG 10/8/2023 20:45:06'!
+test14RotateRightAndMoveOnePositionForwardWhenPointingNorth
+
+	|marsRover initialCardinalPoint finalCardinalPoint|
+	
+	initialCardinalPoint := North new.
+	finalCardinalPoint := East new.
+	marsRover := MarsRover at: 0@0 pointing: initialCardinalPoint.
+	marsRover process: 'lf'.
+	
+	self assert: (marsRover isAtPosition: 0@1 pointing: finalCardinalPoint)! !
+
+!testRun: #TestsMarsRover #test14RotateRightAndMoveOnePositionForwardWhenPointingNorth stamp: 'GG 10/8/2023 20:45:12'!
+FAILURE!
+
+!testRun: #TestsMarsRover #test14RotateRightAndMoveOnePositionForwardWhenPointingNorth stamp: 'GG 10/8/2023 20:45:12'!
+FAILURE!
+!East methodsFor: 'moving' stamp: 'GG 10/8/2023 20:45:29' prior: 50652872 overrides: 50652882!
+moveForward: aMarsRover
+
+	aMarsRover moveForwardTowardsEast! !
+!MarsRover methodsFor: 'moving - private' stamp: 'GG 10/8/2023 20:45:43'!
+moveForwardTowardsEast
+	
+	position := position + (0@1)! !
+
+!testRun: #TestsMarsRover #test01StaysInPositionIfCommandIsEmpty stamp: 'GG 10/8/2023 20:45:45'!
+PASSED!
+
+!testRun: #TestsMarsRover #test02MovesOnePositionForward stamp: 'GG 10/8/2023 20:45:45'!
+PASSED!
+
+!testRun: #TestsMarsRover #test03MovesForwardThreePositions stamp: 'GG 10/8/2023 20:45:45'!
+PASSED!
+
+!testRun: #TestsMarsRover #test04MovesOnePositionBackwards stamp: 'GG 10/8/2023 20:45:45'!
+PASSED!
+
+!testRun: #TestsMarsRover #test05RotateLeftWhenPointingNorth stamp: 'GG 10/8/2023 20:45:45'!
+PASSED!
+
+!testRun: #TestsMarsRover #test06RotateLeftWhenPointingSouth stamp: 'GG 10/8/2023 20:45:45'!
+PASSED!
+
+!testRun: #TestsMarsRover #test07RotateLeftWhenPointingEast stamp: 'GG 10/8/2023 20:45:45'!
+PASSED!
+
+!testRun: #TestsMarsRover #test08RotateLeftWhenPointingWest stamp: 'GG 10/8/2023 20:45:45'!
+PASSED!
+
+!testRun: #TestsMarsRover #test09RotateRightWhenPointingNorth stamp: 'GG 10/8/2023 20:45:45'!
+PASSED!
+
+!testRun: #TestsMarsRover #test10RotateRightWhenPointingSouth stamp: 'GG 10/8/2023 20:45:45'!
+PASSED!
+
+!testRun: #TestsMarsRover #test11RotateRightWhenPointingEast stamp: 'GG 10/8/2023 20:45:45'!
+PASSED!
+
+!testRun: #TestsMarsRover #test12RotateRightWhenPointingWest stamp: 'GG 10/8/2023 20:45:45'!
+PASSED!
+
+!testRun: #TestsMarsRover #test13RotateLeftAndMoveOnePositionForwardWhenPointingNorth stamp: 'GG 10/8/2023 20:45:45'!
+PASSED!
+
+!testRun: #TestsMarsRover #test14RotateRightAndMoveOnePositionForwardWhenPointingNorth stamp: 'GG 10/8/2023 20:45:45'!
+FAILURE!
+
+!testRun: #TestsMarsRover #test14RotateRightAndMoveOnePositionForwardWhenPointingNorth stamp: 'GG 10/8/2023 20:45:45'!
+FAILURE!
+!TestsMarsRover methodsFor: 'as yet unclassified' stamp: 'GG 10/8/2023 20:45:54' prior: 50653050!
+test14RotateRightAndMoveOnePositionForwardWhenPointingNorth
+
+	|marsRover initialCardinalPoint finalCardinalPoint|
+	
+	initialCardinalPoint := North new.
+	finalCardinalPoint := East new.
+	marsRover := MarsRover at: 0@0 pointing: initialCardinalPoint.
+	marsRover process: 'rf'.
+	
+	self assert: (marsRover isAtPosition: 0@1 pointing: finalCardinalPoint)! !
+
+!testRun: #TestsMarsRover #test01StaysInPositionIfCommandIsEmpty stamp: 'GG 10/8/2023 20:46:00'!
+PASSED!
+
+!testRun: #TestsMarsRover #test02MovesOnePositionForward stamp: 'GG 10/8/2023 20:46:00'!
+PASSED!
+
+!testRun: #TestsMarsRover #test03MovesForwardThreePositions stamp: 'GG 10/8/2023 20:46:00'!
+PASSED!
+
+!testRun: #TestsMarsRover #test04MovesOnePositionBackwards stamp: 'GG 10/8/2023 20:46:00'!
+PASSED!
+
+!testRun: #TestsMarsRover #test05RotateLeftWhenPointingNorth stamp: 'GG 10/8/2023 20:46:00'!
+PASSED!
+
+!testRun: #TestsMarsRover #test06RotateLeftWhenPointingSouth stamp: 'GG 10/8/2023 20:46:00'!
+PASSED!
+
+!testRun: #TestsMarsRover #test07RotateLeftWhenPointingEast stamp: 'GG 10/8/2023 20:46:00'!
+PASSED!
+
+!testRun: #TestsMarsRover #test08RotateLeftWhenPointingWest stamp: 'GG 10/8/2023 20:46:00'!
+PASSED!
+
+!testRun: #TestsMarsRover #test09RotateRightWhenPointingNorth stamp: 'GG 10/8/2023 20:46:00'!
+PASSED!
+
+!testRun: #TestsMarsRover #test10RotateRightWhenPointingSouth stamp: 'GG 10/8/2023 20:46:00'!
+PASSED!
+
+!testRun: #TestsMarsRover #test11RotateRightWhenPointingEast stamp: 'GG 10/8/2023 20:46:00'!
+PASSED!
+
+!testRun: #TestsMarsRover #test12RotateRightWhenPointingWest stamp: 'GG 10/8/2023 20:46:00'!
+PASSED!
+
+!testRun: #TestsMarsRover #test13RotateLeftAndMoveOnePositionForwardWhenPointingNorth stamp: 'GG 10/8/2023 20:46:00'!
+PASSED!
+
+!testRun: #TestsMarsRover #test14RotateRightAndMoveOnePositionForwardWhenPointingNorth stamp: 'GG 10/8/2023 20:46:00'!
+PASSED!
+!TestsMarsRover methodsFor: 'as yet unclassified' stamp: 'GG 10/8/2023 20:47:04'!
+test15RotateRightAndMoveOnePositionForwardWhenPointingEast
+
+	|marsRover initialCardinalPoint finalCardinalPoint|
+	
+	initialCardinalPoint := East new.
+	finalCardinalPoint := South new.
+	marsRover := MarsRover at: 0@0 pointing: initialCardinalPoint.
+	marsRover process: 'rf'.
+	
+	self assert: (marsRover isAtPosition: 0@-1 pointing: finalCardinalPoint)! !
+
+!testRun: #TestsMarsRover #test15RotateRightAndMoveOnePositionForwardWhenPointingEast stamp: 'GG 10/8/2023 20:47:06'!
+ERROR!
+
+!testRun: #TestsMarsRover #test15RotateRightAndMoveOnePositionForwardWhenPointingEast stamp: 'GG 10/8/2023 20:47:06'!
+ERROR!
+!South methodsFor: 'moving' stamp: 'GG 10/8/2023 20:47:22' prior: 50652867 overrides: 50652882!
+moveForward: aMarsRover
+
+	aMarsRover moveForwardTowardsSouth! !
+!MarsRover methodsFor: 'moving - private' stamp: 'GG 10/8/2023 20:47:36'!
+moveForwardTowardsSouth
+	
+	position := position + (0@-1)! !
+
+!testRun: #TestsMarsRover #test01StaysInPositionIfCommandIsEmpty stamp: 'GG 10/8/2023 20:47:39'!
+PASSED!
+
+!testRun: #TestsMarsRover #test02MovesOnePositionForward stamp: 'GG 10/8/2023 20:47:39'!
+PASSED!
+
+!testRun: #TestsMarsRover #test03MovesForwardThreePositions stamp: 'GG 10/8/2023 20:47:39'!
+PASSED!
+
+!testRun: #TestsMarsRover #test04MovesOnePositionBackwards stamp: 'GG 10/8/2023 20:47:39'!
+PASSED!
+
+!testRun: #TestsMarsRover #test05RotateLeftWhenPointingNorth stamp: 'GG 10/8/2023 20:47:39'!
+PASSED!
+
+!testRun: #TestsMarsRover #test06RotateLeftWhenPointingSouth stamp: 'GG 10/8/2023 20:47:39'!
+PASSED!
+
+!testRun: #TestsMarsRover #test07RotateLeftWhenPointingEast stamp: 'GG 10/8/2023 20:47:39'!
+PASSED!
+
+!testRun: #TestsMarsRover #test08RotateLeftWhenPointingWest stamp: 'GG 10/8/2023 20:47:39'!
+PASSED!
+
+!testRun: #TestsMarsRover #test09RotateRightWhenPointingNorth stamp: 'GG 10/8/2023 20:47:39'!
+PASSED!
+
+!testRun: #TestsMarsRover #test10RotateRightWhenPointingSouth stamp: 'GG 10/8/2023 20:47:39'!
+PASSED!
+
+!testRun: #TestsMarsRover #test11RotateRightWhenPointingEast stamp: 'GG 10/8/2023 20:47:39'!
+PASSED!
+
+!testRun: #TestsMarsRover #test12RotateRightWhenPointingWest stamp: 'GG 10/8/2023 20:47:39'!
+PASSED!
+
+!testRun: #TestsMarsRover #test13RotateLeftAndMoveOnePositionForwardWhenPointingNorth stamp: 'GG 10/8/2023 20:47:39'!
+PASSED!
+
+!testRun: #TestsMarsRover #test14RotateRightAndMoveOnePositionForwardWhenPointingNorth stamp: 'GG 10/8/2023 20:47:39'!
+PASSED!
+
+!testRun: #TestsMarsRover #test15RotateRightAndMoveOnePositionForwardWhenPointingEast stamp: 'GG 10/8/2023 20:47:39'!
+PASSED!
+!TestsMarsRover methodsFor: 'as yet unclassified' stamp: 'GG 10/8/2023 20:49:06'!
+test16RotateLeftAndMoveOnePositionBackwardWhenPointingNorth
+
+	|marsRover initialCardinalPoint finalCardinalPoint|
+	
+	initialCardinalPoint := North new.
+	finalCardinalPoint := West new.
+	marsRover := MarsRover at: 0@0 pointing: initialCardinalPoint.
+	marsRover process: 'lb'.
+	
+	self assert: (marsRover isAtPosition: 1@0 pointing: finalCardinalPoint)! !
+
+!testRun: #TestsMarsRover #test01StaysInPositionIfCommandIsEmpty stamp: 'GG 10/8/2023 20:49:07'!
+PASSED!
+
+!testRun: #TestsMarsRover #test02MovesOnePositionForward stamp: 'GG 10/8/2023 20:49:07'!
+PASSED!
+
+!testRun: #TestsMarsRover #test03MovesForwardThreePositions stamp: 'GG 10/8/2023 20:49:07'!
+PASSED!
+
+!testRun: #TestsMarsRover #test04MovesOnePositionBackwards stamp: 'GG 10/8/2023 20:49:07'!
+PASSED!
+
+!testRun: #TestsMarsRover #test05RotateLeftWhenPointingNorth stamp: 'GG 10/8/2023 20:49:07'!
+PASSED!
+
+!testRun: #TestsMarsRover #test06RotateLeftWhenPointingSouth stamp: 'GG 10/8/2023 20:49:07'!
+PASSED!
+
+!testRun: #TestsMarsRover #test07RotateLeftWhenPointingEast stamp: 'GG 10/8/2023 20:49:07'!
+PASSED!
+
+!testRun: #TestsMarsRover #test08RotateLeftWhenPointingWest stamp: 'GG 10/8/2023 20:49:07'!
+PASSED!
+
+!testRun: #TestsMarsRover #test09RotateRightWhenPointingNorth stamp: 'GG 10/8/2023 20:49:07'!
+PASSED!
+
+!testRun: #TestsMarsRover #test10RotateRightWhenPointingSouth stamp: 'GG 10/8/2023 20:49:07'!
+PASSED!
+
+!testRun: #TestsMarsRover #test11RotateRightWhenPointingEast stamp: 'GG 10/8/2023 20:49:07'!
+PASSED!
+
+!testRun: #TestsMarsRover #test12RotateRightWhenPointingWest stamp: 'GG 10/8/2023 20:49:07'!
+PASSED!
+
+!testRun: #TestsMarsRover #test13RotateLeftAndMoveOnePositionForwardWhenPointingNorth stamp: 'GG 10/8/2023 20:49:07'!
+PASSED!
+
+!testRun: #TestsMarsRover #test14RotateRightAndMoveOnePositionForwardWhenPointingNorth stamp: 'GG 10/8/2023 20:49:07'!
+PASSED!
+
+!testRun: #TestsMarsRover #test15RotateRightAndMoveOnePositionForwardWhenPointingEast stamp: 'GG 10/8/2023 20:49:07'!
+PASSED!
+
+!testRun: #TestsMarsRover #test16RotateLeftAndMoveOnePositionBackwardWhenPointingNorth stamp: 'GG 10/8/2023 20:49:07'!
+FAILURE!
+
+!testRun: #TestsMarsRover #test16RotateLeftAndMoveOnePositionBackwardWhenPointingNorth stamp: 'GG 10/8/2023 20:49:07'!
+FAILURE!
+!CardinalPoint methodsFor: 'moving' stamp: 'GG 10/8/2023 20:49:19'!
+moveBackward: aMarsRover
+
+	self subclassResponsibility! !
+!North methodsFor: 'moving' stamp: 'GG 10/8/2023 20:49:24' overrides: 50653348!
+moveBackward: aMarsRover
+
+	self subclassResponsibility! !
+!South methodsFor: 'moving' stamp: 'GG 10/8/2023 20:49:24' overrides: 50653348!
+moveBackward: aMarsRover
+
+	self subclassResponsibility! !
+!East methodsFor: 'moving' stamp: 'GG 10/8/2023 20:49:24' overrides: 50653348!
+moveBackward: aMarsRover
+
+	self subclassResponsibility! !
+!West methodsFor: 'moving' stamp: 'GG 10/8/2023 20:49:24' overrides: 50653348!
+moveBackward: aMarsRover
+
+	self subclassResponsibility! !
+!CardinalPoint methodsFor: 'moving' stamp: 'GG 10/8/2023 20:49:24' prior: 50653348!
+moveBackward: aMarsRover
+
+	self subclassResponsibility! !
+!West methodsFor: 'moving' stamp: 'GG 10/8/2023 20:50:16' prior: 50653368 overrides: 50653373!
+moveBackward: aMarsRover
+
+	aMarsRover moveForwardTowardsEast ! !
+
+!testRun: #TestsMarsRover #test16RotateLeftAndMoveOnePositionBackwardWhenPointingNorth stamp: 'GG 10/8/2023 20:50:41'!
+FAILURE!
+
+!testRun: #TestsMarsRover #test16RotateLeftAndMoveOnePositionBackwardWhenPointingNorth stamp: 'GG 10/8/2023 20:50:41'!
+FAILURE!
+!MarsRover methodsFor: 'moving - private' stamp: 'GG 10/8/2023 20:51:22' prior: 50653078!
+moveForwardTowardsEast
+	
+	position := position + (1@0)! !
+
+!testRun: #TestsMarsRover #test01StaysInPositionIfCommandIsEmpty stamp: 'GG 10/8/2023 20:51:30'!
+PASSED!
+
+!testRun: #TestsMarsRover #test02MovesOnePositionForward stamp: 'GG 10/8/2023 20:51:30'!
+PASSED!
+
+!testRun: #TestsMarsRover #test03MovesForwardThreePositions stamp: 'GG 10/8/2023 20:51:30'!
+PASSED!
+
+!testRun: #TestsMarsRover #test04MovesOnePositionBackwards stamp: 'GG 10/8/2023 20:51:30'!
+PASSED!
+
+!testRun: #TestsMarsRover #test05RotateLeftWhenPointingNorth stamp: 'GG 10/8/2023 20:51:30'!
+PASSED!
+
+!testRun: #TestsMarsRover #test06RotateLeftWhenPointingSouth stamp: 'GG 10/8/2023 20:51:30'!
+PASSED!
+
+!testRun: #TestsMarsRover #test07RotateLeftWhenPointingEast stamp: 'GG 10/8/2023 20:51:30'!
+PASSED!
+
+!testRun: #TestsMarsRover #test08RotateLeftWhenPointingWest stamp: 'GG 10/8/2023 20:51:30'!
+PASSED!
+
+!testRun: #TestsMarsRover #test09RotateRightWhenPointingNorth stamp: 'GG 10/8/2023 20:51:30'!
+PASSED!
+
+!testRun: #TestsMarsRover #test10RotateRightWhenPointingSouth stamp: 'GG 10/8/2023 20:51:30'!
+PASSED!
+
+!testRun: #TestsMarsRover #test11RotateRightWhenPointingEast stamp: 'GG 10/8/2023 20:51:30'!
+PASSED!
+
+!testRun: #TestsMarsRover #test12RotateRightWhenPointingWest stamp: 'GG 10/8/2023 20:51:30'!
+PASSED!
+
+!testRun: #TestsMarsRover #test13RotateLeftAndMoveOnePositionForwardWhenPointingNorth stamp: 'GG 10/8/2023 20:51:30'!
+PASSED!
+
+!testRun: #TestsMarsRover #test14RotateRightAndMoveOnePositionForwardWhenPointingNorth stamp: 'GG 10/8/2023 20:51:30'!
+FAILURE!
+
+!testRun: #TestsMarsRover #test15RotateRightAndMoveOnePositionForwardWhenPointingEast stamp: 'GG 10/8/2023 20:51:30'!
+PASSED!
+
+!testRun: #TestsMarsRover #test16RotateLeftAndMoveOnePositionBackwardWhenPointingNorth stamp: 'GG 10/8/2023 20:51:30'!
+FAILURE!
+
+!testRun: #TestsMarsRover #test14RotateRightAndMoveOnePositionForwardWhenPointingNorth stamp: 'GG 10/8/2023 20:52:01'!
+FAILURE!
+
+!testRun: #TestsMarsRover #test14RotateRightAndMoveOnePositionForwardWhenPointingNorth stamp: 'GG 10/8/2023 20:52:01'!
+FAILURE!
+!TestsMarsRover methodsFor: 'as yet unclassified' stamp: 'GG 10/8/2023 20:52:06' prior: 50653134!
+test14RotateRightAndMoveOnePositionForwardWhenPointingNorth
+
+	|marsRover initialCardinalPoint finalCardinalPoint|
+	
+	initialCardinalPoint := North new.
+	finalCardinalPoint := East new.
+	marsRover := MarsRover at: 0@0 pointing: initialCardinalPoint.
+	marsRover process: 'rf'.
+	
+	self assert: (marsRover isAtPosition: 1@0 pointing: finalCardinalPoint)! !
+
+!testRun: #TestsMarsRover #test01StaysInPositionIfCommandIsEmpty stamp: 'GG 10/8/2023 20:52:27'!
+PASSED!
+
+!testRun: #TestsMarsRover #test02MovesOnePositionForward stamp: 'GG 10/8/2023 20:52:27'!
+PASSED!
+
+!testRun: #TestsMarsRover #test03MovesForwardThreePositions stamp: 'GG 10/8/2023 20:52:27'!
+PASSED!
+
+!testRun: #TestsMarsRover #test04MovesOnePositionBackwards stamp: 'GG 10/8/2023 20:52:27'!
+PASSED!
+
+!testRun: #TestsMarsRover #test05RotateLeftWhenPointingNorth stamp: 'GG 10/8/2023 20:52:27'!
+PASSED!
+
+!testRun: #TestsMarsRover #test06RotateLeftWhenPointingSouth stamp: 'GG 10/8/2023 20:52:27'!
+PASSED!
+
+!testRun: #TestsMarsRover #test07RotateLeftWhenPointingEast stamp: 'GG 10/8/2023 20:52:27'!
+PASSED!
+
+!testRun: #TestsMarsRover #test08RotateLeftWhenPointingWest stamp: 'GG 10/8/2023 20:52:27'!
+PASSED!
+
+!testRun: #TestsMarsRover #test09RotateRightWhenPointingNorth stamp: 'GG 10/8/2023 20:52:27'!
+PASSED!
+
+!testRun: #TestsMarsRover #test10RotateRightWhenPointingSouth stamp: 'GG 10/8/2023 20:52:27'!
+PASSED!
+
+!testRun: #TestsMarsRover #test11RotateRightWhenPointingEast stamp: 'GG 10/8/2023 20:52:27'!
+PASSED!
+
+!testRun: #TestsMarsRover #test12RotateRightWhenPointingWest stamp: 'GG 10/8/2023 20:52:27'!
+PASSED!
+
+!testRun: #TestsMarsRover #test13RotateLeftAndMoveOnePositionForwardWhenPointingNorth stamp: 'GG 10/8/2023 20:52:27'!
+PASSED!
+
+!testRun: #TestsMarsRover #test14RotateRightAndMoveOnePositionForwardWhenPointingNorth stamp: 'GG 10/8/2023 20:52:27'!
+PASSED!
+
+!testRun: #TestsMarsRover #test15RotateRightAndMoveOnePositionForwardWhenPointingEast stamp: 'GG 10/8/2023 20:52:27'!
+PASSED!
+
+!testRun: #TestsMarsRover #test16RotateLeftAndMoveOnePositionBackwardWhenPointingNorth stamp: 'GG 10/8/2023 20:52:27'!
+FAILURE!
+
+!testRun: #TestsMarsRover #test16RotateLeftAndMoveOnePositionBackwardWhenPointingNorth stamp: 'GG 10/8/2023 20:52:27'!
+FAILURE!
+
+!testRun: #TestsMarsRover #test16RotateLeftAndMoveOnePositionBackwardWhenPointingNorth stamp: 'GG 10/8/2023 20:52:31'!
+FAILURE!
+
+!testRun: #TestsMarsRover #test16RotateLeftAndMoveOnePositionBackwardWhenPointingNorth stamp: 'GG 10/8/2023 20:52:31'!
+FAILURE!
+
+----SNAPSHOT----(8 October 2023 20:52:39) CuisUniversity-5981.image priorSource: 10277888!
+
+!testRun: #TestsMarsRover #test01StaysInPositionIfCommandIsEmpty stamp: 'GG 10/8/2023 20:52:41'!
+PASSED!
+
+!testRun: #TestsMarsRover #test02MovesOnePositionForward stamp: 'GG 10/8/2023 20:52:42'!
+PASSED!
+
+!testRun: #TestsMarsRover #test03MovesForwardThreePositions stamp: 'GG 10/8/2023 20:52:42'!
+PASSED!
+
+!testRun: #TestsMarsRover #test04MovesOnePositionBackwards stamp: 'GG 10/8/2023 20:52:43'!
+PASSED!
+
+!testRun: #TestsMarsRover #test05RotateLeftWhenPointingNorth stamp: 'GG 10/8/2023 20:52:43'!
+PASSED!
+
+!testRun: #TestsMarsRover #test06RotateLeftWhenPointingSouth stamp: 'GG 10/8/2023 20:52:44'!
+PASSED!
+
+!testRun: #TestsMarsRover #test07RotateLeftWhenPointingEast stamp: 'GG 10/8/2023 20:52:45'!
+PASSED!
+
+!testRun: #TestsMarsRover #test08RotateLeftWhenPointingWest stamp: 'GG 10/8/2023 20:52:45'!
+PASSED!
+
+!testRun: #TestsMarsRover #test09RotateRightWhenPointingNorth stamp: 'GG 10/8/2023 20:52:46'!
+PASSED!
+
+!testRun: #TestsMarsRover #test10RotateRightWhenPointingSouth stamp: 'GG 10/8/2023 20:52:46'!
+PASSED!
+
+!testRun: #TestsMarsRover #test11RotateRightWhenPointingEast stamp: 'GG 10/8/2023 20:52:47'!
+PASSED!
+
+!testRun: #TestsMarsRover #test12RotateRightWhenPointingWest stamp: 'GG 10/8/2023 20:52:47'!
+PASSED!
+
+!testRun: #TestsMarsRover #test13RotateLeftAndMoveOnePositionForwardWhenPointingNorth stamp: 'GG 10/8/2023 20:52:48'!
+PASSED!
+
+!testRun: #TestsMarsRover #test14RotateRightAndMoveOnePositionForwardWhenPointingNorth stamp: 'GG 10/8/2023 20:52:49'!
+PASSED!
+
+!testRun: #TestsMarsRover #test15RotateRightAndMoveOnePositionForwardWhenPointingEast stamp: 'GG 10/8/2023 20:52:50'!
+PASSED!
+
+!testRun: #TestsMarsRover #test16RotateLeftAndMoveOnePositionBackwardWhenPointingNorth stamp: 'GG 10/8/2023 20:52:51'!
+FAILURE!
+
+!testRun: #TestsMarsRover #test16RotateLeftAndMoveOnePositionBackwardWhenPointingNorth stamp: 'GG 10/8/2023 20:52:51'!
+FAILURE!
+
+!testRun: #TestsMarsRover #test16RotateLeftAndMoveOnePositionBackwardWhenPointingNorth stamp: 'GG 10/8/2023 20:53:34'!
+FAILURE!
+
+!testRun: #TestsMarsRover #test16RotateLeftAndMoveOnePositionBackwardWhenPointingNorth stamp: 'GG 10/8/2023 20:53:34'!
+FAILURE!
+!MarsRover methodsFor: 'process - private' stamp: 'GG 10/8/2023 20:55:16' prior: 50651203!
+moveBackward
+
+	(cardinalPoint equals: North new) ifTrue: [	position := position + (0@-1)]
+			ifFalse: [cardinalPoint moveBackward: self]! !
+
+!testRun: #TestsMarsRover #test01StaysInPositionIfCommandIsEmpty stamp: 'GG 10/8/2023 20:55:18'!
+PASSED!
+
+!testRun: #TestsMarsRover #test02MovesOnePositionForward stamp: 'GG 10/8/2023 20:55:18'!
+PASSED!
+
+!testRun: #TestsMarsRover #test03MovesForwardThreePositions stamp: 'GG 10/8/2023 20:55:18'!
+PASSED!
+
+!testRun: #TestsMarsRover #test04MovesOnePositionBackwards stamp: 'GG 10/8/2023 20:55:18'!
+PASSED!
+
+!testRun: #TestsMarsRover #test05RotateLeftWhenPointingNorth stamp: 'GG 10/8/2023 20:55:18'!
+PASSED!
+
+!testRun: #TestsMarsRover #test06RotateLeftWhenPointingSouth stamp: 'GG 10/8/2023 20:55:18'!
+PASSED!
+
+!testRun: #TestsMarsRover #test07RotateLeftWhenPointingEast stamp: 'GG 10/8/2023 20:55:18'!
+PASSED!
+
+!testRun: #TestsMarsRover #test08RotateLeftWhenPointingWest stamp: 'GG 10/8/2023 20:55:18'!
+PASSED!
+
+!testRun: #TestsMarsRover #test09RotateRightWhenPointingNorth stamp: 'GG 10/8/2023 20:55:18'!
+PASSED!
+
+!testRun: #TestsMarsRover #test10RotateRightWhenPointingSouth stamp: 'GG 10/8/2023 20:55:18'!
+PASSED!
+
+!testRun: #TestsMarsRover #test11RotateRightWhenPointingEast stamp: 'GG 10/8/2023 20:55:18'!
+PASSED!
+
+!testRun: #TestsMarsRover #test12RotateRightWhenPointingWest stamp: 'GG 10/8/2023 20:55:18'!
+PASSED!
+
+!testRun: #TestsMarsRover #test13RotateLeftAndMoveOnePositionForwardWhenPointingNorth stamp: 'GG 10/8/2023 20:55:18'!
+PASSED!
+
+!testRun: #TestsMarsRover #test14RotateRightAndMoveOnePositionForwardWhenPointingNorth stamp: 'GG 10/8/2023 20:55:18'!
+PASSED!
+
+!testRun: #TestsMarsRover #test15RotateRightAndMoveOnePositionForwardWhenPointingEast stamp: 'GG 10/8/2023 20:55:18'!
+PASSED!
+
+!testRun: #TestsMarsRover #test16RotateLeftAndMoveOnePositionBackwardWhenPointingNorth stamp: 'GG 10/8/2023 20:55:18'!
+PASSED!
+!MarsRover methodsFor: 'moving - private' stamp: 'GG 10/8/2023 20:55:39'!
+moveTowardsEast
+	
+	position := position + (1@0)! !
+!West methodsFor: 'as yet unclassified' stamp: 'GG 10/8/2023 20:55:39' prior: 50653378 overrides: 50653373!
+moveBackward: aMarsRover
+
+	aMarsRover moveTowardsEast ! !
+!East methodsFor: 'as yet unclassified' stamp: 'GG 10/8/2023 20:55:39' prior: 50653073 overrides: 50652882!
+moveForward: aMarsRover
+
+	aMarsRover moveTowardsEast! !
+
+!methodRemoval: MarsRover #moveForwardTowardsEast stamp: 'GG 10/8/2023 20:55:39'!
+moveForwardTowardsEast
+	
+	position := position + (1@0)!
+!MarsRover methodsFor: 'moving - private' stamp: 'GG 10/8/2023 20:55:52'!
+moveTowardsWest
+	
+	position := position + (-1@0)! !
+!West methodsFor: 'as yet unclassified' stamp: 'GG 10/8/2023 20:55:52' prior: 50652887 overrides: 50652882!
+moveForward: aMarsRover
+
+	aMarsRover moveTowardsWest! !
+
+!methodRemoval: MarsRover #moveForwardTowardsWest stamp: 'GG 10/8/2023 20:55:52'!
+moveForwardTowardsWest
+	
+	position := position + (-1@0)!
+!MarsRover methodsFor: 'moving - private' stamp: 'GG 10/8/2023 20:56:06'!
+moveTowardsSouth
+	
+	position := position + (0@-1)! !
+!South methodsFor: 'as yet unclassified' stamp: 'GG 10/8/2023 20:56:06' prior: 50653216 overrides: 50652882!
+moveForward: aMarsRover
+
+	aMarsRover moveTowardsSouth! !
+
+!methodRemoval: MarsRover #moveForwardTowardsSouth stamp: 'GG 10/8/2023 20:56:06'!
+moveForwardTowardsSouth
+	
+	position := position + (0@-1)!
+!MarsRover methodsFor: 'moving - private' stamp: 'GG 10/8/2023 20:56:22'!
+moveTowardsNorth
+	
+	position := position + (0@1)! !
+!North methodsFor: 'as yet unclassified' stamp: 'GG 10/8/2023 20:56:22' prior: 50652993 overrides: 50652882!
+moveForward: aMarsRover
+
+	aMarsRover moveTowardsNorth! !
+
+!methodRemoval: MarsRover #moveForwardTowardsNorth stamp: 'GG 10/8/2023 20:56:22'!
+moveForwardTowardsNorth
+	
+	position := position + (0@1)!
+
+----SNAPSHOT----(8 October 2023 20:56:29) CuisUniversity-5981.image priorSource: 10300423!
+
+!testRun: #TestsMarsRover #test01StaysInPositionIfCommandIsEmpty stamp: 'GG 10/8/2023 20:56:32'!
+PASSED!
+
+!testRun: #TestsMarsRover #test02MovesOnePositionForward stamp: 'GG 10/8/2023 20:56:32'!
+PASSED!
+
+!testRun: #TestsMarsRover #test03MovesForwardThreePositions stamp: 'GG 10/8/2023 20:56:32'!
+PASSED!
+
+!testRun: #TestsMarsRover #test04MovesOnePositionBackwards stamp: 'GG 10/8/2023 20:56:32'!
+PASSED!
+
+!testRun: #TestsMarsRover #test05RotateLeftWhenPointingNorth stamp: 'GG 10/8/2023 20:56:32'!
+PASSED!
+
+!testRun: #TestsMarsRover #test06RotateLeftWhenPointingSouth stamp: 'GG 10/8/2023 20:56:32'!
+PASSED!
+
+!testRun: #TestsMarsRover #test07RotateLeftWhenPointingEast stamp: 'GG 10/8/2023 20:56:32'!
+PASSED!
+
+!testRun: #TestsMarsRover #test08RotateLeftWhenPointingWest stamp: 'GG 10/8/2023 20:56:32'!
+PASSED!
+
+!testRun: #TestsMarsRover #test09RotateRightWhenPointingNorth stamp: 'GG 10/8/2023 20:56:32'!
+PASSED!
+
+!testRun: #TestsMarsRover #test10RotateRightWhenPointingSouth stamp: 'GG 10/8/2023 20:56:32'!
+PASSED!
+
+!testRun: #TestsMarsRover #test11RotateRightWhenPointingEast stamp: 'GG 10/8/2023 20:56:32'!
+PASSED!
+
+!testRun: #TestsMarsRover #test12RotateRightWhenPointingWest stamp: 'GG 10/8/2023 20:56:32'!
+PASSED!
+
+!testRun: #TestsMarsRover #test13RotateLeftAndMoveOnePositionForwardWhenPointingNorth stamp: 'GG 10/8/2023 20:56:32'!
+PASSED!
+
+!testRun: #TestsMarsRover #test14RotateRightAndMoveOnePositionForwardWhenPointingNorth stamp: 'GG 10/8/2023 20:56:32'!
+PASSED!
+
+!testRun: #TestsMarsRover #test15RotateRightAndMoveOnePositionForwardWhenPointingEast stamp: 'GG 10/8/2023 20:56:32'!
+PASSED!
+
+!testRun: #TestsMarsRover #test16RotateLeftAndMoveOnePositionBackwardWhenPointingNorth stamp: 'GG 10/8/2023 20:56:32'!
+PASSED!
+
+!testRun: #TestsMarsRover #test16RotateLeftAndMoveOnePositionBackwardWhenPointingNorth stamp: 'GG 10/8/2023 20:57:00'!
+PASSED!
+
+!testRun: #TestsMarsRover #test16RotateLeftAndMoveOnePositionBackwardWhenPointingNorth stamp: 'GG 10/8/2023 20:57:47'!
+PASSED!
+!South methodsFor: 'moving' stamp: 'GG 10/8/2023 20:58:15' prior: 50653358 overrides: 50653373!
+moveBackward: aMarsRover
+
+	aMarsRover moveTowardsNorth ! !
+!MarsRover methodsFor: 'process - private' stamp: 'GG 10/8/2023 20:58:24' prior: 50653003!
+moveForward
+
+	cardinalPoint moveForward: self
+! !
+!MarsRover methodsFor: 'process - private' stamp: 'GG 10/8/2023 20:58:32' prior: 50653609!
+moveBackward
+
+	cardinalPoint moveBackward: self! !
+
+!testRun: #TestsMarsRover #test01StaysInPositionIfCommandIsEmpty stamp: 'GG 10/8/2023 20:58:34'!
+PASSED!
+
+!testRun: #TestsMarsRover #test02MovesOnePositionForward stamp: 'GG 10/8/2023 20:58:34'!
+PASSED!
+
+!testRun: #TestsMarsRover #test03MovesForwardThreePositions stamp: 'GG 10/8/2023 20:58:34'!
+PASSED!
+
+!testRun: #TestsMarsRover #test04MovesOnePositionBackwards stamp: 'GG 10/8/2023 20:58:34'!
+ERROR!
+
+!testRun: #TestsMarsRover #test05RotateLeftWhenPointingNorth stamp: 'GG 10/8/2023 20:58:34'!
+PASSED!
+
+!testRun: #TestsMarsRover #test06RotateLeftWhenPointingSouth stamp: 'GG 10/8/2023 20:58:34'!
+PASSED!
+
+!testRun: #TestsMarsRover #test07RotateLeftWhenPointingEast stamp: 'GG 10/8/2023 20:58:34'!
+PASSED!
+
+!testRun: #TestsMarsRover #test08RotateLeftWhenPointingWest stamp: 'GG 10/8/2023 20:58:34'!
+PASSED!
+
+!testRun: #TestsMarsRover #test09RotateRightWhenPointingNorth stamp: 'GG 10/8/2023 20:58:34'!
+PASSED!
+
+!testRun: #TestsMarsRover #test10RotateRightWhenPointingSouth stamp: 'GG 10/8/2023 20:58:34'!
+PASSED!
+
+!testRun: #TestsMarsRover #test11RotateRightWhenPointingEast stamp: 'GG 10/8/2023 20:58:34'!
+PASSED!
+
+!testRun: #TestsMarsRover #test12RotateRightWhenPointingWest stamp: 'GG 10/8/2023 20:58:34'!
+PASSED!
+
+!testRun: #TestsMarsRover #test13RotateLeftAndMoveOnePositionForwardWhenPointingNorth stamp: 'GG 10/8/2023 20:58:34'!
+PASSED!
+
+!testRun: #TestsMarsRover #test14RotateRightAndMoveOnePositionForwardWhenPointingNorth stamp: 'GG 10/8/2023 20:58:34'!
+PASSED!
+
+!testRun: #TestsMarsRover #test15RotateRightAndMoveOnePositionForwardWhenPointingEast stamp: 'GG 10/8/2023 20:58:34'!
+PASSED!
+
+!testRun: #TestsMarsRover #test16RotateLeftAndMoveOnePositionBackwardWhenPointingNorth stamp: 'GG 10/8/2023 20:58:34'!
+PASSED!
+
+!testRun: #TestsMarsRover #test04MovesOnePositionBackwards stamp: 'GG 10/8/2023 20:58:34'!
+ERROR!
+!North methodsFor: 'moving' stamp: 'GG 10/8/2023 20:59:02' prior: 50653353 overrides: 50653373!
+moveBackward: aMarsRover
+
+	aMarsRover moveTowardsSouth ! !
+
+!testRun: #TestsMarsRover #test01StaysInPositionIfCommandIsEmpty stamp: 'GG 10/8/2023 20:59:05'!
+PASSED!
+
+!testRun: #TestsMarsRover #test02MovesOnePositionForward stamp: 'GG 10/8/2023 20:59:05'!
+PASSED!
+
+!testRun: #TestsMarsRover #test03MovesForwardThreePositions stamp: 'GG 10/8/2023 20:59:05'!
+PASSED!
+
+!testRun: #TestsMarsRover #test04MovesOnePositionBackwards stamp: 'GG 10/8/2023 20:59:05'!
+PASSED!
+
+!testRun: #TestsMarsRover #test05RotateLeftWhenPointingNorth stamp: 'GG 10/8/2023 20:59:05'!
+PASSED!
+
+!testRun: #TestsMarsRover #test06RotateLeftWhenPointingSouth stamp: 'GG 10/8/2023 20:59:05'!
+PASSED!
+
+!testRun: #TestsMarsRover #test07RotateLeftWhenPointingEast stamp: 'GG 10/8/2023 20:59:05'!
+PASSED!
+
+!testRun: #TestsMarsRover #test08RotateLeftWhenPointingWest stamp: 'GG 10/8/2023 20:59:05'!
+PASSED!
+
+!testRun: #TestsMarsRover #test09RotateRightWhenPointingNorth stamp: 'GG 10/8/2023 20:59:05'!
+PASSED!
+
+!testRun: #TestsMarsRover #test10RotateRightWhenPointingSouth stamp: 'GG 10/8/2023 20:59:05'!
+PASSED!
+
+!testRun: #TestsMarsRover #test11RotateRightWhenPointingEast stamp: 'GG 10/8/2023 20:59:05'!
+PASSED!
+
+!testRun: #TestsMarsRover #test12RotateRightWhenPointingWest stamp: 'GG 10/8/2023 20:59:05'!
+PASSED!
+
+!testRun: #TestsMarsRover #test13RotateLeftAndMoveOnePositionForwardWhenPointingNorth stamp: 'GG 10/8/2023 20:59:05'!
+PASSED!
+
+!testRun: #TestsMarsRover #test14RotateRightAndMoveOnePositionForwardWhenPointingNorth stamp: 'GG 10/8/2023 20:59:05'!
+PASSED!
+
+!testRun: #TestsMarsRover #test15RotateRightAndMoveOnePositionForwardWhenPointingEast stamp: 'GG 10/8/2023 20:59:05'!
+PASSED!
+
+!testRun: #TestsMarsRover #test16RotateLeftAndMoveOnePositionBackwardWhenPointingNorth stamp: 'GG 10/8/2023 20:59:05'!
+PASSED!
+!South methodsFor: 'moving' stamp: 'GG 10/8/2023 20:59:30' prior: 50653800 overrides: 50653373!
+moveBackward: aMarsRover
+
+	self sub! !
+!South methodsFor: 'moving' stamp: 'GG 10/8/2023 20:59:35' prior: 50653931 overrides: 50653373!
+moveBackward: aMarsRover
+
+	self subclassResponsibility ! !
+
+!testRun: #TestsMarsRover #test01StaysInPositionIfCommandIsEmpty stamp: 'GG 10/8/2023 20:59:38'!
+PASSED!
+
+!testRun: #TestsMarsRover #test02MovesOnePositionForward stamp: 'GG 10/8/2023 20:59:38'!
+PASSED!
+
+!testRun: #TestsMarsRover #test03MovesForwardThreePositions stamp: 'GG 10/8/2023 20:59:38'!
+PASSED!
+
+!testRun: #TestsMarsRover #test04MovesOnePositionBackwards stamp: 'GG 10/8/2023 20:59:38'!
+PASSED!
+
+!testRun: #TestsMarsRover #test05RotateLeftWhenPointingNorth stamp: 'GG 10/8/2023 20:59:38'!
+PASSED!
+
+!testRun: #TestsMarsRover #test06RotateLeftWhenPointingSouth stamp: 'GG 10/8/2023 20:59:38'!
+PASSED!
+
+!testRun: #TestsMarsRover #test07RotateLeftWhenPointingEast stamp: 'GG 10/8/2023 20:59:38'!
+PASSED!
+
+!testRun: #TestsMarsRover #test08RotateLeftWhenPointingWest stamp: 'GG 10/8/2023 20:59:38'!
+PASSED!
+
+!testRun: #TestsMarsRover #test09RotateRightWhenPointingNorth stamp: 'GG 10/8/2023 20:59:38'!
+PASSED!
+
+!testRun: #TestsMarsRover #test10RotateRightWhenPointingSouth stamp: 'GG 10/8/2023 20:59:38'!
+PASSED!
+
+!testRun: #TestsMarsRover #test11RotateRightWhenPointingEast stamp: 'GG 10/8/2023 20:59:38'!
+PASSED!
+
+!testRun: #TestsMarsRover #test12RotateRightWhenPointingWest stamp: 'GG 10/8/2023 20:59:38'!
+PASSED!
+
+!testRun: #TestsMarsRover #test13RotateLeftAndMoveOnePositionForwardWhenPointingNorth stamp: 'GG 10/8/2023 20:59:38'!
+PASSED!
+
+!testRun: #TestsMarsRover #test14RotateRightAndMoveOnePositionForwardWhenPointingNorth stamp: 'GG 10/8/2023 20:59:38'!
+PASSED!
+
+!testRun: #TestsMarsRover #test15RotateRightAndMoveOnePositionForwardWhenPointingEast stamp: 'GG 10/8/2023 20:59:38'!
+PASSED!
+
+!testRun: #TestsMarsRover #test16RotateLeftAndMoveOnePositionBackwardWhenPointingNorth stamp: 'GG 10/8/2023 20:59:38'!
+PASSED!
+!TestsMarsRover methodsFor: 'as yet unclassified' stamp: 'GG 10/8/2023 21:00:31'!
+test17RotateLeftAndMoveOnePositionBackwardWhenPointingEast
+
+	|marsRover initialCardinalPoint finalCardinalPoint|
+	
+	initialCardinalPoint := West new.
+	finalCardinalPoint := South new.
+	marsRover := MarsRover at: 0@0 pointing: initialCardinalPoint.
+	marsRover process: 'lb'.
+	
+	self assert: (marsRover isAtPosition: 0@1 pointing: finalCardinalPoint)! !
+
+!testRun: #TestsMarsRover #test17RotateLeftAndMoveOnePositionBackwardWhenPointingEast stamp: 'GG 10/8/2023 21:00:36'!
+ERROR!
+
+!testRun: #TestsMarsRover #test17RotateLeftAndMoveOnePositionBackwardWhenPointingEast stamp: 'GG 10/8/2023 21:00:36'!
+ERROR!
+!South methodsFor: 'moving' stamp: 'GG 10/8/2023 21:00:47' prior: 50653936 overrides: 50653373!
+moveBackward: aMarsRover
+
+	aMarsRover moveTowardsNorth ! !
+
+!testRun: #TestsMarsRover #test01StaysInPositionIfCommandIsEmpty stamp: 'GG 10/8/2023 21:00:49'!
+PASSED!
+
+!testRun: #TestsMarsRover #test02MovesOnePositionForward stamp: 'GG 10/8/2023 21:00:49'!
+PASSED!
+
+!testRun: #TestsMarsRover #test03MovesForwardThreePositions stamp: 'GG 10/8/2023 21:00:49'!
+PASSED!
+
+!testRun: #TestsMarsRover #test04MovesOnePositionBackwards stamp: 'GG 10/8/2023 21:00:49'!
+PASSED!
+
+!testRun: #TestsMarsRover #test05RotateLeftWhenPointingNorth stamp: 'GG 10/8/2023 21:00:49'!
+PASSED!
+
+!testRun: #TestsMarsRover #test06RotateLeftWhenPointingSouth stamp: 'GG 10/8/2023 21:00:49'!
+PASSED!
+
+!testRun: #TestsMarsRover #test07RotateLeftWhenPointingEast stamp: 'GG 10/8/2023 21:00:49'!
+PASSED!
+
+!testRun: #TestsMarsRover #test08RotateLeftWhenPointingWest stamp: 'GG 10/8/2023 21:00:49'!
+PASSED!
+
+!testRun: #TestsMarsRover #test09RotateRightWhenPointingNorth stamp: 'GG 10/8/2023 21:00:49'!
+PASSED!
+
+!testRun: #TestsMarsRover #test10RotateRightWhenPointingSouth stamp: 'GG 10/8/2023 21:00:49'!
+PASSED!
+
+!testRun: #TestsMarsRover #test11RotateRightWhenPointingEast stamp: 'GG 10/8/2023 21:00:49'!
+PASSED!
+
+!testRun: #TestsMarsRover #test12RotateRightWhenPointingWest stamp: 'GG 10/8/2023 21:00:49'!
+PASSED!
+
+!testRun: #TestsMarsRover #test13RotateLeftAndMoveOnePositionForwardWhenPointingNorth stamp: 'GG 10/8/2023 21:00:49'!
+PASSED!
+
+!testRun: #TestsMarsRover #test14RotateRightAndMoveOnePositionForwardWhenPointingNorth stamp: 'GG 10/8/2023 21:00:49'!
+PASSED!
+
+!testRun: #TestsMarsRover #test15RotateRightAndMoveOnePositionForwardWhenPointingEast stamp: 'GG 10/8/2023 21:00:49'!
+PASSED!
+
+!testRun: #TestsMarsRover #test16RotateLeftAndMoveOnePositionBackwardWhenPointingNorth stamp: 'GG 10/8/2023 21:00:49'!
+PASSED!
+
+!testRun: #TestsMarsRover #test17RotateLeftAndMoveOnePositionBackwardWhenPointingEast stamp: 'GG 10/8/2023 21:00:49'!
+PASSED!
+!TestsMarsRover methodsFor: 'as yet unclassified' stamp: 'GG 10/8/2023 21:01:31'!
+test18RotateLeftAndMoveOnePositionBackwardWhenPointingNorth
+
+	|marsRover initialCardinalPoint finalCardinalPoint|
+	
+	initialCardinalPoint := North new.
+	finalCardinalPoint := West new.
+	marsRover := MarsRover at: 0@0 pointing: initialCardinalPoint.
+	marsRover process: 'lb'.
+	
+	self assert: (marsRover isAtPosition: 1@0 pointing: finalCardinalPoint)! !
+
+!testRun: #TestsMarsRover #test18RotateLeftAndMoveOnePositionBackwardWhenPointingNorth stamp: 'GG 10/8/2023 21:01:32'!
+PASSED!
+
+!testRun: #TestsMarsRover #test01StaysInPositionIfCommandIsEmpty stamp: 'GG 10/8/2023 21:01:32'!
+PASSED!
+
+!testRun: #TestsMarsRover #test02MovesOnePositionForward stamp: 'GG 10/8/2023 21:01:32'!
+PASSED!
+
+!testRun: #TestsMarsRover #test03MovesForwardThreePositions stamp: 'GG 10/8/2023 21:01:32'!
+PASSED!
+
+!testRun: #TestsMarsRover #test04MovesOnePositionBackwards stamp: 'GG 10/8/2023 21:01:32'!
+PASSED!
+
+!testRun: #TestsMarsRover #test05RotateLeftWhenPointingNorth stamp: 'GG 10/8/2023 21:01:32'!
+PASSED!
+
+!testRun: #TestsMarsRover #test06RotateLeftWhenPointingSouth stamp: 'GG 10/8/2023 21:01:32'!
+PASSED!
+
+!testRun: #TestsMarsRover #test07RotateLeftWhenPointingEast stamp: 'GG 10/8/2023 21:01:32'!
+PASSED!
+
+!testRun: #TestsMarsRover #test08RotateLeftWhenPointingWest stamp: 'GG 10/8/2023 21:01:32'!
+PASSED!
+
+!testRun: #TestsMarsRover #test09RotateRightWhenPointingNorth stamp: 'GG 10/8/2023 21:01:32'!
+PASSED!
+
+!testRun: #TestsMarsRover #test10RotateRightWhenPointingSouth stamp: 'GG 10/8/2023 21:01:32'!
+PASSED!
+
+!testRun: #TestsMarsRover #test11RotateRightWhenPointingEast stamp: 'GG 10/8/2023 21:01:32'!
+PASSED!
+
+!testRun: #TestsMarsRover #test12RotateRightWhenPointingWest stamp: 'GG 10/8/2023 21:01:32'!
+PASSED!
+
+!testRun: #TestsMarsRover #test13RotateLeftAndMoveOnePositionForwardWhenPointingNorth stamp: 'GG 10/8/2023 21:01:32'!
+PASSED!
+
+!testRun: #TestsMarsRover #test14RotateRightAndMoveOnePositionForwardWhenPointingNorth stamp: 'GG 10/8/2023 21:01:32'!
+PASSED!
+
+!testRun: #TestsMarsRover #test15RotateRightAndMoveOnePositionForwardWhenPointingEast stamp: 'GG 10/8/2023 21:01:32'!
+PASSED!
+
+!testRun: #TestsMarsRover #test16RotateLeftAndMoveOnePositionBackwardWhenPointingNorth stamp: 'GG 10/8/2023 21:01:32'!
+PASSED!
+
+!testRun: #TestsMarsRover #test17RotateLeftAndMoveOnePositionBackwardWhenPointingEast stamp: 'GG 10/8/2023 21:01:32'!
+PASSED!
+
+!testRun: #TestsMarsRover #test18RotateLeftAndMoveOnePositionBackwardWhenPointingNorth stamp: 'GG 10/8/2023 21:01:32'!
+PASSED!
+!TestsMarsRover methodsFor: 'as yet unclassified' stamp: 'GG 10/8/2023 21:01:56'!
+test18RotateRightAndMoveOnePositionBackwardWhenPointingNorth
+
+	|marsRover initialCardinalPoint finalCardinalPoint|
+	
+	initialCardinalPoint := North new.
+	finalCardinalPoint := East new.
+	marsRover := MarsRover at: 0@0 pointing: initialCardinalPoint.
+	marsRover process: 'lb'.
+	
+	self assert: (marsRover isAtPosition: -1@0 pointing: finalCardinalPoint)! !
+
+!methodRemoval: TestsMarsRover #test18RotateLeftAndMoveOnePositionBackwardWhenPointingNorth stamp: 'GG 10/8/2023 21:02:00'!
+test18RotateLeftAndMoveOnePositionBackwardWhenPointingNorth
+
+	|marsRover initialCardinalPoint finalCardinalPoint|
+	
+	initialCardinalPoint := North new.
+	finalCardinalPoint := West new.
+	marsRover := MarsRover at: 0@0 pointing: initialCardinalPoint.
+	marsRover process: 'lb'.
+	
+	self assert: (marsRover isAtPosition: 1@0 pointing: finalCardinalPoint)!
+
+!testRun: #TestsMarsRover #test18RotateRightAndMoveOnePositionBackwardWhenPointingNorth stamp: 'GG 10/8/2023 21:02:02'!
+FAILURE!
+
+!testRun: #TestsMarsRover #test18RotateRightAndMoveOnePositionBackwardWhenPointingNorth stamp: 'GG 10/8/2023 21:02:02'!
+FAILURE!
+!East methodsFor: 'moving' stamp: 'GG 10/8/2023 21:02:23' prior: 50653363 overrides: 50653373!
+moveBackward: aMarsRover
+
+	aMarsRover moveTowardsWest ! !
+
+!testRun: #TestsMarsRover #test01StaysInPositionIfCommandIsEmpty stamp: 'GG 10/8/2023 21:02:25'!
+PASSED!
+
+!testRun: #TestsMarsRover #test02MovesOnePositionForward stamp: 'GG 10/8/2023 21:02:25'!
+PASSED!
+
+!testRun: #TestsMarsRover #test03MovesForwardThreePositions stamp: 'GG 10/8/2023 21:02:25'!
+PASSED!
+
+!testRun: #TestsMarsRover #test04MovesOnePositionBackwards stamp: 'GG 10/8/2023 21:02:25'!
+PASSED!
+
+!testRun: #TestsMarsRover #test05RotateLeftWhenPointingNorth stamp: 'GG 10/8/2023 21:02:25'!
+PASSED!
+
+!testRun: #TestsMarsRover #test06RotateLeftWhenPointingSouth stamp: 'GG 10/8/2023 21:02:25'!
+PASSED!
+
+!testRun: #TestsMarsRover #test07RotateLeftWhenPointingEast stamp: 'GG 10/8/2023 21:02:25'!
+PASSED!
+
+!testRun: #TestsMarsRover #test08RotateLeftWhenPointingWest stamp: 'GG 10/8/2023 21:02:25'!
+PASSED!
+
+!testRun: #TestsMarsRover #test09RotateRightWhenPointingNorth stamp: 'GG 10/8/2023 21:02:25'!
+PASSED!
+
+!testRun: #TestsMarsRover #test10RotateRightWhenPointingSouth stamp: 'GG 10/8/2023 21:02:25'!
+PASSED!
+
+!testRun: #TestsMarsRover #test11RotateRightWhenPointingEast stamp: 'GG 10/8/2023 21:02:25'!
+PASSED!
+
+!testRun: #TestsMarsRover #test12RotateRightWhenPointingWest stamp: 'GG 10/8/2023 21:02:25'!
+PASSED!
+
+!testRun: #TestsMarsRover #test13RotateLeftAndMoveOnePositionForwardWhenPointingNorth stamp: 'GG 10/8/2023 21:02:25'!
+PASSED!
+
+!testRun: #TestsMarsRover #test14RotateRightAndMoveOnePositionForwardWhenPointingNorth stamp: 'GG 10/8/2023 21:02:25'!
+PASSED!
+
+!testRun: #TestsMarsRover #test15RotateRightAndMoveOnePositionForwardWhenPointingEast stamp: 'GG 10/8/2023 21:02:25'!
+PASSED!
+
+!testRun: #TestsMarsRover #test16RotateLeftAndMoveOnePositionBackwardWhenPointingNorth stamp: 'GG 10/8/2023 21:02:25'!
+PASSED!
+
+!testRun: #TestsMarsRover #test17RotateLeftAndMoveOnePositionBackwardWhenPointingEast stamp: 'GG 10/8/2023 21:02:25'!
+PASSED!
+
+!testRun: #TestsMarsRover #test18RotateRightAndMoveOnePositionBackwardWhenPointingNorth stamp: 'GG 10/8/2023 21:02:25'!
+FAILURE!
+
+!testRun: #TestsMarsRover #test18RotateRightAndMoveOnePositionBackwardWhenPointingNorth stamp: 'GG 10/8/2023 21:02:25'!
+FAILURE!
+!TestsMarsRover methodsFor: 'as yet unclassified' stamp: 'GG 10/8/2023 21:02:34' prior: 50654160!
+test18RotateRightAndMoveOnePositionBackwardWhenPointingNorth
+
+	|marsRover initialCardinalPoint finalCardinalPoint|
+	
+	initialCardinalPoint := North new.
+	finalCardinalPoint := East new.
+	marsRover := MarsRover at: 0@0 pointing: initialCardinalPoint.
+	marsRover process: 'rb'.
+	
+	self assert: (marsRover isAtPosition: -1@0 pointing: finalCardinalPoint)! !
+
+!testRun: #TestsMarsRover #test01StaysInPositionIfCommandIsEmpty stamp: 'GG 10/8/2023 21:02:37'!
+PASSED!
+
+!testRun: #TestsMarsRover #test02MovesOnePositionForward stamp: 'GG 10/8/2023 21:02:37'!
+PASSED!
+
+!testRun: #TestsMarsRover #test03MovesForwardThreePositions stamp: 'GG 10/8/2023 21:02:37'!
+PASSED!
+
+!testRun: #TestsMarsRover #test04MovesOnePositionBackwards stamp: 'GG 10/8/2023 21:02:37'!
+PASSED!
+
+!testRun: #TestsMarsRover #test05RotateLeftWhenPointingNorth stamp: 'GG 10/8/2023 21:02:37'!
+PASSED!
+
+!testRun: #TestsMarsRover #test06RotateLeftWhenPointingSouth stamp: 'GG 10/8/2023 21:02:37'!
+PASSED!
+
+!testRun: #TestsMarsRover #test07RotateLeftWhenPointingEast stamp: 'GG 10/8/2023 21:02:37'!
+PASSED!
+
+!testRun: #TestsMarsRover #test08RotateLeftWhenPointingWest stamp: 'GG 10/8/2023 21:02:37'!
+PASSED!
+
+!testRun: #TestsMarsRover #test09RotateRightWhenPointingNorth stamp: 'GG 10/8/2023 21:02:37'!
+PASSED!
+
+!testRun: #TestsMarsRover #test10RotateRightWhenPointingSouth stamp: 'GG 10/8/2023 21:02:37'!
+PASSED!
+
+!testRun: #TestsMarsRover #test11RotateRightWhenPointingEast stamp: 'GG 10/8/2023 21:02:37'!
+PASSED!
+
+!testRun: #TestsMarsRover #test12RotateRightWhenPointingWest stamp: 'GG 10/8/2023 21:02:37'!
+PASSED!
+
+!testRun: #TestsMarsRover #test13RotateLeftAndMoveOnePositionForwardWhenPointingNorth stamp: 'GG 10/8/2023 21:02:37'!
+PASSED!
+
+!testRun: #TestsMarsRover #test14RotateRightAndMoveOnePositionForwardWhenPointingNorth stamp: 'GG 10/8/2023 21:02:37'!
+PASSED!
+
+!testRun: #TestsMarsRover #test15RotateRightAndMoveOnePositionForwardWhenPointingEast stamp: 'GG 10/8/2023 21:02:37'!
+PASSED!
+
+!testRun: #TestsMarsRover #test16RotateLeftAndMoveOnePositionBackwardWhenPointingNorth stamp: 'GG 10/8/2023 21:02:37'!
+PASSED!
+
+!testRun: #TestsMarsRover #test17RotateLeftAndMoveOnePositionBackwardWhenPointingEast stamp: 'GG 10/8/2023 21:02:37'!
+PASSED!
+
+!testRun: #TestsMarsRover #test18RotateRightAndMoveOnePositionBackwardWhenPointingNorth stamp: 'GG 10/8/2023 21:02:37'!
+PASSED!
+!TestsMarsRover methodsFor: 'as yet unclassified' stamp: 'GG 10/8/2023 21:03:33'!
+test19MarsRoverStaysInLastValidPositionWhenThereIsAnInvalidCommand
+
+	|marsRover initialCardinalPoint finalCardinalPoint|
+	
+	initialCardinalPoint := North new.
+	finalCardinalPoint := East new.
+	marsRover := MarsRover at: 0@0 pointing: initialCardinalPoint.
+	marsRover process: 'rb'.
+	
+	self assert: (marsRover isAtPosition: -1@0 pointing: finalCardinalPoint)! !
+!TestsMarsRover methodsFor: 'as yet unclassified' stamp: 'GG 10/8/2023 21:05:17' prior: 50654346!
+test19MarsRoverStaysInLastValidPositionWhenThereIsAnInvalidCommand
+
+	|marsRover initialCardinalPoint finalCardinalPoint|
+	
+	initialCardinalPoint := North new.
+	finalCardinalPoint := North new.
+	marsRover := MarsRover at: 0@0 pointing: initialCardinalPoint.
+	marsRover process: 'rbfflfxff'.
+	
+	self assert: (marsRover isAtPosition: 1@1 pointing: finalCardinalPoint)! !
+
+!testRun: #TestsMarsRover #test19MarsRoverStaysInLastValidPositionWhenThereIsAnInvalidCommand stamp: 'GG 10/8/2023 21:05:19'!
+FAILURE!
+
+!testRun: #TestsMarsRover #test19MarsRoverStaysInLastValidPositionWhenThereIsAnInvalidCommand stamp: 'GG 10/8/2023 21:05:19'!
+FAILURE!
+!MarsRoverCommand class methodsFor: 'as yet unclassified' stamp: 'GG 10/8/2023 21:05:57' prior: 50652195!
+with: aCommand 
+
+	aCommand = $f ifTrue: [^Forward new].
+	aCommand = $b ifTrue: [^Backward new].
+	aCommand = $l ifTrue: [^LeftRotation new].
+	aCommand = $r ifTrue: [^RightRotation new].
+	^ self error: self invalidCommandErrorDescription! !
+!MarsRoverCommand class methodsFor: 'error messages' stamp: 'GG 10/8/2023 21:06:30'!
+invalidCommandErrorDescription
+
+! !
+!MarsRoverCommand class methodsFor: 'error messages' stamp: 'GG 10/8/2023 21:06:52' prior: 50654396!
+invalidCommandErrorDescription
+
+	^ 'The command is not valid!!'! !
+
+!testRun: #TestsMarsRover #test01StaysInPositionIfCommandIsEmpty stamp: 'GG 10/8/2023 21:06:54'!
+PASSED!
+
+!testRun: #TestsMarsRover #test02MovesOnePositionForward stamp: 'GG 10/8/2023 21:06:54'!
+PASSED!
+
+!testRun: #TestsMarsRover #test03MovesForwardThreePositions stamp: 'GG 10/8/2023 21:06:54'!
+PASSED!
+
+!testRun: #TestsMarsRover #test04MovesOnePositionBackwards stamp: 'GG 10/8/2023 21:06:54'!
+PASSED!
+
+!testRun: #TestsMarsRover #test05RotateLeftWhenPointingNorth stamp: 'GG 10/8/2023 21:06:54'!
+PASSED!
+
+!testRun: #TestsMarsRover #test06RotateLeftWhenPointingSouth stamp: 'GG 10/8/2023 21:06:54'!
+PASSED!
+
+!testRun: #TestsMarsRover #test07RotateLeftWhenPointingEast stamp: 'GG 10/8/2023 21:06:54'!
+PASSED!
+
+!testRun: #TestsMarsRover #test08RotateLeftWhenPointingWest stamp: 'GG 10/8/2023 21:06:54'!
+PASSED!
+
+!testRun: #TestsMarsRover #test09RotateRightWhenPointingNorth stamp: 'GG 10/8/2023 21:06:54'!
+PASSED!
+
+!testRun: #TestsMarsRover #test10RotateRightWhenPointingSouth stamp: 'GG 10/8/2023 21:06:54'!
+PASSED!
+
+!testRun: #TestsMarsRover #test11RotateRightWhenPointingEast stamp: 'GG 10/8/2023 21:06:54'!
+PASSED!
+
+!testRun: #TestsMarsRover #test12RotateRightWhenPointingWest stamp: 'GG 10/8/2023 21:06:54'!
+PASSED!
+
+!testRun: #TestsMarsRover #test13RotateLeftAndMoveOnePositionForwardWhenPointingNorth stamp: 'GG 10/8/2023 21:06:54'!
+PASSED!
+
+!testRun: #TestsMarsRover #test14RotateRightAndMoveOnePositionForwardWhenPointingNorth stamp: 'GG 10/8/2023 21:06:54'!
+PASSED!
+
+!testRun: #TestsMarsRover #test15RotateRightAndMoveOnePositionForwardWhenPointingEast stamp: 'GG 10/8/2023 21:06:54'!
+PASSED!
+
+!testRun: #TestsMarsRover #test16RotateLeftAndMoveOnePositionBackwardWhenPointingNorth stamp: 'GG 10/8/2023 21:06:54'!
+PASSED!
+
+!testRun: #TestsMarsRover #test17RotateLeftAndMoveOnePositionBackwardWhenPointingEast stamp: 'GG 10/8/2023 21:06:54'!
+PASSED!
+
+!testRun: #TestsMarsRover #test18RotateRightAndMoveOnePositionBackwardWhenPointingNorth stamp: 'GG 10/8/2023 21:06:54'!
+PASSED!
+
+!testRun: #TestsMarsRover #test19MarsRoverStaysInLastValidPositionWhenThereIsAnInvalidCommand stamp: 'GG 10/8/2023 21:06:54'!
+ERROR!
+
+!testRun: #TestsMarsRover #test19MarsRoverStaysInLastValidPositionWhenThereIsAnInvalidCommand stamp: 'GG 10/8/2023 21:06:54'!
+ERROR!
+!TestsMarsRover methodsFor: 'as yet unclassified' stamp: 'GG 10/8/2023 21:09:09' prior: 50654361!
+test19MarsRoverStaysInLastValidPositionWhenThereIsAnInvalidCommand
+
+	|marsRover initialCardinalPoint finalCardinalPoint|
+	
+	initialCardinalPoint := North new.
+	finalCardinalPoint := North new.
+	marsRover := MarsRover at: 0@0 pointing: initialCardinalPoint.
+	"marsRover process: 'rbfflfxff'."
+	self 
+		should: [marsRover process: 'rbfflfxff']
+		raise: Error
+		withMessageText: MarsRoverCommand invalidCommandErrorDescription.
+	
+	"self assert: (marsRover isAtPosition: 1@1 pointing: finalCardinalPoint)"! !
+
+!testRun: #TestsMarsRover #test19MarsRoverStaysInLastValidPositionWhenThereIsAnInvalidCommand stamp: 'GG 10/8/2023 21:09:13'!
+PASSED!
+!TestsMarsRover methodsFor: 'as yet unclassified' stamp: 'GG 10/8/2023 21:09:18' prior: 50654477!
+test19MarsRoverStaysInLastValidPositionWhenThereIsAnInvalidCommand
+
+	|marsRover initialCardinalPoint finalCardinalPoint|
+	
+	initialCardinalPoint := North new.
+	finalCardinalPoint := North new.
+	marsRover := MarsRover at: 0@0 pointing: initialCardinalPoint.
+	"marsRover process: 'rbfflfxff'."
+	self 
+		should: [marsRover process: 'rbfflfxff']
+		raise: Error
+		withMessageText: MarsRoverCommand invalidCommandErrorDescription.
+	
+	self assert: (marsRover isAtPosition: 1@1 pointing: finalCardinalPoint)! !
+
+!testRun: #TestsMarsRover #test19MarsRoverStaysInLastValidPositionWhenThereIsAnInvalidCommand stamp: 'GG 10/8/2023 21:09:20'!
+PASSED!
+!TestsMarsRover methodsFor: 'as yet unclassified' stamp: 'GG 10/8/2023 21:10:22' prior: 50654501!
+test19MarsRoverStaysInLastValidPositionWhenThereIsAnInvalidCommand
+
+	|marsRover initialCardinalPoint finalCardinalPoint|
+	
+	initialCardinalPoint := North new.
+	finalCardinalPoint := North new.
+	marsRover := MarsRover at: 0@0 pointing: initialCardinalPoint.
+	
+	self 
+		should: [marsRover process: 'rbfflfxff']
+		raise: Error
+		withMessageText: MarsRoverCommand invalidCommandErrorDescription.
+	
+	self assert: (marsRover isAtPosition: 1@1 pointing: finalCardinalPoint)! !
+
+!testRun: #TestsMarsRover #test19MarsRoverStaysInLastValidPositionWhenThereIsAnInvalidCommand stamp: 'GG 10/8/2023 21:10:24'!
+PASSED!
+!TestsMarsRover methodsFor: 'as yet unclassified' stamp: 'GG 10/8/2023 21:10:44'!
+test20
+
+	|marsRover initialCardinalPoint finalCardinalPoint|
+	
+	initialCardinalPoint := North new.
+	finalCardinalPoint := North new.
+	marsRover := MarsRover at: 0@0 pointing: initialCardinalPoint.
+	
+	self 
+		should: [marsRover process: 'rbfflfxff']
+		raise: Error
+		withMessageText: MarsRoverCommand invalidCommandErrorDescription.
+	
+	self assert: (marsRover isAtPosition: 1@1 pointing: finalCardinalPoint)! !
+!TestsMarsRover methodsFor: 'as yet unclassified' stamp: 'GG 10/8/2023 21:11:24'!
+test20testExtraToCheckGeneralization
+
+	|marsRover initialCardinalPoint finalCardinalPoint|
+	
+	initialCardinalPoint := North new.
+	finalCardinalPoint := North new.
+	marsRover := MarsRover at: 0@0 pointing: initialCardinalPoint.
+	
+	self 
+		should: [marsRover process: 'rbfflfxff']
+		raise: Error
+		withMessageText: MarsRoverCommand invalidCommandErrorDescription.
+	
+	self assert: (marsRover isAtPosition: 1@1 pointing: finalCardinalPoint)! !
+
+!methodRemoval: TestsMarsRover #test20 stamp: 'GG 10/8/2023 21:11:27'!
+test20
+
+	|marsRover initialCardinalPoint finalCardinalPoint|
+	
+	initialCardinalPoint := North new.
+	finalCardinalPoint := North new.
+	marsRover := MarsRover at: 0@0 pointing: initialCardinalPoint.
+	
+	self 
+		should: [marsRover process: 'rbfflfxff']
+		raise: Error
+		withMessageText: MarsRoverCommand invalidCommandErrorDescription.
+	
+	self assert: (marsRover isAtPosition: 1@1 pointing: finalCardinalPoint)!
+!TestsMarsRover methodsFor: 'as yet unclassified' stamp: 'GG 10/8/2023 21:13:20' prior: 50654562!
+test20testExtraToCheckGeneralization
+
+	|marsRover initialCardinalPoint finalCardinalPoint|
+	
+	initialCardinalPoint := South new.
+	finalCardinalPoint := East new.
+	marsRover := MarsRover at: 0@0 pointing: initialCardinalPoint.
+	marsRover process: 'rbfflffflb'.
+	
+	self assert: (marsRover isAtPosition: -2@-3 pointing: finalCardinalPoint)! !
+
+!testRun: #TestsMarsRover #test20testExtraToCheckGeneralization stamp: 'GG 10/8/2023 21:13:21'!
+PASSED!
+
+!testRun: #TestsMarsRover #test20testExtraToCheckGeneralization stamp: 'GG 10/8/2023 21:13:24'!
+PASSED!
+
+!testRun: #TestsMarsRover #test01StaysInPositionIfCommandIsEmpty stamp: 'GG 10/8/2023 21:13:30'!
+PASSED!
+
+!testRun: #TestsMarsRover #test02MovesOnePositionForward stamp: 'GG 10/8/2023 21:13:30'!
+PASSED!
+
+!testRun: #TestsMarsRover #test03MovesForwardThreePositions stamp: 'GG 10/8/2023 21:13:30'!
+PASSED!
+
+!testRun: #TestsMarsRover #test04MovesOnePositionBackwards stamp: 'GG 10/8/2023 21:13:30'!
+PASSED!
+
+!testRun: #TestsMarsRover #test05RotateLeftWhenPointingNorth stamp: 'GG 10/8/2023 21:13:30'!
+PASSED!
+
+!testRun: #TestsMarsRover #test06RotateLeftWhenPointingSouth stamp: 'GG 10/8/2023 21:13:30'!
+PASSED!
+
+!testRun: #TestsMarsRover #test07RotateLeftWhenPointingEast stamp: 'GG 10/8/2023 21:13:30'!
+PASSED!
+
+!testRun: #TestsMarsRover #test08RotateLeftWhenPointingWest stamp: 'GG 10/8/2023 21:13:30'!
+PASSED!
+
+!testRun: #TestsMarsRover #test09RotateRightWhenPointingNorth stamp: 'GG 10/8/2023 21:13:30'!
+PASSED!
+
+!testRun: #TestsMarsRover #test10RotateRightWhenPointingSouth stamp: 'GG 10/8/2023 21:13:30'!
+PASSED!
+
+!testRun: #TestsMarsRover #test11RotateRightWhenPointingEast stamp: 'GG 10/8/2023 21:13:30'!
+PASSED!
+
+!testRun: #TestsMarsRover #test12RotateRightWhenPointingWest stamp: 'GG 10/8/2023 21:13:30'!
+PASSED!
+
+!testRun: #TestsMarsRover #test13RotateLeftAndMoveOnePositionForwardWhenPointingNorth stamp: 'GG 10/8/2023 21:13:30'!
+PASSED!
+
+!testRun: #TestsMarsRover #test14RotateRightAndMoveOnePositionForwardWhenPointingNorth stamp: 'GG 10/8/2023 21:13:30'!
+PASSED!
+
+!testRun: #TestsMarsRover #test15RotateRightAndMoveOnePositionForwardWhenPointingEast stamp: 'GG 10/8/2023 21:13:30'!
+PASSED!
+
+!testRun: #TestsMarsRover #test16RotateLeftAndMoveOnePositionBackwardWhenPointingNorth stamp: 'GG 10/8/2023 21:13:30'!
+PASSED!
+
+!testRun: #TestsMarsRover #test17RotateLeftAndMoveOnePositionBackwardWhenPointingEast stamp: 'GG 10/8/2023 21:13:30'!
+PASSED!
+
+!testRun: #TestsMarsRover #test18RotateRightAndMoveOnePositionBackwardWhenPointingNorth stamp: 'GG 10/8/2023 21:13:30'!
+PASSED!
+
+!testRun: #TestsMarsRover #test19MarsRoverStaysInLastValidPositionWhenThereIsAnInvalidCommand stamp: 'GG 10/8/2023 21:13:30'!
+PASSED!
+
+!testRun: #TestsMarsRover #test20testExtraToCheckGeneralization stamp: 'GG 10/8/2023 21:13:30'!
+PASSED!
+
+----SNAPSHOT----(8 October 2023 21:15:18) CuisUniversity-5981.image priorSource: 10306661!
+
+----QUIT----(8 October 2023 21:16:04) CuisUniversity-5981.image priorSource: 10337048!
