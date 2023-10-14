@@ -1,4 +1,4 @@
-'From Cuis 6.0 [latest update: #5981] on 14 October 2023 at 5:05:09 am'!
+'From Cuis 6.0 [latest update: #5981] on 14 October 2023 at 6:20:56 am'!
 !classDefinition: #SHParserST80 category: #'Tools-Syntax Highlighting'!
 Object subclass: #SHParserST80
 	instanceVariableNames: 'classOrMetaClass source workspace arguments sourcePosition currentToken currentTokenFirst temporaries instanceVariables errorBlock currentTokenSourcePosition blockDepth bracketDepth ranges blockDepths blockDepthsStartIndexes braceDepth'
