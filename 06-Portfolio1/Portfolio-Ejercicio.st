@@ -226,8 +226,26 @@ test15CantAddPortfolioIntoSamePortfolio
 		withExceptionDo: [ :anError | self assert: anError messageText equals: Portfolio canNotAddAnAssetAlreadyAdded ]
 ! !
 
-!ReceptiveAccountTest methodsFor: 'tests' stamp: 'NMS 10/13/2023 21:08:35'!
+!ReceptiveAccountTest methodsFor: 'tests' stamp: 'gg 10/13/2023 21:46:14'!
 test16
+
+	| portfolioToVerify portfolio1 portfolio2|
+
+	portfolioToVerify := Portfolio new.
+	portfolio1 := Portfolio new.
+	portfolio2 := Portfolio new.
+
+	portfolio1 addPortfolio: portfolio2 .
+	portfolioToVerify addPortfolio: portfolio1.
+
+	self 
+		should: [portfolioToVerify addPortfolio: portfolio2]
+		raise: Error
+		withExceptionDo: [ :anError | self assert: anError messageText equals: Portfolio canNotAddAnAssetAlreadyAdded ]
+	! !
+
+!ReceptiveAccountTest methodsFor: 'tests' stamp: 'gg 10/13/2023 21:28:27'!
+test900
 
 	| portfolioToVerify portfolio1 portfolio2 portfolio3 account1 account2 account3 account4 account5 |
 
@@ -399,9 +417,12 @@ addAccount: anAccountToAdd
 
 	assets add: anAccountToAdd! !
 
-!Portfolio methodsFor: 'portfolio managment' stamp: 'NMS 10/13/2023 20:44:11'!
+!Portfolio methodsFor: 'portfolio managment' stamp: 'gg 10/13/2023 21:35:32'!
 addPortfolio: aPortfolioToAdd
-	((self = aPortfolioToAdd) or: [assets includes: aPortfolioToAdd]) ifTrue: [^self error: self class canNotAddAnAssetAlreadyAdded].
+
+	((self = aPortfolioToAdd) or: [assets anySatisfy: [:anAsset | anAsset yyy: aPortfolioToAdd]]) 
+		ifTrue: [^self error: self class canNotAddAnAssetAlreadyAdded].
+	
 	assets add: aPortfolioToAdd! !
 
 !Portfolio methodsFor: 'portfolio managment' stamp: 'NMS 10/11/2023 21:55:26'!
@@ -411,6 +432,14 @@ initialize
 !Portfolio methodsFor: 'portfolio managment' stamp: 'NMS 10/13/2023 20:32:42'!
 xxxx: anAssetToVerify
 	^(assets includes: anAssetToVerify)! !
+
+!Portfolio methodsFor: 'portfolio managment' stamp: 'gg 10/13/2023 21:45:43'!
+yyy: aPortfolio
+	
+	
+	^ (assets anySatisfy: [:anAsset | anAsset = aPortfolio]) or: [self = aPortfolio ]
+
+	! !
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
@@ -455,6 +484,11 @@ balance
 !ReceptiveAccount methodsFor: 'balance' stamp: 'NMS 10/13/2023 20:32:09'!
 xxxx: anAssetToVerify
 	^self = anAssetToVerify! !
+
+!ReceptiveAccount methodsFor: 'balance' stamp: 'gg 10/13/2023 21:55:30'!
+yyy: aPortfolioToAdd
+
+	^aPortfolioToAdd xxxx:self! !
 
 
 !ReceptiveAccount methodsFor: 'testing' stamp: 'NR 10/17/2019 03:28:43'!
