@@ -97,7 +97,7 @@ test08EmptyPortfolioHasZeroBalance
 
 	self assert: portfolio balance equals: 0! !
 
-!ReceptiveAccountTest methodsFor: 'tests' stamp: 'NMS 10/11/2023 21:34:59'!
+!ReceptiveAccountTest methodsFor: 'tests' stamp: 'NMS 10/13/2023 20:16:55'!
 test09AddTwoAccountsInPortfolio
 
 	| portfolio anAccount1 anAccount2 |
@@ -116,7 +116,7 @@ test09AddTwoAccountsInPortfolio
 	self assert: portfolio balance equals: 50
 ! !
 
-!ReceptiveAccountTest methodsFor: 'tests' stamp: 'NMS 10/11/2023 21:34:08'!
+!ReceptiveAccountTest methodsFor: 'tests' stamp: 'NMS 10/13/2023 20:17:02'!
 test10AddEmptyPortfolioIntoEmptyPortfolio
 
 	| portfolioToCheck portfolioBase |
@@ -129,7 +129,7 @@ test10AddEmptyPortfolioIntoEmptyPortfolio
 	self assert: portfolioToCheck balance equals: 0
 ! !
 
-!ReceptiveAccountTest methodsFor: 'tests' stamp: 'NMS 10/11/2023 21:39:39'!
+!ReceptiveAccountTest methodsFor: 'tests' stamp: 'NMS 10/13/2023 20:17:08'!
 test11AddPortfolioWithAccountsIntoEmptyPortfolio
 
 	| portfolioWithAccounts portfolioToVerify anAccount1 anAccount2 |
@@ -151,28 +151,121 @@ test11AddPortfolioWithAccountsIntoEmptyPortfolio
 	self assert: portfolioToVerify balance equals: 50
 ! !
 
-!ReceptiveAccountTest methodsFor: 'tests' stamp: 'NMS 10/11/2023 22:04:23'!
-test12CantAddAPortfolioWithAnAccountThatIsAlreadyOnIt
+!ReceptiveAccountTest methodsFor: 'tests' stamp: 'NMS 10/13/2023 20:17:14'!
+test12CantAddSameAccountTwiceInAPortfolio
 
-	| portfolioWithRepeatedAccount portfolioToVerify aRepeatedAccount |
+	| portfolioToVerify anAccount |
+
+	anAccount := ReceptiveAccount new.
+
+	Deposit register: 100 on: anAccount.
+
+	portfolioToVerify := Portfolio new.
+
+	portfolioToVerify addAccount: anAccount.
+
+	self 
+		should: [ portfolioToVerify addAccount: anAccount ]
+		raise: Error
+		withExceptionDo: [ :anError | self assert: anError messageText equals: Portfolio canNotAddAnAssetAlreadyAdded ]
+! !
+
+!ReceptiveAccountTest methodsFor: 'tests' stamp: 'NMS 10/13/2023 20:17:23'!
+test13CantAddPortfolioIntoSamePortfolio
+
+	| portfolioToVerify portfolioToAdd |
+
+	portfolioToVerify := Portfolio new.
+	portfolioToAdd := Portfolio new.
+	
+	portfolioToVerify addPortfolio: portfolioToAdd.
+
+	self 
+		should: [ portfolioToVerify addPortfolio: portfolioToAdd ]
+		raise: Error
+		withExceptionDo: [ :anError | self assert: anError messageText equals: Portfolio canNotAddAnAssetAlreadyAdded ]
+! !
+
+!ReceptiveAccountTest methodsFor: 'tests' stamp: 'NMS 10/13/2023 20:47:01'!
+test14CantAddAnAccountToAPorfolioWhichAlreadyHasAPortfolioWithSameAccount
+
+	| portfolioToVerify portfolioToAdd aRepeatedAccount |
 
 	aRepeatedAccount := ReceptiveAccount new.
 
 	Deposit register: 100 on: aRepeatedAccount.
 
-	portfolioWithRepeatedAccount := Portfolio new.
 	portfolioToVerify := Portfolio new.
-
-	portfolioWithRepeatedAccount addAccount: aRepeatedAccount.
-	portfolioToVerify addAccount: aRepeatedAccount.
-
-	portfolioToVerify addPortfolio: portfolioWithRepeatedAccount.
+	portfolioToAdd := Portfolio new.
+	
+	portfolioToAdd addAccount: aRepeatedAccount.
+	portfolioToVerify addPortfolio: portfolioToAdd.
 
 	self 
-		should: [ portfolioToVerify balance ]
+		should: [ portfolioToVerify addAccount: aRepeatedAccount ]
 		raise: Error
-		withExceptionDo: [ :anError | self assert: anError messageText equals: Portfolio canNotAddRepeatedAccounts ]
+		withExceptionDo: [ :anError | self assert: anError messageText equals: Portfolio canNotAddAnAssetAlreadyAdded ]
 ! !
+
+!ReceptiveAccountTest methodsFor: 'tests' stamp: 'NMS 10/13/2023 20:47:30'!
+test15CantAddPortfolioIntoSamePortfolio
+
+	| portfolioToVerify anAccount |
+
+	anAccount := ReceptiveAccount new.
+
+	Deposit register: 100 on: anAccount.
+
+	portfolioToVerify := Portfolio new.
+	
+	portfolioToVerify addAccount: anAccount.
+
+	self 
+		should: [ 	portfolioToVerify addPortfolio: portfolioToVerify ]
+		raise: Error
+		withExceptionDo: [ :anError | self assert: anError messageText equals: Portfolio canNotAddAnAssetAlreadyAdded ]
+! !
+
+!ReceptiveAccountTest methodsFor: 'tests' stamp: 'NMS 10/13/2023 21:08:35'!
+test16
+
+	| portfolioToVerify portfolio1 portfolio2 portfolio3 account1 account2 account3 account4 account5 |
+
+	account1 := ReceptiveAccount new.
+	account2 := ReceptiveAccount new.
+	account3 := ReceptiveAccount new.
+	account4 := ReceptiveAccount new.
+	account5 := ReceptiveAccount new.
+
+	Deposit register: 100 on: account1.
+	Withdraw register: 300 on: account2.
+	Deposit register: 400 on: account3.
+	Withdraw register: 150 on: account4.
+	Deposit register: 170 on: account5.
+
+	portfolioToVerify := Portfolio new.
+	portfolio1 := Portfolio new.
+	portfolio2 := Portfolio new.
+	portfolio3 := Portfolio new.
+
+	portfolioToVerify addAccount: account1.
+	portfolioToVerify addAccount: account2.
+
+	portfolio1 addAccount: account3.
+	portfolio1 addAccount: account4.
+
+	portfolio2 addAccount: account5.
+
+	portfolio3 addAccount: account4.
+
+	portfolioToVerify addPortfolio: portfolio1.
+	portfolioToVerify addPortfolio: portfolio2.
+
+	self 
+		should: [ 	portfolioToVerify addPortfolio: portfolio3 ]
+		raise: Error
+		withExceptionDo: [ :anError | self assert: anError messageText equals: Portfolio canNotAddAnAssetAlreadyAdded ]
+	! !
 
 
 !classDefinition: #AccountTransaction category: 'Portfolio-Ejercicio'!
@@ -276,8 +369,20 @@ for: aValue
 	^ self new initializeFor: aValue ! !
 
 
+!classDefinition: #FinancialAsset category: 'Portfolio-Ejercicio'!
+Object subclass: #FinancialAsset
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Ejercicio'!
+
+!FinancialAsset methodsFor: 'as yet unclassified' stamp: 'NMS 10/13/2023 19:44:22'!
+balance
+	^self subclassResponsibility! !
+
+
 !classDefinition: #Portfolio category: 'Portfolio-Ejercicio'!
-Object subclass: #Portfolio
+FinancialAsset subclass: #Portfolio
 	instanceVariableNames: 'assets'
 	classVariableNames: ''
 	poolDictionaries: ''
@@ -288,17 +393,24 @@ balance
 	^(assets inject: 0 into: [:balanceAccumulated :anAsset | balanceAccumulated + anAsset balance])! !
 
 
-!Portfolio methodsFor: 'portfolio managment' stamp: 'NMS 10/11/2023 21:55:30'!
-addAccount: anAccount
-	assets add: anAccount! !
+!Portfolio methodsFor: 'portfolio managment' stamp: 'NMS 10/13/2023 20:34:51'!
+addAccount: anAccountToAdd
+	(assets anySatisfy: [:anAsset | anAsset xxxx: anAccountToAdd]) ifTrue: [^self error: self class canNotAddAnAssetAlreadyAdded].
 
-!Portfolio methodsFor: 'portfolio managment' stamp: 'NMS 10/11/2023 21:55:34'!
-addPortfolio: aPortfolio
-	assets add: aPortfolio! !
+	assets add: anAccountToAdd! !
+
+!Portfolio methodsFor: 'portfolio managment' stamp: 'NMS 10/13/2023 20:44:11'!
+addPortfolio: aPortfolioToAdd
+	((self = aPortfolioToAdd) or: [assets includes: aPortfolioToAdd]) ifTrue: [^self error: self class canNotAddAnAssetAlreadyAdded].
+	assets add: aPortfolioToAdd! !
 
 !Portfolio methodsFor: 'portfolio managment' stamp: 'NMS 10/11/2023 21:55:26'!
 initialize
 	assets := Set new! !
+
+!Portfolio methodsFor: 'portfolio managment' stamp: 'NMS 10/13/2023 20:32:42'!
+xxxx: anAssetToVerify
+	^(assets includes: anAssetToVerify)! !
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
@@ -306,13 +418,13 @@ initialize
 Portfolio class
 	instanceVariableNames: ''!
 
-!Portfolio class methodsFor: 'error messages' stamp: 'NMS 10/11/2023 22:01:46'!
-canNotAddRepeatedAccounts
-	^'No se pueden agregar cuentas repetidas'! !
+!Portfolio class methodsFor: 'error messages' stamp: 'NMS 10/13/2023 19:49:32'!
+canNotAddAnAssetAlreadyAdded
+	^'No se pueden agregar activos repetidos'! !
 
 
 !classDefinition: #ReceptiveAccount category: 'Portfolio-Ejercicio'!
-Object subclass: #ReceptiveAccount
+FinancialAsset subclass: #ReceptiveAccount
 	instanceVariableNames: 'transactions'
 	classVariableNames: ''
 	poolDictionaries: ''
@@ -339,6 +451,10 @@ transactions
 !ReceptiveAccount methodsFor: 'balance' stamp: 'NMS 10/11/2023 21:17:41'!
 balance
 	^transactions inject: 0 into: [:currentBalance :aTransaction | aTransaction affectBalance: currentBalance]! !
+
+!ReceptiveAccount methodsFor: 'balance' stamp: 'NMS 10/13/2023 20:32:09'!
+xxxx: anAssetToVerify
+	^self = anAssetToVerify! !
 
 
 !ReceptiveAccount methodsFor: 'testing' stamp: 'NR 10/17/2019 03:28:43'!
