@@ -1,4 +1,4 @@
-'From Cuis 6.0 [latest update: #5981] on 14 October 2023 at 6:20:56 am'!
+'From Cuis 6.0 [latest update: #5981] on 16 October 2023 at 12:04:33 pm'!
 !classDefinition: #SHParserST80 category: #'Tools-Syntax Highlighting'!
 Object subclass: #SHParserST80
 	instanceVariableNames: 'classOrMetaClass source workspace arguments sourcePosition currentToken currentTokenFirst temporaries instanceVariables errorBlock currentTokenSourcePosition blockDepth bracketDepth ranges blockDepths blockDepthsStartIndexes braceDepth'
@@ -1313,9 +1313,9 @@ workspaceNamesDo: aBlock
 		workspace bindingNamesDo: [ :name | aBlock value: name value: title ] ]! !
 
 
-!SHParserST80 methodsFor: 'testing' stamp: 'NMS 10/14/2023 04:36:53'!
+!SHParserST80 methodsFor: 'testing' stamp: 'NMS 10/16/2023 11:58:40'!
 isAMethodDefinition: aSymbol
-	^#(patternUnary patternKeyword patternArg) statePointsTo: aSymbol! !
+	^#(patternUnary patternBinary patternKeyword patternArg) statePointsTo: aSymbol! !
 
 !SHParserST80 methodsFor: 'testing' stamp: 'HAW 5/3/2020 00:27:29'!
 isIdentifier: aSymbol

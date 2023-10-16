@@ -1,4 +1,4 @@
-'From Cuis 6.0 [latest update: #5981] on 14 October 2023 at 6:20:22 am'!
+'From Cuis 6.0 [latest update: #5981] on 16 October 2023 at 12:04:13 pm'!
 Transcript show: 'poolDictionaryForTesting'; newLine!
 Smalltalk at: #poolDictionaryForTesting put: Dictionary new!
 poolDictionaryForTesting at: #'X' put:  1!
@@ -465,7 +465,7 @@ test044_AutocompletesEntriesFor_IncompleteKeywordMessages_WithIdentifiersBeggini
 		areSelectorsOf: SmalltalkCompleterTest
 		beginningWith: 'firstKeyword:'.! !
 
-!SmalltalkCompleterTest methodsFor: 'tests' stamp: 'NMS 10/14/2023 06:13:11'!
+!SmalltalkCompleterTest methodsFor: 'tests' stamp: 'NMS 10/16/2023 11:57:00'!
 test045_AutocompletesEntriesFor_patternUnary_containsExactlyTwoMethods
 
 	| completer |
@@ -474,11 +474,11 @@ test045_AutocompletesEntriesFor_patternUnary_containsExactlyTwoMethods
 	completer computeEntries.
 
 	self assert: completer entries size equals: 2.
-	self assert: completer entries includes: 'flag:'.
+	self assert: completer entries includes: 'flag: aSymbol'.
 	self assert: completer entries includes: 'flash'.! !
 
-!SmalltalkCompleterTest methodsFor: 'tests' stamp: 'NMS 10/14/2023 06:13:33'!
-test046_AutocompletesEntriesFor_patternUnary_doestAutocompleteMethodOfSameClass
+!SmalltalkCompleterTest methodsFor: 'tests' stamp: 'NMS 10/16/2023 12:00:25'!
+test046_AutocompletesEntriesFor_patternUnary_doesNotAutocompleteMethodOfSameClass
 
 	| completer |
 	completer := self createCompleterForBrowsing: 'm1'.
@@ -487,7 +487,7 @@ test046_AutocompletesEntriesFor_patternUnary_doestAutocompleteMethodOfSameClass
 
 	self assert: completer entries size equals: 0! !
 
-!SmalltalkCompleterTest methodsFor: 'tests' stamp: 'NMS 10/14/2023 06:14:47'!
+!SmalltalkCompleterTest methodsFor: 'tests' stamp: 'NMS 10/16/2023 11:56:32'!
 test047_AutocompletesEntriesFor_patternKeyword_containsExactlyOneMethod
 
 	| completer |
@@ -496,7 +496,7 @@ test047_AutocompletesEntriesFor_patternKeyword_containsExactlyOneMethod
 	completer computeEntries.
 
 	self assert: completer entries size equals: 1.
-	self assert: completer entries includes: 'flag:'
+	self assert: completer entries includes: 'flag: aSymbol'
 ! !
 
 !SmalltalkCompleterTest methodsFor: 'tests' stamp: 'NMS 10/14/2023 06:14:44'!
@@ -519,8 +519,8 @@ test049_AutocompletesEntriesFor_patternKeyword_notContainsAnyMethod
 
 	self assert: completer entries size equals: 0! !
 
-!SmalltalkCompleterTest methodsFor: 'tests' stamp: 'NMS 10/14/2023 06:13:58'!
-test050_AutocompletesEntriesFor_patternKeyword_doestAutocompleteMethodOfSameClass
+!SmalltalkCompleterTest methodsFor: 'tests' stamp: 'NMS 10/16/2023 12:00:36'!
+test050_AutocompletesEntriesFor_patternKeyword_doesNotAutocompleteMethodOfSameClass
 
 	| completer |
 	completer := self createCompleterForBrowsing: 'm1:'.
@@ -529,7 +529,7 @@ test050_AutocompletesEntriesFor_patternKeyword_doestAutocompleteMethodOfSameClas
 
 	self assert: completer entries size equals: 0! !
 
-!SmalltalkCompleterTest methodsFor: 'tests' stamp: 'NMS 10/14/2023 06:14:01'!
+!SmalltalkCompleterTest methodsFor: 'tests' stamp: 'NMS 10/16/2023 11:56:01'!
 test051_AutocompletesEntriesFor_patternArg_containsExactlyFourMethods
 
 	| completer |
@@ -538,10 +538,18 @@ test051_AutocompletesEntriesFor_patternArg_containsExactlyFourMethods
 	completer computeEntries.
 
 	self assert: completer entries size equals: 4.
-	self assert: completer entries includes: 'when:evaluate:'.
-	self assert: completer entries includes: 'when:send:to:'.
-	self assert: completer entries includes: 'when:send:to:with:'.
-	self assert: completer entries includes: 'when:send:to:withArguments:'.! !
+	self assert: completer entries includes: 'when: anEventSelector evaluate: anAction'.
+	self assert: completer entries includes: 'when: anEventSelector
+send: aMessageSelector
+to: anObject'.
+	self assert: completer entries includes: 'when: anEventSelector
+send: aMessageSelector
+to: anObject
+with: anArg'.
+	self assert: completer entries includes: 'when: anEventSelector
+send: aMessageSelector
+to: anObject
+withArguments: anArgArray'.! !
 
 !SmalltalkCompleterTest methodsFor: 'tests' stamp: 'NMS 10/14/2023 06:14:06'!
 test052_AutocompletesEntriesFor_patternArg_notContainsAnyMethod
@@ -553,8 +561,8 @@ test052_AutocompletesEntriesFor_patternArg_notContainsAnyMethod
 
 	self assert: completer entries size equals: 0! !
 
-!SmalltalkCompleterTest methodsFor: 'tests' stamp: 'NMS 10/14/2023 06:14:12'!
-test053_AutocompletesEntriesFor_patternArg_doestAutocompleteMethodOfSameClass
+!SmalltalkCompleterTest methodsFor: 'tests' stamp: 'NMS 10/16/2023 12:00:45'!
+test053_AutocompletesEntriesFor_patternArg_doesNotAutocompleteMethodOfSameClass
 
 	| completer |
 	completer := self createCompleterForBrowsing: 'm1: arg1 with: arg2 and: arg3 andLast: arg4'.
@@ -563,6 +571,41 @@ test053_AutocompletesEntriesFor_patternArg_doestAutocompleteMethodOfSameClass
 
 	self assert: completer entries size equals: 0! !
 
+!SmalltalkCompleterTest methodsFor: 'tests' stamp: 'NMS 10/16/2023 11:57:36'!
+test054_AutocompletesEntriesFor_patternBinary_containsExactlyOneMethod
+
+	| completer |
+	completer := self createCompleterForBrowsing: '->'.
+	
+	completer computeEntries.
+
+	self assert: completer entries size equals: 1.
+	self assert: completer entries includes: '-> anObject'! !
+
+!SmalltalkCompleterTest methodsFor: 'tests' stamp: 'NMS 10/16/2023 11:59:55'!
+test055_AutocompletesEntriesFor_patternBinary_notContainsAnyMethod
+
+
+	| completer |
+	completer := self createCompleterForBrowsing: '*'.
+	
+	completer computeEntries.
+
+	self assert: completer entries size equals: 0! !
+
+!SmalltalkCompleterTest methodsFor: 'tests' stamp: 'NMS 10/16/2023 11:59:33'!
+test056_AutocompletesEntriesFor_patternBinary_doestNotAutocompleteMethodOfSameClass
+
+	| completer |
+	completer := self createCompleterForBrowsing: '+'.
+	
+	completer computeEntries.
+
+	self assert: completer entries size equals: 0! !
+
+
+!SmalltalkCompleterTest methodsFor: 'test objects' stamp: 'NMS 10/16/2023 11:46:07'!
++ aNumber! !
 
 !SmalltalkCompleterTest methodsFor: 'test objects' stamp: 'HAW 1/27/2022 19:32:18'!
 createCompleterForBrowsing: sourceCode 

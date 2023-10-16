@@ -1,4 +1,4 @@
-'From Cuis 6.0 [latest update: #5981] on 14 October 2023 at 6:20:44 am'!
+'From Cuis 6.0 [latest update: #5981] on 16 October 2023 at 12:04:24 pm'!
 !classDefinition: #SmalltalkCompleter category: #'Tools-Autocompletion'!
 AutoCompleter subclass: #SmalltalkCompleter
 	instanceVariableNames: 'parser selectorsClasses possibleInvalidSelectors canShowSelectorDocumentation possibleBinarySendRange allRanges'
@@ -374,14 +374,14 @@ computeMethodNameFromParser
 
 	^ (parser source substrings) at: 1! !
 
-!SmalltalkCompleter methodsFor: 'identifier entries - private' stamp: 'NMS 10/14/2023 06:18:23'!
-computeMethodNamesFor: aClassName
+!SmalltalkCompleter methodsFor: 'identifier entries - private' stamp: 'NMS 10/16/2023 12:03:45'!
+computeMethodNamesFor: aContextClass
 	canShowSelectorDocumentation := false.
-	entries := (self computeMethodNamesFor: aClassName andMethodPrefix: (self computeMethodNameFromParser))! !
+	entries := (self computeMethodNamesFor: aContextClass andMethodPrefix: (self computeMethodNameFromParser))! !
 
-!SmalltalkCompleter methodsFor: 'identifier entries - private' stamp: 'NMS 10/14/2023 06:07:10'!
-computeMethodNamesFor: aClassName andMethodPrefix: aMethodStartingWith
-	^(aClassName superclass allSelectors select: [ :aSelector | aSelector beginsWith: aMethodStartingWith ]) asOrderedCollection sort.! !
+!SmalltalkCompleter methodsFor: 'identifier entries - private' stamp: 'NMS 10/16/2023 11:39:40'!
+computeMethodNamesFor: aContextClass andMethodPrefix: aMethodStartingWith
+	^((aContextClass superclass allSelectors select: [ :aSelector | aSelector beginsWith: aMethodStartingWith ]) collect: [ :aSelector | aContextClass methodHeaderFor: aSelector ]) asOrderedCollection sort.! !
 
 
 !SmalltalkCompleter methodsFor: 'message entries for unknown class - private' stamp: 'HAW 12/20/2018 14:43:28'!
@@ -487,7 +487,7 @@ handleRightArrowKeystrokeBefore: kbEvent
 	^ true! !
 
 
-!SmalltalkCompleter methodsFor: 'entries - private' stamp: 'NMS 10/14/2023 06:15:55'!
+!SmalltalkCompleter methodsFor: 'entries - private' stamp: 'NMS 10/16/2023 11:48:28'!
 computeEntriesOfMessageOrIdentifiersFor: allSource at: range in: contextClass and: specificModel
 	prefix := allSource copyFrom: range start to: range end.
 	(parser isMessage: range rangeType) ifTrue: [ 
