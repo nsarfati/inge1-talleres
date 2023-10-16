@@ -1,11 +1,11 @@
-!classDefinition: #ReceptiveAccountTest category: 'Portfolio-Ejercicio'!
-TestCase subclass: #ReceptiveAccountTest
+!classDefinition: #FinancialAssetTest category: 'Portfolio-Ejercicio'!
+TestCase subclass: #FinancialAssetTest
 	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'Portfolio-Ejercicio'!
 
-!ReceptiveAccountTest methodsFor: 'tests' stamp: 'NR 11/2/2020 17:13:44'!
+!FinancialAssetTest methodsFor: 'tests' stamp: 'NR 11/2/2020 17:13:44'!
 test01ReceptiveAccountHaveZeroAsBalanceWhenCreated 
 
 	| account |
@@ -15,7 +15,7 @@ test01ReceptiveAccountHaveZeroAsBalanceWhenCreated
 	self assert: 0 equals: account balance.
 ! !
 
-!ReceptiveAccountTest methodsFor: 'tests' stamp: 'NR 11/2/2020 17:13:48'!
+!FinancialAssetTest methodsFor: 'tests' stamp: 'NR 11/2/2020 17:13:48'!
 test02DepositIncreasesBalanceOnTransactionValue 
 
 	| account |
@@ -26,7 +26,7 @@ test02DepositIncreasesBalanceOnTransactionValue
 	self assert: 100 equals: account balance.
 ! !
 
-!ReceptiveAccountTest methodsFor: 'tests' stamp: 'NR 11/2/2020 17:13:52'!
+!FinancialAssetTest methodsFor: 'tests' stamp: 'NR 11/2/2020 17:13:52'!
 test03WithdrawDecreasesBalanceOnTransactionValue 
 
 	| account |
@@ -38,7 +38,7 @@ test03WithdrawDecreasesBalanceOnTransactionValue
 	self assert: 50 equals: account balance.
 ! !
 
-!ReceptiveAccountTest methodsFor: 'tests' stamp: 'HAW 5/23/2019 15:20:32'!
+!FinancialAssetTest methodsFor: 'tests' stamp: 'HAW 5/23/2019 15:20:32'!
 test04WithdrawValueMustBePositive 
 
 	| account withdrawValue |
@@ -49,7 +49,7 @@ test04WithdrawValueMustBePositive
 	self assert: withdrawValue equals: (Withdraw register: withdrawValue on: account) value
 ! !
 
-!ReceptiveAccountTest methodsFor: 'tests' stamp: 'HAW 5/23/2019 15:20:46'!
+!FinancialAssetTest methodsFor: 'tests' stamp: 'HAW 5/23/2019 15:20:46'!
 test05ReceptiveAccountKnowsRegisteredTransactions 
 
 	| account deposit withdraw |
@@ -62,7 +62,7 @@ test05ReceptiveAccountKnowsRegisteredTransactions
 	self assert: (account hasRegistered: withdraw).
 ! !
 
-!ReceptiveAccountTest methodsFor: 'tests' stamp: 'NR 5/17/2021 17:29:53'!
+!FinancialAssetTest methodsFor: 'tests' stamp: 'NR 5/17/2021 17:29:53'!
 test06ReceptiveAccountDoNotKnowNotRegisteredTransactions
 
 	| deposit withdraw account |
@@ -75,7 +75,7 @@ test06ReceptiveAccountDoNotKnowNotRegisteredTransactions
 	self deny: (account hasRegistered:withdraw).
 ! !
 
-!ReceptiveAccountTest methodsFor: 'tests' stamp: 'NR 11/2/2020 17:14:01'!
+!FinancialAssetTest methodsFor: 'tests' stamp: 'NR 11/2/2020 17:14:01'!
 test07AccountKnowsItsTransactions 
 
 	| account1 deposit1 |
@@ -88,7 +88,7 @@ test07AccountKnowsItsTransactions
 	self assert: (account1 transactions includes: deposit1).
 ! !
 
-!ReceptiveAccountTest methodsFor: 'tests' stamp: 'NMS 10/11/2023 21:18:59'!
+!FinancialAssetTest methodsFor: 'tests' stamp: 'NMS 10/11/2023 21:18:59'!
 test08EmptyPortfolioHasZeroBalance
 
 	| portfolio |
@@ -97,7 +97,7 @@ test08EmptyPortfolioHasZeroBalance
 
 	self assert: portfolio balance equals: 0! !
 
-!ReceptiveAccountTest methodsFor: 'tests' stamp: 'gg 10/15/2023 18:18:09'!
+!FinancialAssetTest methodsFor: 'tests' stamp: 'gg 10/15/2023 18:18:09'!
 test09AddTwoAccountsInPortfolio
 
 	| portfolio anAccount1 anAccount2 |
@@ -116,7 +116,7 @@ test09AddTwoAccountsInPortfolio
 	self assert: portfolio balance equals: 50
 ! !
 
-!ReceptiveAccountTest methodsFor: 'tests' stamp: 'gg 10/15/2023 18:10:40'!
+!FinancialAssetTest methodsFor: 'tests' stamp: 'gg 10/15/2023 18:10:40'!
 test10AddEmptyPortfolioIntoEmptyPortfolio
 
 	| portfolioToCheck portfolioBase |
@@ -129,7 +129,7 @@ test10AddEmptyPortfolioIntoEmptyPortfolio
 	self assert: portfolioToCheck balance equals: 0
 ! !
 
-!ReceptiveAccountTest methodsFor: 'tests' stamp: 'gg 10/15/2023 18:18:23'!
+!FinancialAssetTest methodsFor: 'tests' stamp: 'gg 10/15/2023 18:18:23'!
 test11AddPortfolioWithAccountsIntoEmptyPortfolio
 
 	| portfolioWithAccounts portfolioToVerify anAccount1 anAccount2 |
@@ -151,7 +151,7 @@ test11AddPortfolioWithAccountsIntoEmptyPortfolio
 	self assert: portfolioToVerify balance equals: 50
 ! !
 
-!ReceptiveAccountTest methodsFor: 'tests' stamp: 'gg 10/15/2023 18:18:30'!
+!FinancialAssetTest methodsFor: 'tests' stamp: 'gg 10/15/2023 18:18:30'!
 test12CantAddSameAccountTwiceInAPortfolio
 
 	| portfolioToVerify anAccount |
@@ -170,7 +170,7 @@ test12CantAddSameAccountTwiceInAPortfolio
 		withExceptionDo: [ :anError | self assert: anError messageText equals: Portfolio canNotAddAnAssetAlreadyAdded ]
 ! !
 
-!ReceptiveAccountTest methodsFor: 'tests' stamp: 'gg 10/15/2023 18:10:40'!
+!FinancialAssetTest methodsFor: 'tests' stamp: 'gg 10/15/2023 18:10:40'!
 test13CantAddPortfolioTwiceInPortfolio
 
 	| portfolioToVerify portfolioToAdd |
@@ -186,7 +186,7 @@ test13CantAddPortfolioTwiceInPortfolio
 		withExceptionDo: [ :anError | self assert: anError messageText equals: Portfolio canNotAddAnAssetAlreadyAdded ]
 ! !
 
-!ReceptiveAccountTest methodsFor: 'tests' stamp: 'gg 10/15/2023 18:19:02'!
+!FinancialAssetTest methodsFor: 'tests' stamp: 'gg 10/15/2023 18:19:02'!
 test14CantAddAnAccountToAPorfolioThatHasAnotherPortfolioWithSameAccount
 
 	| portfolioToVerify portfolioToAdd aRepeatedAccount |
@@ -207,7 +207,7 @@ test14CantAddAnAccountToAPorfolioThatHasAnotherPortfolioWithSameAccount
 		withExceptionDo: [ :anError | self assert: anError messageText equals: Portfolio canNotAddAnAssetAlreadyAdded ]
 ! !
 
-!ReceptiveAccountTest methodsFor: 'tests' stamp: 'gg 10/15/2023 18:19:08'!
+!FinancialAssetTest methodsFor: 'tests' stamp: 'gg 10/15/2023 18:19:08'!
 test15CantAddPortfolioIntoSamePortfolio
 
 	| portfolioToVerify anAccount |
@@ -226,7 +226,7 @@ test15CantAddPortfolioIntoSamePortfolio
 		withExceptionDo: [ :anError | self assert: anError messageText equals: Portfolio canNotAddAnAssetAlreadyAdded ]
 ! !
 
-!ReceptiveAccountTest methodsFor: 'tests' stamp: 'gg 10/15/2023 18:19:24'!
+!FinancialAssetTest methodsFor: 'tests' stamp: 'gg 10/15/2023 18:19:24'!
 test16CantAddAnAccountThatIsAlreadyAddedSomewhereInsidePortfolio
 
 	"caso general de agregar cuenta - chequeo que se revise todo el grafo por esa cuenta"
@@ -263,7 +263,7 @@ test16CantAddAnAccountThatIsAlreadyAddedSomewhereInsidePortfolio
 		withExceptionDo: [ :anError | self assert: anError messageText equals: Portfolio canNotAddAnAssetAlreadyAdded ]
 ! !
 
-!ReceptiveAccountTest methodsFor: 'tests' stamp: 'gg 10/15/2023 18:10:40'!
+!FinancialAssetTest methodsFor: 'tests' stamp: 'gg 10/15/2023 18:10:40'!
 test17CantAddPortfolioThatIsAlreadyAddedSomewhereInsidePortfolio
 
 	| portfolioToVerify portfolio1 portfolio2|
@@ -281,7 +281,7 @@ test17CantAddPortfolioThatIsAlreadyAddedSomewhereInsidePortfolio
 		withExceptionDo: [ :anError | self assert: anError messageText equals: Portfolio canNotAddAnAssetAlreadyAdded ]
 ! !
 
-!ReceptiveAccountTest methodsFor: 'tests' stamp: 'gg 10/15/2023 18:43:52'!
+!FinancialAssetTest methodsFor: 'tests' stamp: 'gg 10/15/2023 18:43:52'!
 test18CantAddPortfolioWithAccountAlreadyContainedInAnotherPortfolioAdded
 
 	| portfolioToVerify portfolio1 portfolio2 account1 account2|
@@ -308,7 +308,7 @@ test18CantAddPortfolioWithAccountAlreadyContainedInAnotherPortfolioAdded
 		withExceptionDo: [ :anError | self assert: anError messageText equals: Portfolio canNotAddAnAssetAlreadyAdded ]
 ! !
 
-!ReceptiveAccountTest methodsFor: 'tests' stamp: 'gg 10/16/2023 18:12:02'!
+!FinancialAssetTest methodsFor: 'tests' stamp: 'gg 10/16/2023 18:12:02'!
 test19TestExtraToCheckGeneralization
 
 	| portfolioToVerify portfolio1 portfolio2 portfolio3 account1 account2 account3 account4 account5|
@@ -349,7 +349,7 @@ test19TestExtraToCheckGeneralization
 		withExceptionDo: [ :anError | self assert: anError messageText equals: Portfolio canNotAddAnAssetAlreadyAdded ]
 	! !
 
-!ReceptiveAccountTest methodsFor: 'tests' stamp: 'gg 10/16/2023 18:11:26'!
+!FinancialAssetTest methodsFor: 'tests' stamp: 'gg 10/16/2023 18:11:26'!
 test20NoTransactionsRegisteredInPortfolio
 
 	| portfolio aTransaction|
@@ -365,7 +365,7 @@ test20NoTransactionsRegisteredInPortfolio
 
 	! !
 
-!ReceptiveAccountTest methodsFor: 'tests' stamp: 'gg 10/16/2023 18:11:36'!
+!FinancialAssetTest methodsFor: 'tests' stamp: 'gg 10/16/2023 18:11:36'!
 test21PortfolioKnowsTwoRegisteredTransactionsInAccounts
 
 	| portfolio account account2 aTransaction anotherTransaction|
@@ -388,7 +388,7 @@ test21PortfolioKnowsTwoRegisteredTransactionsInAccounts
 
 	! !
 
-!ReceptiveAccountTest methodsFor: 'tests' stamp: 'gg 10/16/2023 18:11:52'!
+!FinancialAssetTest methodsFor: 'tests' stamp: 'gg 10/16/2023 18:24:24'!
 test22PortfolioKnowsRegisteredTransactionsWhenItHasAccountsAndPortfolios
 
 	| portfolioToVerify portfolio1 account1 account2 transaction1 transaction2 transaction3 |
@@ -412,6 +412,78 @@ test22PortfolioKnowsRegisteredTransactionsWhenItHasAccountsAndPortfolios
 	self assert: (portfolioToVerify hasRegistered: transaction3 ).
 	
 	
+	
+
+	! !
+
+!FinancialAssetTest methodsFor: 'tests' stamp: 'gg 10/16/2023 18:34:10'!
+test23EmptyPortfolioReturnEmptyCollectionOfTransactions
+
+	self assert: (Portfolio new transactions isEmpty)
+	
+
+	! !
+
+!FinancialAssetTest methodsFor: 'tests' stamp: 'gg 10/16/2023 18:48:20'!
+test24PortfolioWithTwoAccountsWithTransactionsKnowsItsTransactions
+	
+	|portfolioToVerify account1 account2 transaction1 transaction2 transaction3 transactionsCollection|
+	
+	portfolioToVerify := Portfolio new.
+	account1 := ReceptiveAccount new.
+	transaction1 := Deposit register: 100 on: account1.
+	transaction2 := Withdraw register: 50 on: account1.
+	portfolioToVerify add: account1.
+	
+	account2 := ReceptiveAccount new.
+	transaction3 := Deposit register: 20 on: account2.
+	portfolioToVerify add: account2.
+	
+	transactionsCollection := portfolioToVerify transactions.
+	
+	self assert: (transactionsCollection size) equals: 3.
+	self assert: (transactionsCollection includes: transaction1).
+	self assert: (transactionsCollection includes: transaction2).
+	self assert: (transactionsCollection includes: transaction3)
+
+
+	
+
+	! !
+
+!FinancialAssetTest methodsFor: 'tests' stamp: 'gg 10/16/2023 18:55:50'!
+test25PortfolioWithPortfoliosAndAccountsKnowsItsTransactions
+
+	|portfolioToVerify portfolio1 portfolio2 account1 account2 account3 transaction1 transaction2 transaction3 transactionsCollection|
+		
+	account1 := ReceptiveAccount new.
+	transaction1 := Deposit register: 100 on: account1.
+	
+	account2 := ReceptiveAccount new.
+	transaction2 := Withdraw register: 50 on: account2.
+	
+	account3 := ReceptiveAccount new.
+	transaction3 := Deposit register: 20 on: account3.
+	
+	portfolio1 := Portfolio new.
+	portfolio1 add: account1.
+	portfolio1 add: account2.
+	
+	portfolio2 := Portfolio new.
+	portfolio2 add: account3.
+	
+	portfolioToVerify := Portfolio new.
+	portfolioToVerify add: portfolio1.
+	portfolioToVerify add: portfolio2.
+
+	transactionsCollection := portfolioToVerify transactions.
+	
+	self assert: (transactionsCollection size) equals: 3.
+	self assert: (transactionsCollection includes: transaction1).
+	self assert: (transactionsCollection includes: transaction2).
+	self assert: (transactionsCollection includes: transaction3)
+
+
 	
 
 	! !
@@ -545,6 +617,12 @@ hasRegistered: aTransaction
 
 	self subclassResponsibility! !
 
+
+!FinancialAsset methodsFor: 'transactions' stamp: 'gg 10/16/2023 19:08:12'!
+addTransactionsInto: transactionsList
+
+	self subclassResponsibility! !
+
 
 !classDefinition: #Portfolio category: 'Portfolio-Ejercicio'!
 FinancialAsset subclass: #Portfolio
@@ -590,6 +668,24 @@ hasRegistered: aTransaction
 	
 	^ assets anySatisfy: [:anAsset | anAsset hasRegistered: aTransaction]! !
 
+
+!Portfolio methodsFor: 'transactions' stamp: 'gg 10/16/2023 19:21:35'!
+addTransactionsInto: aTransactionsList 
+	
+	assets do: [:anAsset | anAsset addTransactionsInto: aTransactionsList]
+! !
+
+!Portfolio methodsFor: 'transactions' stamp: 'gg 10/16/2023 19:18:52'!
+transactions
+	
+	|transactionList|
+	transactionList := OrderedCollection new.
+	
+	self addTransactionsInto: transactionList.
+	^transactionList 
+	
+! !
+
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
 !classDefinition: 'Portfolio class' category: 'Portfolio-Ejercicio'!
@@ -613,6 +709,11 @@ initialize
 
 	transactions := OrderedCollection new.! !
 
+
+!ReceptiveAccount methodsFor: 'transactions' stamp: 'gg 10/16/2023 19:20:15'!
+addTransactionsInto: aTransactionsList 
+
+	aTransactionsList addAll: transactions! !
 
 !ReceptiveAccount methodsFor: 'transactions' stamp: 'NMS 10/11/2023 21:37:06'!
 register: aTransaction
