@@ -377,11 +377,85 @@ test04AccountSummaryForAccountWithDepositTransferLeg
 	
 ! !
 
-!ReportTest methodsFor: 'testing' stamp: 'NMS 10/21/2023 13:28:19'!
-test05GeneralCase! !
+!ReportTest methodsFor: 'testing' stamp: 'NMS 10/23/2023 10:48:13'!
+test05TestExtraToCheckGeneralization
 
-!ReportTest methodsFor: 'testing' stamp: 'NMS 10/21/2023 13:29:07'!
-test06TransferNet! !
+	| receptiveAccount senderAccount accountSummaryReceptiveAccount accountSummarySenderAccount |
+	
+	receptiveAccount := ReceptiveAccount new.
+	senderAccount := ReceptiveAccount new.
+
+	Deposit register: 1 on: receptiveAccount.
+
+	Withdraw register: 100 on: senderAccount.
+	Deposit register: 200 on: senderAccount.
+
+	Transfer from: senderAccount to: receptiveAccount forAmount: 100.
+	
+	accountSummaryReceptiveAccount := receptiveAccount accountSummary.
+	accountSummarySenderAccount := senderAccount accountSummary.
+
+	self assert: (accountSummaryReceptiveAccount first) equals: 'Depósito por 1.'.
+	self assert: (accountSummaryReceptiveAccount second) equals: 'Entrada por transferencia de 100.'.
+	self assert: (accountSummaryReceptiveAccount third) equals: 'Balance = 101'.
+	self assert: (accountSummaryReceptiveAccount size) equals: 3.
+	
+	self assert: (accountSummarySenderAccount first) equals: 'Extracción por 100.'.
+	self assert: (accountSummarySenderAccount second) equals: 'Depósito por 200.'.
+	self assert: (accountSummarySenderAccount third) equals: 'Salida por transferencia de 100.'.
+	self assert: (accountSummarySenderAccount fourth) equals: 'Balance = 0'.
+	self assert: (accountSummarySenderAccount size) equals: 4.
+! !
+
+!ReportTest methodsFor: 'testing' stamp: 'NMS 10/23/2023 11:23:54'!
+test06TransferNetForAccountWithNoTransactions
+
+	self assert: (ReceptiveAccount new transferNet) equals: 0! !
+
+!ReportTest methodsFor: 'testing' stamp: 'NMS 10/23/2023 11:24:07'!
+test07TransferNetForAccountWithoutTransfers
+
+	| accountToVerify |
+	
+	accountToVerify := ReceptiveAccount new.
+
+	Deposit register: 100 on: accountToVerify.
+	Withdraw register: 20 on: accountToVerify.
+
+	self assert: (accountToVerify transferNet) equals: 0.
+! !
+
+!ReportTest methodsFor: 'testing' stamp: 'NMS 10/23/2023 11:24:24'!
+test08TransferNetForAccountWithATransfers
+
+	| receptiveAccount senderAccount |
+	
+	receptiveAccount := ReceptiveAccount new.
+	senderAccount := ReceptiveAccount new.
+
+	Transfer from: senderAccount to: receptiveAccount forAmount: 100.
+
+	self assert: (receptiveAccount transferNet) equals: 100.
+	self assert: (senderAccount transferNet) equals: -100! !
+
+!ReportTest methodsFor: 'testing' stamp: 'NMS 10/23/2023 11:26:20'!
+test09TestExtraToCheckGeneralization
+
+	| receptiveAccount senderAccount |
+	
+	receptiveAccount := ReceptiveAccount new.
+	senderAccount := ReceptiveAccount new.
+
+	Deposit register: 100 on: receptiveAccount.
+	Withdraw register: 50 on: receptiveAccount.
+
+	Deposit register: 42 on: senderAccount.
+
+	Transfer from: senderAccount to: receptiveAccount forAmount: 100.
+	Transfer from: receptiveAccount to: senderAccount forAmount: 50.
+
+	self assert: (receptiveAccount transferNet) equals: 50.
+	self assert: (senderAccount transferNet) equals: -50! !
 
 
 !classDefinition: #TransferTest category: 'Portfolio-Solucion'!
@@ -752,6 +826,24 @@ accountSummary
 	^report
 	! !
 
+!ReceptiveAccount methodsFor: 'reporting' stamp: 'NMS 10/23/2023 11:30:02'!
+transferNet
+	^transactions 
+		inject: 0
+		into: [ :currentBalance :transaction |
+				(transaction isKindOf: DepositLeg)
+					ifTrue: [
+						currentBalance + transaction value
+					]
+					ifFalse: [
+						(transaction isKindOf: WithdrawLeg)
+							ifTrue: [
+								currentBalance	 - transaction value
+							]
+							ifFalse: [currentBalance]
+					]
+		]! !
+
 
 !classDefinition: #AccountTransaction category: 'Portfolio-Solucion'!
 Object subclass: #AccountTransaction
@@ -771,13 +863,21 @@ affectBalance: aBalance
 
 	self subclassResponsibility ! !
 
+
+!classDefinition: #TT category: 'Portfolio-Solucion'!
+AccountTransaction subclass: #TT
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Solucion'!
+
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
-!classDefinition: 'AccountTransaction class' category: 'Portfolio-Solucion'!
-AccountTransaction class
+!classDefinition: 'TT class' category: 'Portfolio-Solucion'!
+TT class
 	instanceVariableNames: ''!
 
-!AccountTransaction class methodsFor: 'instance creation' stamp: 'NR 10/21/2019 18:54:27'!
+!TT class methodsFor: 'instance creation' stamp: 'NMS 10/23/2023 10:55:29'!
 register: aValue on: account
 
 	| transaction |
@@ -789,7 +889,7 @@ register: aValue on: account
 
 
 !classDefinition: #Deposit category: 'Portfolio-Solucion'!
-AccountTransaction subclass: #Deposit
+TT subclass: #Deposit
 	instanceVariableNames: 'value'
 	classVariableNames: ''
 	poolDictionaries: ''
@@ -825,7 +925,7 @@ for: aValue
 
 
 !classDefinition: #Withdraw category: 'Portfolio-Solucion'!
-AccountTransaction subclass: #Withdraw
+TT subclass: #Withdraw
 	instanceVariableNames: 'value'
 	classVariableNames: ''
 	poolDictionaries: ''
@@ -860,67 +960,12 @@ for: aValue
 	^ self new initializeFor: aValue ! !
 
 
-!classDefinition: #Transfer category: 'Portfolio-Solucion'!
-Object subclass: #Transfer
-	instanceVariableNames: 'depositLeg withdrawLeg amountToTransfer'
-	classVariableNames: ''
-	poolDictionaries: ''
-	category: 'Portfolio-Solucion'!
-
-!Transfer methodsFor: 'initialize' stamp: 'NMS 10/21/2023 12:24:10'!
-initializeWith: aSenderAccount and: aReceptiveAccount forAmount: anAmountToTransfer 
-	amountToTransfer := anAmountToTransfer.
-	depositLeg := DepositLeg on: aReceptiveAccount with: self.
-	withdrawLeg := WithdrawLeg on: aSenderAccount with: self.! !
-
-
-!Transfer methodsFor: 'accesing' stamp: 'NMS 10/21/2023 12:05:59'!
-depositLeg
-	^depositLeg.! !
-
-!Transfer methodsFor: 'accesing' stamp: 'NMS 10/21/2023 12:23:32'!
-value
-	^amountToTransfer! !
-
-!Transfer methodsFor: 'accesing' stamp: 'NMS 10/21/2023 12:06:08'!
-withdrawLeg
-	^withdrawLeg ! !
-
-"-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
-
-!classDefinition: 'Transfer class' category: 'Portfolio-Solucion'!
-Transfer class
-	instanceVariableNames: ''!
-
-!Transfer class methodsFor: 'instance creation' stamp: 'NMS 10/21/2023 12:47:21'!
-assertTransferPositive: anAmountToTransfer
-	^ (anAmountToTransfer <= 0) ifTrue: [ self error: self canNotTransferZeroOrLess ]! !
-
-!Transfer class methodsFor: 'instance creation' stamp: 'NMS 10/21/2023 12:42:56'!
-canNotTransferZeroOrLess
-	^'Las transferencias deben ser mayores a 0'! !
-
-!Transfer class methodsFor: 'instance creation' stamp: 'NMS 10/21/2023 12:47:21'!
-from: aSenderAccount to: aReceptiveAccount forAmount: anAmountToTransfer
-	self assertTransferPositive: anAmountToTransfer.
-	^self new initializeWith: aSenderAccount and: aReceptiveAccount forAmount: anAmountToTransfer ! !
-
-
 !classDefinition: #TransferLeg category: 'Portfolio-Solucion'!
-Object subclass: #TransferLeg
+AccountTransaction subclass: #TransferLeg
 	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'Portfolio-Solucion'!
-
-!TransferLeg methodsFor: 'value' stamp: 'NMS 10/21/2023 12:30:46'!
-value
-	self subclassResponsibility ! !
-
-
-!TransferLeg methodsFor: 'balance' stamp: 'NMS 10/21/2023 12:30:37'!
-affectBalance: aBalance
-	self subclassResponsibility ! !
 
 
 !classDefinition: #DepositLeg category: 'Portfolio-Solucion'!
@@ -995,3 +1040,49 @@ WithdrawLeg class
 !WithdrawLeg class methodsFor: 'instance creation' stamp: 'NMS 10/21/2023 12:22:24'!
 on: aReceptiveAccount with: aTransfer
 	^self new initializeWith: aTransfer on: aReceptiveAccount ! !
+
+
+!classDefinition: #Transfer category: 'Portfolio-Solucion'!
+Object subclass: #Transfer
+	instanceVariableNames: 'depositLeg withdrawLeg amountToTransfer'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Solucion'!
+
+!Transfer methodsFor: 'initialize' stamp: 'NMS 10/21/2023 12:24:10'!
+initializeWith: aSenderAccount and: aReceptiveAccount forAmount: anAmountToTransfer 
+	amountToTransfer := anAmountToTransfer.
+	depositLeg := DepositLeg on: aReceptiveAccount with: self.
+	withdrawLeg := WithdrawLeg on: aSenderAccount with: self.! !
+
+
+!Transfer methodsFor: 'accesing' stamp: 'NMS 10/21/2023 12:05:59'!
+depositLeg
+	^depositLeg.! !
+
+!Transfer methodsFor: 'accesing' stamp: 'NMS 10/21/2023 12:23:32'!
+value
+	^amountToTransfer! !
+
+!Transfer methodsFor: 'accesing' stamp: 'NMS 10/21/2023 12:06:08'!
+withdrawLeg
+	^withdrawLeg ! !
+
+"-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
+
+!classDefinition: 'Transfer class' category: 'Portfolio-Solucion'!
+Transfer class
+	instanceVariableNames: ''!
+
+!Transfer class methodsFor: 'instance creation' stamp: 'NMS 10/21/2023 12:47:21'!
+assertTransferPositive: anAmountToTransfer
+	^ (anAmountToTransfer <= 0) ifTrue: [ self error: self canNotTransferZeroOrLess ]! !
+
+!Transfer class methodsFor: 'instance creation' stamp: 'NMS 10/21/2023 12:42:56'!
+canNotTransferZeroOrLess
+	^'Las transferencias deben ser mayores a 0'! !
+
+!Transfer class methodsFor: 'instance creation' stamp: 'NMS 10/21/2023 12:47:21'!
+from: aSenderAccount to: aReceptiveAccount forAmount: anAmountToTransfer
+	self assertTransferPositive: anAmountToTransfer.
+	^self new initializeWith: aSenderAccount and: aReceptiveAccount forAmount: anAmountToTransfer ! !
