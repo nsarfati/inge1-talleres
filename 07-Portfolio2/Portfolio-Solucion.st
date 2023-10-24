@@ -485,7 +485,7 @@ test11AccountSummaryForPortfolioWithOneAccount
 	self assert: (accountSummaryReport third) equals: 'Balance = 50'.
 	self assert: (accountSummaryReport size) equals: 3! !
 
-!ReportTest methodsFor: 'testing' stamp: 'GG 10/24/2023 15:52:41'!
+!ReportTest methodsFor: 'testing' stamp: 'GG 10/24/2023 16:39:15'!
 test12AccountSummaryForPortfolioWithTwoAccountsAndTransfers
 
 	| senderAccount receptiveAccount portfolio accountSummaryReport|
@@ -503,13 +503,192 @@ test12AccountSummaryForPortfolioWithTwoAccountsAndTransfers
 	
 	self assert: (accountSummaryReport first) equals: 'Extracción por 50.'.
 	self assert: (accountSummaryReport second) equals: 'Salida por transferencia de 100.'.
-	self assert: (accountSummaryReport third) equals: 'Balance = -150'.
+	self assert: (accountSummaryReport third) equals: 'Depósito por 1000.'.
+	self assert: (accountSummaryReport fourth) equals: 'Entrada por transferencia de 100.'.
+	self assert: (accountSummaryReport fifth) equals: 'Balance = 950'.
 	
-	self assert: (accountSummaryReport fourth) equals: 'Depósito por 1000.'.
-	self assert: (accountSummaryReport fifth) equals: 'Entrada por transferencia de 100.'.
-	self assert: (accountSummaryReport sixth) equals: 'Balance = 1100'.
+	self assert: (accountSummaryReport size) equals: 5.! !
+
+!ReportTest methodsFor: 'testing' stamp: 'GG 10/24/2023 17:01:57'!
+test13AccountSummaryOfPortfolioIsGeneratedRecursively
+ 
+	| simplePortfolioAccount simplePortfolio composedPortfolioAccount1 composedPortfolioAccount2
+	composedPortfolio accountSummaryReport |
+	
+	simplePortfolioAccount := ReceptiveAccount new.
+	Deposit register: 100 on: simplePortfolioAccount.
+	simplePortfolio := Portfolio with: simplePortfolioAccount.
+	
+	composedPortfolioAccount1 := ReceptiveAccount new.
+	Withdraw register: 50 on: composedPortfolioAccount1.
+	composedPortfolio := Portfolio with: simplePortfolio with: composedPortfolioAccount1.
+	
+	Transfer from: simplePortfolioAccount to: composedPortfolioAccount1 forAmount: 100.
+	
+	composedPortfolioAccount2 := ReceptiveAccount new.
+	Deposit register: 101 on: composedPortfolioAccount2.
+	composedPortfolio add: composedPortfolioAccount2.
+	
+	accountSummaryReport := ((AccountSummary for: composedPortfolio) generateAccountSummary).
+	
+	self assert: (accountSummaryReport first) equals: 'Depósito por 100.'.
+	self assert: (accountSummaryReport second) equals: 'Salida por transferencia de 100.'.
+	self assert: (accountSummaryReport third) equals: 'Extracción por 50.'.
+	self assert: (accountSummaryReport fourth) equals: 'Entrada por transferencia de 100.'.
+	self assert: (accountSummaryReport fifth) equals: 'Depósito por 101.'.
+	self assert: (accountSummaryReport sixth) equals: 'Balance = 151'.
 	
 	self assert: (accountSummaryReport size) equals: 6.! !
+
+!ReportTest methodsFor: 'testing' stamp: 'GG 10/24/2023 17:02:40'!
+test14CasoGeneral
+ 
+	| simplePortfolioAccount simplePortfolio composedPortfolioAccount1 composedPortfolioAccount2
+	composedPortfolio accountSummaryReport |
+	
+	simplePortfolioAccount := ReceptiveAccount new.
+	Deposit register: 100 on: simplePortfolioAccount.
+	simplePortfolio := Portfolio with: simplePortfolioAccount.
+	
+	composedPortfolioAccount1 := ReceptiveAccount new.
+	Withdraw register: 50 on: composedPortfolioAccount1.
+	composedPortfolio := Portfolio with: simplePortfolio with: composedPortfolioAccount1.
+	
+	Transfer from: simplePortfolioAccount to: composedPortfolioAccount1 forAmount: 100.
+	
+	composedPortfolioAccount2 := ReceptiveAccount new.
+	Deposit register: 101 on: composedPortfolioAccount2.
+	composedPortfolio add: composedPortfolioAccount2.
+	
+	accountSummaryReport := ((AccountSummary for: composedPortfolio) generateAccountSummary).
+	
+	self assert: (accountSummaryReport first) equals: 'Depósito por 100.'.
+	self assert: (accountSummaryReport second) equals: 'Salida por transferencia de 100.'.
+	self assert: (accountSummaryReport third) equals: 'Extracción por 50.'.
+	self assert: (accountSummaryReport fourth) equals: 'Entrada por transferencia de 100.'.
+	self assert: (accountSummaryReport fifth) equals: 'Depósito por 101.'.
+	self assert: (accountSummaryReport sixth) equals: 'Balance = 151'.
+	
+	self assert: (accountSummaryReport size) equals: 6.! !
+
+!ReportTest methodsFor: 'testing' stamp: 'GG 10/24/2023 17:04:26'!
+test15TransferNetForEmptyPortfolio
+
+	| portfolio transferNetReport|
+	
+	portfolio := Portfolio new.
+
+	transferNetReport := ((TransferNet for: portfolio) generateTransferNet).
+	
+	self assert: transferNetReport equals: 0
+! !
+
+!ReportTest methodsFor: 'testing' stamp: 'GG 10/24/2023 17:06:16'!
+test16TransferNetForPortfolioWithOneAccount
+
+	| account portfolio transferNetReport|
+	
+	account := ReceptiveAccount new.
+	Deposit register: 100 on: account.
+	Withdraw register: 50 on: account.
+	portfolio := Portfolio with: account.
+	
+	transferNetReport := ((TransferNet for: portfolio) generateTransferNet).
+	
+	self assert: transferNetReport equals: 0
+	! !
+
+!ReportTest methodsFor: 'testing' stamp: 'GG 10/24/2023 17:08:41'!
+test17TransferNetForPortfolioWithTwoAccountsAndTransfers
+
+	| senderAccount receptiveAccount portfolio transferNetReport|
+	
+	senderAccount := ReceptiveAccount new.
+	Withdraw register: 50 on: senderAccount.
+		
+	receptiveAccount := ReceptiveAccount new.
+	Deposit register: 1000 on: receptiveAccount.
+	
+	Transfer from: senderAccount to: receptiveAccount forAmount: 100.
+	portfolio := Portfolio with: senderAccount with: receptiveAccount.
+	
+	transferNetReport := ((TransferNet for: portfolio) generateTransferNet).
+	
+	self assert: transferNetReport equals: 0! !
+
+!ReportTest methodsFor: 'testing' stamp: 'GG 10/24/2023 17:10:09'!
+test18TransferNetForPortfolioWithOneAccountAndTransfers
+
+	| senderAccount receptiveAccount portfolio transferNetReport|
+	
+	senderAccount := ReceptiveAccount new.
+	Withdraw register: 50 on: senderAccount.
+		
+	receptiveAccount := ReceptiveAccount new.
+	Deposit register: 1000 on: receptiveAccount.
+	
+	Transfer from: senderAccount to: receptiveAccount forAmount: 100.
+	portfolio := Portfolio with: receptiveAccount.
+	
+	transferNetReport := ((TransferNet for: portfolio) generateTransferNet).
+	
+	self assert: transferNetReport equals: 100! !
+
+!ReportTest methodsFor: 'testing' stamp: 'GG 10/24/2023 17:15:40'!
+test19TransferNetForPortfolioIsGeneratedRecursively
+ 
+	| simplePortfolioAccount simplePortfolio composedPortfolioAccount1 composedPortfolioAccount2 accountOutsidePortfolio
+	composedPortfolio transferNetReport |
+	
+	simplePortfolioAccount := ReceptiveAccount new.
+	Deposit register: 100 on: simplePortfolioAccount.
+	simplePortfolio := Portfolio with: simplePortfolioAccount.
+	
+	composedPortfolioAccount1 := ReceptiveAccount new.
+	Withdraw register: 50 on: composedPortfolioAccount1.
+	composedPortfolio := Portfolio with: simplePortfolio with: composedPortfolioAccount1.
+		
+	composedPortfolioAccount2 := ReceptiveAccount new.
+	Deposit register: 101 on: composedPortfolioAccount2.
+	composedPortfolio add: composedPortfolioAccount2.
+	
+	accountOutsidePortfolio := ReceptiveAccount new.
+	
+	Transfer from: simplePortfolioAccount to: composedPortfolioAccount1 forAmount: 100.
+	Transfer from: simplePortfolioAccount to: accountOutsidePortfolio forAmount: 320.
+	
+	transferNetReport := ((TransferNet for: composedPortfolio) generateTransferNet).
+	
+	self assert: transferNetReport equals: -320
+	! !
+
+!ReportTest methodsFor: 'testing' stamp: 'GG 10/24/2023 17:20:26'!
+test20CasoGeneral
+ 
+	| simplePortfolioAccount simplePortfolio composedPortfolioAccount1 composedPortfolioAccount2 accountOutsidePortfolio
+	composedPortfolio transferNetReport |
+	
+	simplePortfolioAccount := ReceptiveAccount new.
+	Deposit register: 100 on: simplePortfolioAccount.
+	simplePortfolio := Portfolio with: simplePortfolioAccount.
+	
+	composedPortfolioAccount1 := ReceptiveAccount new.
+	Withdraw register: 50 on: composedPortfolioAccount1.
+	composedPortfolio := Portfolio with: simplePortfolio with: composedPortfolioAccount1.
+		
+	composedPortfolioAccount2 := ReceptiveAccount new.
+	Deposit register: 101 on: composedPortfolioAccount2.
+	composedPortfolio add: composedPortfolioAccount2.
+	
+	accountOutsidePortfolio := ReceptiveAccount new.
+	
+	Transfer from: simplePortfolioAccount to: composedPortfolioAccount1 forAmount: 100.
+	Transfer from: simplePortfolioAccount to: accountOutsidePortfolio forAmount: 320.
+	
+	transferNetReport := ((TransferNet for: composedPortfolio) generateTransferNet).
+	
+	self assert: transferNetReport equals: -320
+	! !
 
 
 !classDefinition: #TransferTest category: 'Portfolio-Solucion'!
@@ -775,11 +954,10 @@ signalCanNotAddAccount
 	self error: self class canNotAddAccountErrorMessage! !
 
 
-!Portfolio methodsFor: 'reporting' stamp: 'GG 10/24/2023 15:44:19'!
+!Portfolio methodsFor: 'reporting' stamp: 'GG 10/24/2023 16:57:50'!
 generateReport: aReport
 	
-	accounts isEmpty ifTrue: [^self].
-	accounts first generateReport: aReport! !
+	accounts do: [:anAccount | anAccount generateReport: aReport]! !
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
@@ -1116,15 +1294,15 @@ on: aReceptiveAccount with: aTransfer
 
 !classDefinition: #Report category: 'Portfolio-Solucion'!
 Object subclass: #Report
-	instanceVariableNames: 'receptiveAccount'
+	instanceVariableNames: 'account'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'Portfolio-Solucion'!
 
-!Report methodsFor: 'initialization' stamp: 'GG 10/24/2023 15:05:11'!
-initializeWith: aReceptiveAccount
+!Report methodsFor: 'initialization' stamp: 'GG 10/24/2023 16:59:17'!
+initializeWith: anAccount
 
-	receptiveAccount := aReceptiveAccount! !
+	account := anAccount! !
 
 
 !Report methodsFor: 'report generation - private' stamp: 'GG 10/24/2023 15:21:38'!
@@ -1138,10 +1316,10 @@ processForTransaction: aTransaction
 Report class
 	instanceVariableNames: ''!
 
-!Report class methodsFor: 'instance creation' stamp: 'GG 10/24/2023 14:46:44'!
-for: aReceptiveAccount
+!Report class methodsFor: 'instance creation' stamp: 'GG 10/24/2023 17:00:13'!
+for: anAccount
 
-	^self new initializeWith: aReceptiveAccount ! !
+	^self new initializeWith: anAccount ! !
 
 
 !classDefinition: #AccountSummary category: 'Portfolio-Solucion'!
@@ -1160,19 +1338,19 @@ processForTransaction: aTransaction
 ! !
 
 
-!AccountSummary methodsFor: 'report generation' stamp: 'GG 10/24/2023 15:35:16'!
+!AccountSummary methodsFor: 'report generation' stamp: 'GG 10/24/2023 16:58:41'!
 generateAccountSummary
 
-	receptiveAccount generateReport: self.
-	report add: ('Balance = ', receptiveAccount balance asString).
+	account generateReport: self.
+	report add: ('Balance = ', account balance asString).
 	
 	^report! !
 
 
-!AccountSummary methodsFor: 'initialization' stamp: 'GG 10/24/2023 15:05:34'!
-initializeWith: aReceptiveAccount
+!AccountSummary methodsFor: 'initialization' stamp: 'GG 10/24/2023 16:59:37'!
+initializeWith: anAccount
 
-	super initializeWith: aReceptiveAccount.
+	super initializeWith: anAccount.
 	report := OrderedCollection new.
 	! !
 
@@ -1196,18 +1374,18 @@ processForTransaction: aTransaction
 	transferNet := transferNet + aTransaction valueForTransferNet! !
 
 
-!TransferNet methodsFor: 'report generation' stamp: 'GG 10/24/2023 15:13:57'!
+!TransferNet methodsFor: 'report generation' stamp: 'GG 10/24/2023 16:58:41'!
 generateTransferNet
 
-	receptiveAccount generateReport: self.
+	account generateReport: self.
 
 	^ transferNet ! !
 
 
-!TransferNet methodsFor: 'initialization' stamp: 'GG 10/24/2023 15:05:48'!
-initializeWith: aReceptiveAccount
+!TransferNet methodsFor: 'initialization' stamp: 'GG 10/24/2023 16:59:50'!
+initializeWith: anAccount
 
-	super initializeWith: aReceptiveAccount.	
+	super initializeWith: anAccount.	
 	transferNet := 0.! !
 
 
