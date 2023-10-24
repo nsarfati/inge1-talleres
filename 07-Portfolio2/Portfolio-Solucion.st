@@ -798,51 +798,23 @@ addedTo: aPortfolio
 	! !
 
 
-!ReceptiveAccount methodsFor: 'reporting' stamp: 'NMS 10/21/2023 13:27:46'!
+!ReceptiveAccount methodsFor: 'reporting' stamp: 'NMS 10/23/2023 21:36:38'!
 accountSummary	
 	| report |
 	report := OrderedCollection new.
 	
-	transactions do: [ :aTransaction |
-		(aTransaction isKindOf: Deposit) ifTrue: [
-			report add: (('Depósito por ' append: (aTransaction value asString)) append: '.').
-		].
+	transactions do: [ :aTransaction | report add: (aTransaction lineForAccountSummary)].
 
-		(aTransaction isKindOf: Withdraw) ifTrue: [
-			report add: (('Extracción por ' append: (aTransaction value asString)) append: '.').
-		].
-	
-		(aTransaction isKindOf: DepositLeg) ifTrue: [
-			report add: (('Entrada por transferencia de ' append: (aTransaction value asString)) append: '.').
-		].
-
-		(aTransaction isKindOf: WithdrawLeg ) ifTrue: [
-			report add: (('Salida por transferencia de ' append: (aTransaction value asString)) append: '.').
-		].
-	].
-
-	report add: ('Balance = ' append: self balance asString).
+	report add: ('Balance = ', self balance asString).
 	
 	^report
 	! !
 
-!ReceptiveAccount methodsFor: 'reporting' stamp: 'NMS 10/23/2023 11:30:02'!
+!ReceptiveAccount methodsFor: 'reporting' stamp: 'NMS 10/23/2023 21:43:14'!
 transferNet
 	^transactions 
 		inject: 0
-		into: [ :currentBalance :transaction |
-				(transaction isKindOf: DepositLeg)
-					ifTrue: [
-						currentBalance + transaction value
-					]
-					ifFalse: [
-						(transaction isKindOf: WithdrawLeg)
-							ifTrue: [
-								currentBalance	 - transaction value
-							]
-							ifFalse: [currentBalance]
-					]
-		]! !
+		into: [ :currentTransferNet :aTransaction | (aTransaction affectTransferNet: currentTransferNet		)]! !
 
 
 !classDefinition: #AccountTransaction category: 'Portfolio-Solucion'!
@@ -863,33 +835,20 @@ affectBalance: aBalance
 
 	self subclassResponsibility ! !
 
-
-!classDefinition: #TT category: 'Portfolio-Solucion'!
-AccountTransaction subclass: #TT
-	instanceVariableNames: ''
-	classVariableNames: ''
-	poolDictionaries: ''
-	category: 'Portfolio-Solucion'!
+!AccountTransaction methodsFor: 'balance' stamp: 'NMS 10/23/2023 21:44:26'!
+affectTransferNet: aTransferNet
 
-"-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
+	self subclassResponsibility! !
 
-!classDefinition: 'TT class' category: 'Portfolio-Solucion'!
-TT class
-	instanceVariableNames: ''!
 
-!TT class methodsFor: 'instance creation' stamp: 'NMS 10/23/2023 10:55:29'!
-register: aValue on: account
+!AccountTransaction methodsFor: 'reporting' stamp: 'NMS 10/23/2023 21:37:17'!
+lineForAccountSummary
 
-	| transaction |
-	
-	transaction := self for: aValue.
-	account register: transaction.
-		
-	^ transaction! !
+	self subclassResponsibility! !
 
 
 !classDefinition: #Deposit category: 'Portfolio-Solucion'!
-TT subclass: #Deposit
+AccountTransaction subclass: #Deposit
 	instanceVariableNames: 'value'
 	classVariableNames: ''
 	poolDictionaries: ''
@@ -912,6 +871,15 @@ affectBalance: aBalance
 
 	^aBalance + value ! !
 
+!Deposit methodsFor: 'balance' stamp: 'NMS 10/23/2023 21:44:42'!
+affectTransferNet: aTransferNet
+	^aTransferNet! !
+
+
+!Deposit methodsFor: 'reporting' stamp: 'NMS 10/23/2023 21:38:43'!
+lineForAccountSummary
+	^'Depósito por ', (value asString), '.'! !
+
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
 !classDefinition: 'Deposit class' category: 'Portfolio-Solucion'!
@@ -923,53 +891,19 @@ for: aValue
 
 	^ self new initializeFor: aValue ! !
 
-
-!classDefinition: #Withdraw category: 'Portfolio-Solucion'!
-TT subclass: #Withdraw
-	instanceVariableNames: 'value'
-	classVariableNames: ''
-	poolDictionaries: ''
-	category: 'Portfolio-Solucion'!
+!Deposit class methodsFor: 'instance creation' stamp: 'NMS 10/23/2023 21:33:44'!
+register: aValue on: account
 
-!Withdraw methodsFor: 'initialization' stamp: 'HernanWilkinson 7/13/2011 18:46'!
-initializeFor: aValue
-
-	value := aValue ! !
-
-
-!Withdraw methodsFor: 'value' stamp: 'HernanWilkinson 7/13/2011 18:33'!
-value
-
-	^ value! !
-
-
-!Withdraw methodsFor: 'balance' stamp: 'HAW 5/25/2019 11:25:15'!
-affectBalance: aBalance
-
-	^aBalance - value! !
-
-"-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
-
-!classDefinition: 'Withdraw class' category: 'Portfolio-Solucion'!
-Withdraw class
-	instanceVariableNames: ''!
-
-!Withdraw class methodsFor: 'instance creation' stamp: 'HernanWilkinson 7/13/2011 18:33'!
-for: aValue
-
-	^ self new initializeFor: aValue ! !
-
-
-!classDefinition: #TransferLeg category: 'Portfolio-Solucion'!
-AccountTransaction subclass: #TransferLeg
-	instanceVariableNames: ''
-	classVariableNames: ''
-	poolDictionaries: ''
-	category: 'Portfolio-Solucion'!
+	| transaction |
+	
+	transaction := self for: aValue.
+	account register: transaction.
+		
+	^ transaction! !
 
 
 !classDefinition: #DepositLeg category: 'Portfolio-Solucion'!
-TransferLeg subclass: #DepositLeg
+AccountTransaction subclass: #DepositLeg
 	instanceVariableNames: 'transfer'
 	classVariableNames: ''
 	poolDictionaries: ''
@@ -994,6 +928,16 @@ transfer
 value
 	^transfer value! !
 
+
+!DepositLeg methodsFor: 'reporting' stamp: 'NMS 10/23/2023 21:39:03'!
+lineForAccountSummary
+	^'Entrada por transferencia de ', (self value asString), '.'! !
+
+
+!DepositLeg methodsFor: 'balance' stamp: 'NMS 10/23/2023 21:45:04'!
+affectTransferNet: aTransferNet
+	^aTransferNet + self value! !
+
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
 !classDefinition: 'DepositLeg class' category: 'Portfolio-Solucion'!
@@ -1005,8 +949,63 @@ on: aReceptiveAccount with: aTransfer
 	^self new initializeWith: aTransfer on: aReceptiveAccount ! !
 
 
+!classDefinition: #Withdraw category: 'Portfolio-Solucion'!
+AccountTransaction subclass: #Withdraw
+	instanceVariableNames: 'value'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Solucion'!
+
+!Withdraw methodsFor: 'initialization' stamp: 'HernanWilkinson 7/13/2011 18:46'!
+initializeFor: aValue
+
+	value := aValue ! !
+
+
+!Withdraw methodsFor: 'value' stamp: 'HernanWilkinson 7/13/2011 18:33'!
+value
+
+	^ value! !
+
+
+!Withdraw methodsFor: 'balance' stamp: 'HAW 5/25/2019 11:25:15'!
+affectBalance: aBalance
+
+	^aBalance - value! !
+
+!Withdraw methodsFor: 'balance' stamp: 'NMS 10/23/2023 21:44:49'!
+affectTransferNet: aTransferNet
+	^aTransferNet! !
+
+
+!Withdraw methodsFor: 'reporting' stamp: 'NMS 10/23/2023 21:39:25'!
+lineForAccountSummary
+	^'Extracción por ', (value asString), '.'! !
+
+"-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
+
+!classDefinition: 'Withdraw class' category: 'Portfolio-Solucion'!
+Withdraw class
+	instanceVariableNames: ''!
+
+!Withdraw class methodsFor: 'instance creation' stamp: 'HernanWilkinson 7/13/2011 18:33'!
+for: aValue
+
+	^ self new initializeFor: aValue ! !
+
+!Withdraw class methodsFor: 'instance creation' stamp: 'NMS 10/23/2023 21:33:44'!
+register: aValue on: account
+
+	| transaction |
+	
+	transaction := self for: aValue.
+	account register: transaction.
+		
+	^ transaction! !
+
+
 !classDefinition: #WithdrawLeg category: 'Portfolio-Solucion'!
-TransferLeg subclass: #WithdrawLeg
+AccountTransaction subclass: #WithdrawLeg
 	instanceVariableNames: 'transfer'
 	classVariableNames: ''
 	poolDictionaries: ''
@@ -1030,6 +1029,16 @@ transfer
 !WithdrawLeg methodsFor: 'accessing' stamp: 'NMS 10/21/2023 12:26:54'!
 value
 	^transfer value! !
+
+
+!WithdrawLeg methodsFor: 'reporting' stamp: 'NMS 10/23/2023 21:39:43'!
+lineForAccountSummary
+	^'Salida por transferencia de ', (self value asString), '.'! !
+
+
+!WithdrawLeg methodsFor: 'balance' stamp: 'NMS 10/23/2023 21:45:13'!
+affectTransferNet: aTransferNet
+	^aTransferNet - self value! !
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
