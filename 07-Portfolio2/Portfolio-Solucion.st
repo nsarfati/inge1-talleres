@@ -312,18 +312,17 @@ TestCase subclass: #ReportTest
 	poolDictionaries: ''
 	category: 'Portfolio-Solucion'!
 
-!ReportTest methodsFor: 'testing' stamp: 'NMS 10/21/2023 13:21:59'!
+!ReportTest methodsFor: 'testing' stamp: 'GG 10/24/2023 15:12:27'!
 test01AccountSummaryForAccountWithNoTransactions
 
 	| accountSummary |
-
-	accountSummary := ReceptiveAccount new accountSummary.
 	
+	accountSummary := (AccountSummary for: ReceptiveAccount new) generateAccountSummary.
 	
 	self assert: (accountSummary first) equals: 'Balance = 0'.
 	self assert: (accountSummary size) equals: 1! !
 
-!ReportTest methodsFor: 'testing' stamp: 'NMS 10/21/2023 13:22:05'!
+!ReportTest methodsFor: 'testing' stamp: 'GG 10/24/2023 15:12:33'!
 test02AccountSummaryForAccountWithDeposit
 
 	| accountToVerify accountSummary |
@@ -332,13 +331,13 @@ test02AccountSummaryForAccountWithDeposit
 	
 	Deposit register: 100 on: accountToVerify.
 
-	accountSummary := accountToVerify accountSummary.
+	accountSummary := (AccountSummary for: accountToVerify) generateAccountSummary.
 	
 	self assert: (accountSummary first) equals: 'Depósito por 100.'.
 	self assert: (accountSummary second) equals: 'Balance = 100'.
 	self assert: (accountSummary size) equals: 2! !
 
-!ReportTest methodsFor: 'testing' stamp: 'NMS 10/21/2023 13:22:19'!
+!ReportTest methodsFor: 'testing' stamp: 'GG 10/24/2023 15:12:36'!
 test03AccountSummaryForAccountWithWithdrawal
 
 	| accountToVerify accountSummary |
@@ -347,13 +346,13 @@ test03AccountSummaryForAccountWithWithdrawal
 	
 	Withdraw register: 20 on: accountToVerify.
 
-	accountSummary := accountToVerify accountSummary.
+	accountSummary := (AccountSummary for: accountToVerify) generateAccountSummary.
 	
 	self assert: (accountSummary first) equals: 'Extracción por 20.'.
 	self assert: (accountSummary second) equals: 'Balance = -20'.
 	self assert: (accountSummary size) equals: 2! !
 
-!ReportTest methodsFor: 'testing' stamp: 'NMS 10/21/2023 13:26:48'!
+!ReportTest methodsFor: 'testing' stamp: 'GG 10/24/2023 15:12:52'!
 test04AccountSummaryForAccountWithDepositTransferLeg
 
 	| receptiveAccount senderAccount accountSummaryReceptiveAccount accountSummarySenderAccount |
@@ -363,8 +362,8 @@ test04AccountSummaryForAccountWithDepositTransferLeg
 
 	Transfer from: senderAccount to: receptiveAccount forAmount: 100.
 	
-	accountSummaryReceptiveAccount := receptiveAccount accountSummary.
-	accountSummarySenderAccount := senderAccount accountSummary.
+	accountSummaryReceptiveAccount := (AccountSummary for: receptiveAccount) generateAccountSummary.
+	accountSummarySenderAccount := (AccountSummary for: senderAccount) generateAccountSummary.
 	
 	self assert: (accountSummaryReceptiveAccount first) equals: 'Entrada por transferencia de 100.'.
 	self assert: (accountSummaryReceptiveAccount second) equals: 'Balance = 100'.
@@ -377,7 +376,7 @@ test04AccountSummaryForAccountWithDepositTransferLeg
 	
 ! !
 
-!ReportTest methodsFor: 'testing' stamp: 'NMS 10/23/2023 10:48:13'!
+!ReportTest methodsFor: 'testing' stamp: 'GG 10/24/2023 15:12:58'!
 test05TestExtraToCheckGeneralization
 
 	| receptiveAccount senderAccount accountSummaryReceptiveAccount accountSummarySenderAccount |
@@ -392,8 +391,8 @@ test05TestExtraToCheckGeneralization
 
 	Transfer from: senderAccount to: receptiveAccount forAmount: 100.
 	
-	accountSummaryReceptiveAccount := receptiveAccount accountSummary.
-	accountSummarySenderAccount := senderAccount accountSummary.
+	accountSummaryReceptiveAccount := (AccountSummary for: receptiveAccount) generateAccountSummary.
+	accountSummarySenderAccount := (AccountSummary for: senderAccount) generateAccountSummary.
 
 	self assert: (accountSummaryReceptiveAccount first) equals: 'Depósito por 1.'.
 	self assert: (accountSummaryReceptiveAccount second) equals: 'Entrada por transferencia de 100.'.
@@ -407,12 +406,12 @@ test05TestExtraToCheckGeneralization
 	self assert: (accountSummarySenderAccount size) equals: 4.
 ! !
 
-!ReportTest methodsFor: 'testing' stamp: 'NMS 10/23/2023 11:23:54'!
+!ReportTest methodsFor: 'testing' stamp: 'GG 10/24/2023 15:11:55'!
 test06TransferNetForAccountWithNoTransactions
 
-	self assert: (ReceptiveAccount new transferNet) equals: 0! !
+	self assert: (	(TransferNet for: ReceptiveAccount new) generateTransferNet) equals: 0! !
 
-!ReportTest methodsFor: 'testing' stamp: 'NMS 10/23/2023 11:24:07'!
+!ReportTest methodsFor: 'testing' stamp: 'GG 10/24/2023 15:11:55'!
 test07TransferNetForAccountWithoutTransfers
 
 	| accountToVerify |
@@ -422,10 +421,10 @@ test07TransferNetForAccountWithoutTransfers
 	Deposit register: 100 on: accountToVerify.
 	Withdraw register: 20 on: accountToVerify.
 
-	self assert: (accountToVerify transferNet) equals: 0.
+	self assert: 	((TransferNet for: accountToVerify) generateTransferNet) equals: 0.
 ! !
 
-!ReportTest methodsFor: 'testing' stamp: 'NMS 10/23/2023 11:24:24'!
+!ReportTest methodsFor: 'testing' stamp: 'GG 10/24/2023 15:11:55'!
 test08TransferNetForAccountWithATransfers
 
 	| receptiveAccount senderAccount |
@@ -435,10 +434,10 @@ test08TransferNetForAccountWithATransfers
 
 	Transfer from: senderAccount to: receptiveAccount forAmount: 100.
 
-	self assert: (receptiveAccount transferNet) equals: 100.
-	self assert: (senderAccount transferNet) equals: -100! !
+	self assert: 	((TransferNet for: receptiveAccount) generateTransferNet) equals: 100.
+	self assert: 	((TransferNet for: senderAccount) generateTransferNet) equals: -100! !
 
-!ReportTest methodsFor: 'testing' stamp: 'NMS 10/23/2023 11:26:20'!
+!ReportTest methodsFor: 'testing' stamp: 'GG 10/24/2023 15:11:55'!
 test09TestExtraToCheckGeneralization
 
 	| receptiveAccount senderAccount |
@@ -454,8 +453,63 @@ test09TestExtraToCheckGeneralization
 	Transfer from: senderAccount to: receptiveAccount forAmount: 100.
 	Transfer from: receptiveAccount to: senderAccount forAmount: 50.
 
-	self assert: (receptiveAccount transferNet) equals: 50.
-	self assert: (senderAccount transferNet) equals: -50! !
+	self assert: ((TransferNet for: receptiveAccount) generateTransferNet) equals: 50.
+	self assert: ((TransferNet for: senderAccount) generateTransferNet) equals: -50! !
+
+!ReportTest methodsFor: 'testing' stamp: 'GG 10/24/2023 15:33:20'!
+test10AccountSummaryForEmptyPortfolio
+
+	| portfolio accountSummaryReport|
+	
+	portfolio := Portfolio new.
+
+	accountSummaryReport := ((AccountSummary for: portfolio) generateAccountSummary).
+	
+	self assert: (accountSummaryReport first) equals: 'Balance = 0'.
+	self assert: (accountSummaryReport size) equals: 1! !
+
+!ReportTest methodsFor: 'testing' stamp: 'GG 10/24/2023 15:44:56'!
+test11AccountSummaryForPortfolioWithOneAccount
+
+	| account portfolio accountSummaryReport|
+	
+	account := ReceptiveAccount new.
+	Deposit register: 100 on: account.
+	Withdraw register: 50 on: account.
+	portfolio := Portfolio with: account.
+	
+	accountSummaryReport := ((AccountSummary for: portfolio) generateAccountSummary).
+	
+	self assert: (accountSummaryReport first) equals: 'Depósito por 100.'.
+	self assert: (accountSummaryReport second) equals: 'Extracción por 50.'.
+	self assert: (accountSummaryReport third) equals: 'Balance = 50'.
+	self assert: (accountSummaryReport size) equals: 3! !
+
+!ReportTest methodsFor: 'testing' stamp: 'GG 10/24/2023 15:52:41'!
+test12AccountSummaryForPortfolioWithTwoAccountsAndTransfers
+
+	| senderAccount receptiveAccount portfolio accountSummaryReport|
+	
+	senderAccount := ReceptiveAccount new.
+	Withdraw register: 50 on: senderAccount.
+		
+	receptiveAccount := ReceptiveAccount new.
+	Deposit register: 1000 on: receptiveAccount.
+	
+	Transfer from: senderAccount to: receptiveAccount forAmount: 100.
+	portfolio := Portfolio with: senderAccount with: receptiveAccount.
+	
+	accountSummaryReport := ((AccountSummary for: portfolio) generateAccountSummary).
+	
+	self assert: (accountSummaryReport first) equals: 'Extracción por 50.'.
+	self assert: (accountSummaryReport second) equals: 'Salida por transferencia de 100.'.
+	self assert: (accountSummaryReport third) equals: 'Balance = -150'.
+	
+	self assert: (accountSummaryReport fourth) equals: 'Depósito por 1000.'.
+	self assert: (accountSummaryReport fifth) equals: 'Entrada por transferencia de 100.'.
+	self assert: (accountSummaryReport sixth) equals: 'Balance = 1100'.
+	
+	self assert: (accountSummaryReport size) equals: 6.! !
 
 
 !classDefinition: #TransferTest category: 'Portfolio-Solucion'!
@@ -602,6 +656,12 @@ addedTo: aPortfolio
 
 	self subclassResponsibility ! !
 
+
+!Account methodsFor: 'reporting' stamp: 'GG 10/24/2023 15:36:00'!
+generateReport: aReport
+
+	self subclassResponsibility! !
+
 
 !classDefinition: #Portfolio category: 'Portfolio-Solucion'!
 Account subclass: #Portfolio
@@ -714,6 +774,13 @@ signalCanNotAddAccount
 	
 	self error: self class canNotAddAccountErrorMessage! !
 
+
+!Portfolio methodsFor: 'reporting' stamp: 'GG 10/24/2023 15:44:19'!
+generateReport: aReport
+	
+	accounts isEmpty ifTrue: [^self].
+	accounts first generateReport: aReport! !
+
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
 !classDefinition: 'Portfolio class' category: 'Portfolio-Solucion'!
@@ -798,23 +865,10 @@ addedTo: aPortfolio
 	! !
 
 
-!ReceptiveAccount methodsFor: 'reporting' stamp: 'NMS 10/23/2023 21:36:38'!
-accountSummary	
-	| report |
-	report := OrderedCollection new.
-	
-	transactions do: [ :aTransaction | report add: (aTransaction lineForAccountSummary)].
+!ReceptiveAccount methodsFor: 'reporting' stamp: 'GG 10/24/2023 15:22:47'!
+generateReport: aReport
 
-	report add: ('Balance = ', self balance asString).
-	
-	^report
-	! !
-
-!ReceptiveAccount methodsFor: 'reporting' stamp: 'NMS 10/23/2023 21:43:14'!
-transferNet
-	^transactions 
-		inject: 0
-		into: [ :currentTransferNet :aTransaction | (aTransaction affectTransferNet: currentTransferNet		)]! !
+	transactions do: [:aTransaction | aReport processForTransaction: aTransaction]! !
 
 
 !classDefinition: #AccountTransaction category: 'Portfolio-Solucion'!
@@ -841,8 +895,13 @@ affectTransferNet: aTransferNet
 	self subclassResponsibility! !
 
 
-!AccountTransaction methodsFor: 'reporting' stamp: 'NMS 10/23/2023 21:37:17'!
+!AccountTransaction methodsFor: 'reporting - private' stamp: 'NMS 10/23/2023 21:37:17'!
 lineForAccountSummary
+
+	self subclassResponsibility! !
+
+!AccountTransaction methodsFor: 'reporting - private' stamp: 'GG 10/24/2023 15:27:12'!
+valueForTransferNet
 
 	self subclassResponsibility! !
 
@@ -871,14 +930,15 @@ affectBalance: aBalance
 
 	^aBalance + value ! !
 
-!Deposit methodsFor: 'balance' stamp: 'NMS 10/23/2023 21:44:42'!
-affectTransferNet: aTransferNet
-	^aTransferNet! !
 
-
-!Deposit methodsFor: 'reporting' stamp: 'NMS 10/23/2023 21:38:43'!
+!Deposit methodsFor: 'reporting - private' stamp: 'NMS 10/23/2023 21:38:43'!
 lineForAccountSummary
 	^'Depósito por ', (value asString), '.'! !
+
+!Deposit methodsFor: 'reporting - private' stamp: 'GG 10/24/2023 14:56:53'!
+valueForTransferNet
+
+	^ 0! !
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
@@ -916,10 +976,6 @@ initializeWith: aTransfer on: aReceptiveAccount
 ! !
 
 
-!DepositLeg methodsFor: 'accessing' stamp: 'NMS 10/21/2023 12:21:52'!
-affectBalance: aBalance
-	^aBalance + transfer value ! !
-
 !DepositLeg methodsFor: 'accessing' stamp: 'NMS 10/21/2023 12:09:00'!
 transfer
 	^transfer! !
@@ -929,14 +985,19 @@ value
 	^transfer value! !
 
 
-!DepositLeg methodsFor: 'reporting' stamp: 'NMS 10/23/2023 21:39:03'!
+!DepositLeg methodsFor: 'reporting - private' stamp: 'NMS 10/23/2023 21:39:03'!
 lineForAccountSummary
 	^'Entrada por transferencia de ', (self value asString), '.'! !
 
+!DepositLeg methodsFor: 'reporting - private' stamp: 'GG 10/24/2023 14:56:28'!
+valueForTransferNet
 
-!DepositLeg methodsFor: 'balance' stamp: 'NMS 10/23/2023 21:45:04'!
-affectTransferNet: aTransferNet
-	^aTransferNet + self value! !
+	^ self value! !
+
+
+!DepositLeg methodsFor: 'balance' stamp: 'NMS 10/21/2023 12:21:52'!
+affectBalance: aBalance
+	^aBalance + transfer value ! !
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
@@ -973,14 +1034,15 @@ affectBalance: aBalance
 
 	^aBalance - value! !
 
-!Withdraw methodsFor: 'balance' stamp: 'NMS 10/23/2023 21:44:49'!
-affectTransferNet: aTransferNet
-	^aTransferNet! !
 
-
-!Withdraw methodsFor: 'reporting' stamp: 'NMS 10/23/2023 21:39:25'!
+!Withdraw methodsFor: 'reporting - private' stamp: 'NMS 10/23/2023 21:39:25'!
 lineForAccountSummary
 	^'Extracción por ', (value asString), '.'! !
+
+!Withdraw methodsFor: 'reporting - private' stamp: 'GG 10/24/2023 14:56:49'!
+valueForTransferNet
+
+	^ 0! !
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
@@ -1011,10 +1073,6 @@ AccountTransaction subclass: #WithdrawLeg
 	poolDictionaries: ''
 	category: 'Portfolio-Solucion'!
 
-!WithdrawLeg methodsFor: 'initilization' stamp: 'NMS 10/21/2023 12:22:48'!
-affectBalance: aBalance
-	^aBalance - transfer value ! !
-
 !WithdrawLeg methodsFor: 'initilization' stamp: 'NMS 10/21/2023 12:22:11'!
 initializeWith: aTransfer on: aReceptiveAccount
 	transfer := aTransfer.
@@ -1031,14 +1089,19 @@ value
 	^transfer value! !
 
 
-!WithdrawLeg methodsFor: 'reporting' stamp: 'NMS 10/23/2023 21:39:43'!
+!WithdrawLeg methodsFor: 'reporting - private' stamp: 'NMS 10/23/2023 21:39:43'!
 lineForAccountSummary
 	^'Salida por transferencia de ', (self value asString), '.'! !
 
+!WithdrawLeg methodsFor: 'reporting - private' stamp: 'GG 10/24/2023 14:57:21'!
+valueForTransferNet
 
-!WithdrawLeg methodsFor: 'balance' stamp: 'NMS 10/23/2023 21:45:13'!
-affectTransferNet: aTransferNet
-	^aTransferNet - self value! !
+	^ self value * -1! !
+
+
+!WithdrawLeg methodsFor: 'balance' stamp: 'NMS 10/21/2023 12:22:48'!
+affectBalance: aBalance
+	^aBalance - transfer value ! !
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
@@ -1049,6 +1112,103 @@ WithdrawLeg class
 !WithdrawLeg class methodsFor: 'instance creation' stamp: 'NMS 10/21/2023 12:22:24'!
 on: aReceptiveAccount with: aTransfer
 	^self new initializeWith: aTransfer on: aReceptiveAccount ! !
+
+
+!classDefinition: #Report category: 'Portfolio-Solucion'!
+Object subclass: #Report
+	instanceVariableNames: 'receptiveAccount'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Solucion'!
+
+!Report methodsFor: 'initialization' stamp: 'GG 10/24/2023 15:05:11'!
+initializeWith: aReceptiveAccount
+
+	receptiveAccount := aReceptiveAccount! !
+
+
+!Report methodsFor: 'report generation - private' stamp: 'GG 10/24/2023 15:21:38'!
+processForTransaction: aTransaction
+
+	self subclassResponsibility! !
+
+"-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
+
+!classDefinition: 'Report class' category: 'Portfolio-Solucion'!
+Report class
+	instanceVariableNames: ''!
+
+!Report class methodsFor: 'instance creation' stamp: 'GG 10/24/2023 14:46:44'!
+for: aReceptiveAccount
+
+	^self new initializeWith: aReceptiveAccount ! !
+
+
+!classDefinition: #AccountSummary category: 'Portfolio-Solucion'!
+Report subclass: #AccountSummary
+	instanceVariableNames: 'report'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Solucion'!
+
+!AccountSummary methodsFor: 'report generation - private' stamp: 'GG 10/24/2023 15:21:15'!
+processForTransaction: aTransaction
+
+	report add: aTransaction lineForAccountSummary
+	
+
+! !
+
+
+!AccountSummary methodsFor: 'report generation' stamp: 'GG 10/24/2023 15:35:16'!
+generateAccountSummary
+
+	receptiveAccount generateReport: self.
+	report add: ('Balance = ', receptiveAccount balance asString).
+	
+	^report! !
+
+
+!AccountSummary methodsFor: 'initialization' stamp: 'GG 10/24/2023 15:05:34'!
+initializeWith: aReceptiveAccount
+
+	super initializeWith: aReceptiveAccount.
+	report := OrderedCollection new.
+	! !
+
+"-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
+
+!classDefinition: 'AccountSummary class' category: 'Portfolio-Solucion'!
+AccountSummary class
+	instanceVariableNames: 'receptiveAccount'!
+
+
+!classDefinition: #TransferNet category: 'Portfolio-Solucion'!
+Report subclass: #TransferNet
+	instanceVariableNames: 'transferNet'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Solucion'!
+
+!TransferNet methodsFor: 'report generation - private' stamp: 'GG 10/24/2023 15:21:27'!
+processForTransaction: aTransaction
+
+	transferNet := transferNet + aTransaction valueForTransferNet! !
+
+
+!TransferNet methodsFor: 'report generation' stamp: 'GG 10/24/2023 15:13:57'!
+generateTransferNet
+
+	receptiveAccount generateReport: self.
+
+	^ transferNet ! !
+
+
+!TransferNet methodsFor: 'initialization' stamp: 'GG 10/24/2023 15:05:48'!
+initializeWith: aReceptiveAccount
+
+	super initializeWith: aReceptiveAccount.	
+	transferNet := 0.! !
 
 
 !classDefinition: #Transfer category: 'Portfolio-Solucion'!
