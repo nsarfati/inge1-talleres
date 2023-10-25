@@ -213,6 +213,42 @@ test15PortfolioCanNotIncludeAnyOfTheComposedAccountOfPortfolioToAdd
 			self assert: Portfolio canNotAddAccountErrorMessage equals: anError messageText.
 			self assert: portfolioToModify accountsIsEmpty ]! !
 
+!PortfolioTest methodsFor: 'tests' stamp: 'NMS 10/25/2023 12:37:04'!
+test16PortfolioWithoutNameReturnsDefault
+
+	| portfolio |
+	
+	portfolio := Portfolio new.
+	
+	self assert: portfolio accountName equals: 'Portfolio sin nombre'! !
+
+!PortfolioTest methodsFor: 'tests' stamp: 'NMS 10/25/2023 12:37:22'!
+test17NamedPortfolioReturnsRightOne
+
+	| portfolio |
+	
+	portfolio := Portfolio named: 'Portfolio de Nico'.
+	
+	self assert: portfolio accountName equals: 'Portfolio de Nico'! !
+
+!PortfolioTest methodsFor: 'tests' stamp: 'NMS 10/25/2023 12:51:52'!
+test18NamedPortfolioWithOneAccount
+
+	| portfolio |
+	
+	portfolio := Portfolio named: 'Portfolio de Nico' with: (ReceptiveAccount named: 'Cuenta 1').
+	
+	self assert: portfolio accountName equals: 'Portfolio de Nico'! !
+
+!PortfolioTest methodsFor: 'tests' stamp: 'NMS 10/25/2023 12:54:34'!
+test19NamedPortfolioWithTwoAccounts
+
+	| portfolio |
+	
+	portfolio := Portfolio named: 'Portfolio de Nico' with: (ReceptiveAccount named: 'Cuenta 1') with: (ReceptiveAccount named: 'Cuenta 2').
+	
+	self assert: portfolio accountName equals: 'Portfolio de Nico'! !
+
 
 !classDefinition: #ReceptiveAccountTest category: 'Portfolio-Solucion'!
 TestCase subclass: #ReceptiveAccountTest
@@ -303,6 +339,24 @@ test07AccountKnowsItsTransactions
 	self assert: 1 equals: account1 transactions size .
 	self assert: (account1 transactions includes: deposit1).
 ! !
+
+!ReceptiveAccountTest methodsFor: 'tests' stamp: 'NMS 10/25/2023 12:24:57'!
+test08ReceptiveAccountWithoutNameReturnsDefault
+
+	| account1 |
+	
+	account1 := ReceptiveAccount new.
+		
+	self assert: account1 accountName equals: 'Receptive Account sin nombre'! !
+
+!ReceptiveAccountTest methodsFor: 'tests' stamp: 'NMS 10/25/2023 12:37:37'!
+test09NamedReceptiveAccountReturnsRightOne
+
+	| account1 |
+	
+	account1 := ReceptiveAccount named: 'Cuenta de Gero'.
+		
+	self assert: account1 accountName equals: 'Cuenta de Gero'! !
 
 
 !classDefinition: #ReportTest category: 'Portfolio-Solucion'!
@@ -540,8 +594,8 @@ test13AccountSummaryOfPortfolioIsGeneratedRecursively
 	
 	self assert: (accountSummaryReport size) equals: 6.! !
 
-!ReportTest methodsFor: 'testing' stamp: 'GG 10/24/2023 17:02:40'!
-test14CasoGeneral
+!ReportTest methodsFor: 'testing' stamp: 'NMS 10/25/2023 12:04:56'!
+test14CasoGeneralPENDINGDEHACER
  
 	| simplePortfolioAccount simplePortfolio composedPortfolioAccount1 composedPortfolioAccount2
 	composedPortfolio accountSummaryReport |
@@ -662,8 +716,8 @@ test19TransferNetForPortfolioIsGeneratedRecursively
 	self assert: transferNetReport equals: -320
 	! !
 
-!ReportTest methodsFor: 'testing' stamp: 'GG 10/24/2023 17:20:26'!
-test20CasoGeneral
+!ReportTest methodsFor: 'testing' stamp: 'NMS 10/25/2023 12:05:03'!
+test20CasoGeneralPENDINGDEHACER
  
 	| simplePortfolioAccount simplePortfolio composedPortfolioAccount1 composedPortfolioAccount2 accountOutsidePortfolio
 	composedPortfolio transferNetReport |
@@ -689,6 +743,45 @@ test20CasoGeneral
 	
 	self assert: transferNetReport equals: -320
 	! !
+
+!ReportTest methodsFor: 'testing' stamp: 'NMS 10/25/2023 13:56:16'!
+test21PortfolioStructureForEmptyPortfolio
+ 
+	| emptyPortfolio portfolioStructureReport |
+
+	emptyPortfolio := Portfolio named: 'Portfolio de la familia'.
+	portfolioStructureReport := ((PortfolioStructure for: emptyPortfolio) generatePortfolioStructure).
+	
+	self assert: portfolioStructureReport first equals: 'Portfolio de la familia'.
+	self assert: portfolioStructureReport size equals: 1! !
+
+!ReportTest methodsFor: 'testing' stamp: 'NMS 10/25/2023 13:56:35'!
+test22PortfolioStructureForPortfolioWithTwoAccounts
+ 
+	| portfolioWithOneAccount portfolioStructureReport |
+
+	portfolioWithOneAccount := Portfolio named: 'Portfolio de la familia' with: (ReceptiveAccount named: 'Cuenta de Hernan') with: (ReceptiveAccount named: 'Cuenta de Juan').
+	
+	portfolioStructureReport := ((PortfolioStructure for: portfolioWithOneAccount) generatePortfolioStructure).
+
+	self assert: portfolioStructureReport first equals: 'Portfolio de la familia'.
+	self assert: portfolioStructureReport second equals: '    Cuenta de Hernan'.
+	self assert: portfolioStructureReport third equals: '    Cuenta de Juan'.
+	self assert: portfolioStructureReport size equals: 3! !
+
+!ReportTest methodsFor: 'testing' stamp: 'NMS 10/25/2023 13:56:57'!
+test23PortfolioStructureForPortfolioWithAccountAndEmptyPortfolio
+ 
+	| portfolioWithOneAccount portfolioStructureReport |
+
+	portfolioWithOneAccount := Portfolio named: 'Portfolio de la familia' with: (ReceptiveAccount named: 'Cuenta de Hernan') with: (Portfolio named: 'Portfolio dentro de la familia').
+	
+	portfolioStructureReport := ((PortfolioStructure for: portfolioWithOneAccount) generatePortfolioStructure).
+
+	self assert: portfolioStructureReport first equals: 'Portfolio de la familia'.
+	self assert: portfolioStructureReport second equals: '    Cuenta de Hernan'.
+	self assert: portfolioStructureReport third equals: '    Portfolio dentro de la familia'.
+	self assert: portfolioStructureReport size equals: 3! !
 
 
 !classDefinition: #TransferTest category: 'Portfolio-Solucion'!
@@ -797,7 +890,7 @@ test07CanNotMakeNegativeTransfer
 
 !classDefinition: #Account category: 'Portfolio-Solucion'!
 Object subclass: #Account
-	instanceVariableNames: ''
+	instanceVariableNames: 'accountName'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'Portfolio-Solucion'!
@@ -811,6 +904,11 @@ hasRegistered: aTransaction
 isComposedBy: anAccount
 
 	self subclassResponsibility ! !
+
+!Account methodsFor: 'testing' stamp: 'NMS 10/25/2023 13:55:21'!
+treeDepth
+
+	self subclassResponsibility! !
 
 
 !Account methodsFor: 'balance' stamp: 'HAW 5/25/2019 12:23:40'!
@@ -840,6 +938,11 @@ addedTo: aPortfolio
 generateReport: aReport
 
 	self subclassResponsibility! !
+
+
+!Account methodsFor: 'accessing' stamp: 'NMS 10/25/2023 12:31:38'!
+accountName
+	^accountName! !
 
 
 !classDefinition: #Portfolio category: 'Portfolio-Solucion'!
@@ -884,11 +987,15 @@ rootParents
 	^ rootParents! !
 
 
-!Portfolio methodsFor: 'initialization' stamp: 'HAW 5/25/2019 12:03:18'!
+!Portfolio methodsFor: 'initialization' stamp: 'NMS 10/25/2023 12:35:20'!
 initialize
+	self initializeNamed: 'Portfolio sin nombre'! !
 
+!Portfolio methodsFor: 'initialization' stamp: 'NMS 10/25/2023 12:35:07'!
+initializeNamed: anAccountName
 	accounts := OrderedCollection new.
-	parents := OrderedCollection new.! !
+	parents := OrderedCollection new.
+	accountName := anAccountName! !
 
 
 !Portfolio methodsFor: 'balance' stamp: 'HAW 5/25/2019 11:19:36'!
@@ -934,6 +1041,11 @@ isComposedBy: anAccount
 
 	^ self = anAccount or: [ accounts anySatisfy: [ :composedAccount | (composedAccount isComposedBy: anAccount) or: [ anAccount isComposedBy: composedAccount ]]]! !
 
+!Portfolio methodsFor: 'testing' stamp: 'NMS 10/25/2023 13:53:38'!
+treeDepth
+	(parents isEmpty) ifTrue: [^0].
+	^1! !
+
 
 !Portfolio methodsFor: 'account management - private' stamp: 'HAW 5/25/2019 12:17:31'!
 addRootParentsTo: rootParents
@@ -954,10 +1066,12 @@ signalCanNotAddAccount
 	self error: self class canNotAddAccountErrorMessage! !
 
 
-!Portfolio methodsFor: 'reporting' stamp: 'GG 10/24/2023 16:57:50'!
+!Portfolio methodsFor: 'reporting' stamp: 'NMS 10/25/2023 13:27:22'!
 generateReport: aReport
-	
-	accounts do: [:anAccount | anAccount generateReport: aReport]! !
+	aReport doOperationForAPortfolio: self.
+	accounts do: [:anAccount |
+		anAccount generateReport: aReport
+	]! !
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
@@ -965,25 +1079,45 @@ generateReport: aReport
 Portfolio class
 	instanceVariableNames: ''!
 
-!Portfolio class methodsFor: 'as yet unclassified' stamp: 'HAW 5/25/2019 11:48:55'!
-canNotAddAccountErrorMessage
-	
-	^'Can not add repeated account to a portfolio'! !
+!Portfolio class methodsFor: 'instance creation' stamp: 'NMS 10/25/2023 12:26:11'!
+named: anAccountName
+	^self new initializeNamed: anAccountName! !
 
-!Portfolio class methodsFor: 'as yet unclassified' stamp: 'HAW 5/25/2019 11:18:21'!
+!Portfolio class methodsFor: 'instance creation' stamp: 'NMS 10/25/2023 12:53:19'!
+named: anAccountName with: anAccount
+
+	^self new initializeNamed: anAccountName;
+		add: anAccount;
+		yourself! !
+
+!Portfolio class methodsFor: 'instance creation' stamp: 'NMS 10/25/2023 12:54:24'!
+named: anAccountName with: anAccount with: anotherAccount
+
+	^self new initializeNamed: anAccountName;
+		add: anAccount;
+		add: anotherAccount;
+		yourself! !
+
+!Portfolio class methodsFor: 'instance creation' stamp: 'HAW 5/25/2019 11:18:21'!
 with: anAccount
 
 	^self new 
 		add: anAccount;
 		yourself! !
 
-!Portfolio class methodsFor: 'as yet unclassified' stamp: 'HAW 5/25/2019 11:23:59'!
+!Portfolio class methodsFor: 'instance creation' stamp: 'HAW 5/25/2019 11:23:59'!
 with: anAccount with: anotherAccount
 
 	^self new 
 		add: anAccount;
 		add: anotherAccount;
 		yourself! !
+
+
+!Portfolio class methodsFor: 'error messages' stamp: 'HAW 5/25/2019 11:48:55'!
+canNotAddAccountErrorMessage
+	
+	^'Can not add repeated account to a portfolio'! !
 
 
 !classDefinition: #ReceptiveAccount category: 'Portfolio-Solucion'!
@@ -993,10 +1127,14 @@ Account subclass: #ReceptiveAccount
 	poolDictionaries: ''
 	category: 'Portfolio-Solucion'!
 
-!ReceptiveAccount methodsFor: 'initialization' stamp: 'HernanWilkinson 7/13/2011 18:35'!
+!ReceptiveAccount methodsFor: 'initialization' stamp: 'NMS 10/25/2023 12:36:08'!
 initialize
-
 	super initialize.
+	self initializeNamed: 'Receptive Account sin nombre'! !
+
+!ReceptiveAccount methodsFor: 'initialization' stamp: 'NMS 10/25/2023 12:34:45'!
+initializeNamed: anAccountName
+	accountName := anAccountName.
 	transactions := OrderedCollection new.! !
 
 
@@ -1036,6 +1174,10 @@ isComposedBy: anAccount
 
 	^self = anAccount ! !
 
+!ReceptiveAccount methodsFor: 'testing' stamp: 'NMS 10/25/2023 13:55:04'!
+treeDepth
+	^1! !
+
 
 !ReceptiveAccount methodsFor: 'composition' stamp: 'HAW 5/25/2019 12:03:32'!
 addedTo: aPortfolio 
@@ -1043,10 +1185,22 @@ addedTo: aPortfolio
 	! !
 
 
-!ReceptiveAccount methodsFor: 'reporting' stamp: 'GG 10/24/2023 15:22:47'!
+!ReceptiveAccount methodsFor: 'reporting' stamp: 'NMS 10/25/2023 13:27:54'!
 generateReport: aReport
+	aReport doOperationForAReceptiveAccount: self.
+	transactions do: [:aTransaction |
+		aTransaction doOperationFor: aReport
+	]! !
 
-	transactions do: [:aTransaction | aReport processForTransaction: aTransaction]! !
+"-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
+
+!classDefinition: 'ReceptiveAccount class' category: 'Portfolio-Solucion'!
+ReceptiveAccount class
+	instanceVariableNames: ''!
+
+!ReceptiveAccount class methodsFor: 'instance creation' stamp: 'NMS 10/25/2023 12:19:22'!
+named: anAccountName
+	^self new initializeNamed: anAccountName! !
 
 
 !classDefinition: #AccountTransaction category: 'Portfolio-Solucion'!
@@ -1067,19 +1221,9 @@ affectBalance: aBalance
 
 	self subclassResponsibility ! !
 
-!AccountTransaction methodsFor: 'balance' stamp: 'NMS 10/23/2023 21:44:26'!
-affectTransferNet: aTransferNet
 
-	self subclassResponsibility! !
-
-
-!AccountTransaction methodsFor: 'reporting - private' stamp: 'NMS 10/23/2023 21:37:17'!
-lineForAccountSummary
-
-	self subclassResponsibility! !
-
-!AccountTransaction methodsFor: 'reporting - private' stamp: 'GG 10/24/2023 15:27:12'!
-valueForTransferNet
+!AccountTransaction methodsFor: 'reporting - private' stamp: 'NMS 10/25/2023 11:52:54'!
+doOperationFor: aReport
 
 	self subclassResponsibility! !
 
@@ -1109,14 +1253,9 @@ affectBalance: aBalance
 	^aBalance + value ! !
 
 
-!Deposit methodsFor: 'reporting - private' stamp: 'NMS 10/23/2023 21:38:43'!
-lineForAccountSummary
-	^'Depósito por ', (value asString), '.'! !
-
-!Deposit methodsFor: 'reporting - private' stamp: 'GG 10/24/2023 14:56:53'!
-valueForTransferNet
-
-	^ 0! !
+!Deposit methodsFor: 'reporting - private' stamp: 'NMS 10/25/2023 11:53:30'!
+doOperationFor: aReport
+	aReport doOperationForADeposit: self! !
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
@@ -1163,14 +1302,9 @@ value
 	^transfer value! !
 
 
-!DepositLeg methodsFor: 'reporting - private' stamp: 'NMS 10/23/2023 21:39:03'!
-lineForAccountSummary
-	^'Entrada por transferencia de ', (self value asString), '.'! !
-
-!DepositLeg methodsFor: 'reporting - private' stamp: 'GG 10/24/2023 14:56:28'!
-valueForTransferNet
-
-	^ self value! !
+!DepositLeg methodsFor: 'reporting - private' stamp: 'NMS 10/25/2023 11:53:26'!
+doOperationFor: aReport
+	aReport doOperationForADepositLeg: self! !
 
 
 !DepositLeg methodsFor: 'balance' stamp: 'NMS 10/21/2023 12:21:52'!
@@ -1213,14 +1347,9 @@ affectBalance: aBalance
 	^aBalance - value! !
 
 
-!Withdraw methodsFor: 'reporting - private' stamp: 'NMS 10/23/2023 21:39:25'!
-lineForAccountSummary
-	^'Extracción por ', (value asString), '.'! !
-
-!Withdraw methodsFor: 'reporting - private' stamp: 'GG 10/24/2023 14:56:49'!
-valueForTransferNet
-
-	^ 0! !
+!Withdraw methodsFor: 'reporting - private' stamp: 'NMS 10/25/2023 11:53:45'!
+doOperationFor: aReport
+	aReport doOperationForAWithdraw: self! !
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
@@ -1267,14 +1396,9 @@ value
 	^transfer value! !
 
 
-!WithdrawLeg methodsFor: 'reporting - private' stamp: 'NMS 10/23/2023 21:39:43'!
-lineForAccountSummary
-	^'Salida por transferencia de ', (self value asString), '.'! !
-
-!WithdrawLeg methodsFor: 'reporting - private' stamp: 'GG 10/24/2023 14:57:21'!
-valueForTransferNet
-
-	^ self value * -1! !
+!WithdrawLeg methodsFor: 'reporting - private' stamp: 'NMS 10/25/2023 11:53:55'!
+doOperationFor: aReport
+	aReport doOperationForAWithdrawLeg: self! !
 
 
 !WithdrawLeg methodsFor: 'balance' stamp: 'NMS 10/21/2023 12:22:48'!
@@ -1299,14 +1423,44 @@ Object subclass: #Report
 	poolDictionaries: ''
 	category: 'Portfolio-Solucion'!
 
-!Report methodsFor: 'initialization' stamp: 'GG 10/24/2023 16:59:17'!
+!Report methodsFor: 'initialization' stamp: 'NMS 10/25/2023 12:12:46'!
 initializeWith: anAccount
-
 	account := anAccount! !
 
 
+!Report methodsFor: 'report generation - private' stamp: 'NMS 10/25/2023 13:19:11'!
+doOperationForADeposit: aTransaction
+
+	self subclassResponsibility! !
+
+!Report methodsFor: 'report generation - private' stamp: 'NMS 10/25/2023 13:19:17'!
+doOperationForADepositLeg: aTransaction
+
+	self subclassResponsibility! !
+
+!Report methodsFor: 'report generation - private' stamp: 'NMS 10/25/2023 13:19:39'!
+doOperationForAWithdraw: aTransaction
+
+	self subclassResponsibility! !
+
+!Report methodsFor: 'report generation - private' stamp: 'NMS 10/25/2023 13:19:45'!
+doOperationForAWithdrawLeg: aTransaction
+
+	self subclassResponsibility! !
+
 !Report methodsFor: 'report generation - private' stamp: 'GG 10/24/2023 15:21:38'!
 processForTransaction: aTransaction
+
+	self subclassResponsibility! !
+
+
+!Report methodsFor: 'report generation' stamp: 'NMS 10/25/2023 13:18:29'!
+doOperationForAPortfolio: aPortfolio
+
+	self subclassResponsibility! !
+
+!Report methodsFor: 'report generation' stamp: 'NMS 10/25/2023 13:18:36'!
+doOperationForAReceptiveAccount: aReceptiveAccount
 
 	self subclassResponsibility! !
 
@@ -1329,12 +1483,29 @@ Report subclass: #AccountSummary
 	poolDictionaries: ''
 	category: 'Portfolio-Solucion'!
 
-!AccountSummary methodsFor: 'report generation - private' stamp: 'GG 10/24/2023 15:21:15'!
-processForTransaction: aTransaction
+!AccountSummary methodsFor: 'report generation - private' stamp: 'NMS 10/25/2023 11:58:22'!
+doOperationForADeposit: aTransaction
+	report add: 'Depósito por ', (aTransaction value asString), '.'! !
 
-	report add: aTransaction lineForAccountSummary
-	
+!AccountSummary methodsFor: 'report generation - private' stamp: 'NMS 10/25/2023 12:01:22'!
+doOperationForADepositLeg: aTransaction
+	report add: 'Entrada por transferencia de ', (aTransaction value asString), '.'! !
 
+!AccountSummary methodsFor: 'report generation - private' stamp: 'NMS 10/25/2023 13:18:29'!
+doOperationForAPortfolio: aPortfolio! !
+
+!AccountSummary methodsFor: 'report generation - private' stamp: 'NMS 10/25/2023 13:21:15'!
+doOperationForAReceptiveAccount: aReceptiveAccount
+! !
+
+!AccountSummary methodsFor: 'report generation - private' stamp: 'NMS 10/25/2023 12:00:57'!
+doOperationForAWithdraw: aTransaction
+	report add: 'Extracción por ', (aTransaction value asString), '.'
+	! !
+
+!AccountSummary methodsFor: 'report generation - private' stamp: 'NMS 10/25/2023 12:01:50'!
+doOperationForAWithdrawLeg: aTransaction
+	report add: 'Salida por transferencia de ', (aTransaction value asString), '.'
 ! !
 
 
@@ -1361,6 +1532,62 @@ AccountSummary class
 	instanceVariableNames: 'receptiveAccount'!
 
 
+!classDefinition: #PortfolioStructure category: 'Portfolio-Solucion'!
+Report subclass: #PortfolioStructure
+	instanceVariableNames: 'report'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Solucion'!
+
+!PortfolioStructure methodsFor: 'report generation' stamp: 'NMS 10/25/2023 13:25:43'!
+generatePortfolioStructure
+	account generateReport: self.
+
+	^report! !
+
+!PortfolioStructure methodsFor: 'report generation' stamp: 'NMS 10/25/2023 13:24:24'!
+initializeWith: anAccount
+
+	super initializeWith: anAccount.
+	report := OrderedCollection new.
+! !
+
+
+!PortfolioStructure methodsFor: 'report generation - private' stamp: 'NMS 10/25/2023 13:22:48'!
+doOperationForADeposit: aTransaction
+! !
+
+!PortfolioStructure methodsFor: 'report generation - private' stamp: 'NMS 10/25/2023 13:22:51'!
+doOperationForADepositLeg: aTransaction
+! !
+
+!PortfolioStructure methodsFor: 'report generation - private' stamp: 'NMS 10/25/2023 13:48:54'!
+doOperationForAPortfolio: aPortfolio
+	| spaces |
+	spaces := self indentationForDepth: aPortfolio treeDepth.
+	report add: spaces, aPortfolio accountName! !
+
+!PortfolioStructure methodsFor: 'report generation - private' stamp: 'NMS 10/25/2023 13:55:50'!
+doOperationForAReceptiveAccount: aReceptiveAccount
+	"report add: '    ', aReceptiveAccount accountName"
+	| spaces |
+	spaces := self indentationForDepth: aReceptiveAccount treeDepth.
+	report add: spaces, aReceptiveAccount accountName! !
+
+!PortfolioStructure methodsFor: 'report generation - private' stamp: 'NMS 10/25/2023 13:22:58'!
+doOperationForAWithdraw: aTransaction
+! !
+
+!PortfolioStructure methodsFor: 'report generation - private' stamp: 'NMS 10/25/2023 13:23:00'!
+doOperationForAWithdrawLeg: aTransaction
+! !
+
+
+!PortfolioStructure methodsFor: 'xxx' stamp: 'NMS 10/25/2023 13:49:35'!
+indentationForDepth: aTreeDepth
+	^String new: (aTreeDepth * 4) withAll: (' ' first)! !
+
+
 !classDefinition: #TransferNet category: 'Portfolio-Solucion'!
 Report subclass: #TransferNet
 	instanceVariableNames: 'transferNet'
@@ -1368,10 +1595,27 @@ Report subclass: #TransferNet
 	poolDictionaries: ''
 	category: 'Portfolio-Solucion'!
 
-!TransferNet methodsFor: 'report generation - private' stamp: 'GG 10/24/2023 15:21:27'!
-processForTransaction: aTransaction
+!TransferNet methodsFor: 'report generation - private' stamp: 'NMS 10/25/2023 12:03:20'!
+doOperationForADeposit: aTransaction
+! !
 
-	transferNet := transferNet + aTransaction valueForTransferNet! !
+!TransferNet methodsFor: 'report generation - private' stamp: 'NMS 10/25/2023 12:03:34'!
+doOperationForADepositLeg: aTransaction
+	transferNet := transferNet + aTransaction value! !
+
+!TransferNet methodsFor: 'report generation - private' stamp: 'NMS 10/25/2023 13:18:29'!
+doOperationForAPortfolio: aPortfolio! !
+
+!TransferNet methodsFor: 'report generation - private' stamp: 'NMS 10/25/2023 13:21:31'!
+doOperationForAReceptiveAccount: aReceptiveAccount
+! !
+
+!TransferNet methodsFor: 'report generation - private' stamp: 'NMS 10/25/2023 11:54:48'!
+doOperationForAWithdraw: aTransaction! !
+
+!TransferNet methodsFor: 'report generation - private' stamp: 'NMS 10/25/2023 12:03:43'!
+doOperationForAWithdrawLeg: aTransaction
+	transferNet := transferNet - aTransaction value! !
 
 
 !TransferNet methodsFor: 'report generation' stamp: 'GG 10/24/2023 16:58:41'!
