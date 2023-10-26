@@ -663,36 +663,38 @@ test13AccountSummaryOfPortfolioIsGeneratedRecursively
 	
 	self assert: (accountSummaryReport size) equals: 6.! !
 
-!ReportTest methodsFor: 'testing' stamp: 'NMS 10/25/2023 12:04:56'!
-test14CasoGeneralPENDINGDEHACER
- 
-	| simplePortfolioAccount simplePortfolio composedPortfolioAccount1 composedPortfolioAccount2
-	composedPortfolio accountSummaryReport |
+!ReportTest methodsFor: 'testing' stamp: 'gg 10/26/2023 10:42:42'!
+test14TestExtraToCheckGeneralization
 	
-	simplePortfolioAccount := ReceptiveAccount new.
-	Deposit register: 100 on: simplePortfolioAccount.
-	simplePortfolio := Portfolio with: simplePortfolioAccount.
+	|rootPortfolio simplePortfolio1 simplePortfolio2 senderAccount receptiveAccount anAccount anotherAccount accountSummaryReport|
+
+	anAccount := ReceptiveAccount new.
+	Deposit register: 100 on: anAccount.
 	
-	composedPortfolioAccount1 := ReceptiveAccount new.
-	Withdraw register: 50 on: composedPortfolioAccount1.
-	composedPortfolio := Portfolio with: simplePortfolio with: composedPortfolioAccount1.
+	anotherAccount := ReceptiveAccount new.
+	Withdraw register: 75 on: anotherAccount.
 	
-	Transfer from: simplePortfolioAccount to: composedPortfolioAccount1 forAmount: 100.
+	simplePortfolio1 := Portfolio with: anAccount.
+	simplePortfolio2 := Portfolio with: anotherAccount.
 	
-	composedPortfolioAccount2 := ReceptiveAccount new.
-	Deposit register: 101 on: composedPortfolioAccount2.
-	composedPortfolio add: composedPortfolioAccount2.
+	senderAccount := ReceptiveAccount new.
+	receptiveAccount := ReceptiveAccount new.
 	
-	accountSummaryReport := ((AccountSummary for: composedPortfolio) generateAccountSummary).
+	Transfer from: senderAccount to: receptiveAccount forAmount: 1200.
+	
+	simplePortfolio1 add: senderAccount.
+	simplePortfolio2 add: receptiveAccount.
+	rootPortfolio := Portfolio with: simplePortfolio1 with: simplePortfolio2.
+	
+	accountSummaryReport := ((AccountSummary for: rootPortfolio) generateAccountSummary).
 	
 	self assert: (accountSummaryReport first) equals: 'Depósito por 100.'.
-	self assert: (accountSummaryReport second) equals: 'Salida por transferencia de 100.'.
-	self assert: (accountSummaryReport third) equals: 'Extracción por 50.'.
-	self assert: (accountSummaryReport fourth) equals: 'Entrada por transferencia de 100.'.
-	self assert: (accountSummaryReport fifth) equals: 'Depósito por 101.'.
-	self assert: (accountSummaryReport sixth) equals: 'Balance = 151'.
+	self assert: (accountSummaryReport second) equals: 'Salida por transferencia de 1200.'.
+	self assert: (accountSummaryReport third) equals: 'Extracción por 75.'.
+	self assert: (accountSummaryReport fourth) equals: 'Entrada por transferencia de 1200.'.
+	self assert: (accountSummaryReport fifth) equals: 'Balance = 25'.
 	
-	self assert: (accountSummaryReport size) equals: 6.! !
+	self assert: (accountSummaryReport size) equals: 5.! !
 
 !ReportTest methodsFor: 'testing' stamp: 'GG 10/24/2023 17:04:26'!
 test15TransferNetForEmptyPortfolio
@@ -785,33 +787,32 @@ test19TransferNetForPortfolioIsGeneratedRecursively
 	self assert: transferNetReport equals: -320
 	! !
 
-!ReportTest methodsFor: 'testing' stamp: 'NMS 10/25/2023 12:05:03'!
-test20CasoGeneralPENDINGDEHACER
- 
-	| simplePortfolioAccount simplePortfolio composedPortfolioAccount1 composedPortfolioAccount2 accountOutsidePortfolio
-	composedPortfolio transferNetReport |
+!ReportTest methodsFor: 'testing' stamp: 'gg 10/26/2023 10:54:08'!
+test20TestExtraToCheckGeneralization
 	
-	simplePortfolioAccount := ReceptiveAccount new.
-	Deposit register: 100 on: simplePortfolioAccount.
-	simplePortfolio := Portfolio with: simplePortfolioAccount.
+	|rootPortfolio simplePortfolio1 simplePortfolio2 senderAccount receptiveAccount anAccount anotherAccount transferNetReport|
+
+	anAccount := ReceptiveAccount new.
+	Deposit register: 100 on: anAccount.
 	
-	composedPortfolioAccount1 := ReceptiveAccount new.
-	Withdraw register: 50 on: composedPortfolioAccount1.
-	composedPortfolio := Portfolio with: simplePortfolio with: composedPortfolioAccount1.
-		
-	composedPortfolioAccount2 := ReceptiveAccount new.
-	Deposit register: 101 on: composedPortfolioAccount2.
-	composedPortfolio add: composedPortfolioAccount2.
+	anotherAccount := ReceptiveAccount new.
+	Withdraw register: 75 on: anotherAccount.
 	
-	accountOutsidePortfolio := ReceptiveAccount new.
+	simplePortfolio1 := Portfolio with: anAccount.
+	simplePortfolio2 := Portfolio with: anotherAccount.
 	
-	Transfer from: simplePortfolioAccount to: composedPortfolioAccount1 forAmount: 100.
-	Transfer from: simplePortfolioAccount to: accountOutsidePortfolio forAmount: 320.
+	senderAccount := ReceptiveAccount new.
+	receptiveAccount := ReceptiveAccount new.
 	
-	transferNetReport := ((TransferNet for: composedPortfolio) generateTransferNet).
+	Transfer from: senderAccount to: receptiveAccount forAmount: 1200.
 	
-	self assert: transferNetReport equals: -320
-	! !
+	simplePortfolio1 add: senderAccount.
+	simplePortfolio2 add: receptiveAccount.
+	rootPortfolio := Portfolio with: simplePortfolio1 with: simplePortfolio2.
+	
+	transferNetReport := ((TransferNet for: rootPortfolio) generateTransferNet).
+	
+	self assert: transferNetReport equals: 0! !
 
 
 !classDefinition: #TransferTest category: 'Portfolio-Solucion'!
@@ -934,11 +935,6 @@ hasRegistered: aTransaction
 isComposedBy: anAccount
 
 	self subclassResponsibility ! !
-
-!Account methodsFor: 'testing' stamp: 'NMS 10/25/2023 13:55:21'!
-treeDepth
-
-	self subclassResponsibility! !
 
 
 !Account methodsFor: 'balance' stamp: 'HAW 5/25/2019 12:23:40'!
@@ -1103,8 +1099,8 @@ generateReport: aReport
 		anAccount generateReport: aReport
 	]! !
 
-!Portfolio methodsFor: 'reporting' stamp: 'gg 10/26/2023 00:37:17'!
-loopAccountContentForReport: aReport
+!Portfolio methodsFor: 'reporting' stamp: 'gg 10/26/2023 10:12:46'!
+loopPortfolioContentForReport: aReport
 
 	accounts do: [:anAccount | anAccount generateIndentatedReport: aReport].! !
 
@@ -1467,30 +1463,46 @@ initializeWith: aPortfolio
 	indentation := ''! !
 
 
-!PortfolioStructure methodsFor: 'report generation' stamp: 'gg 10/26/2023 00:26:18'!
+!PortfolioStructure methodsFor: 'report generation' stamp: 'gg 10/26/2023 10:03:14'!
 generatePortfolioStructure
 
 	portfolio generateIndentatedReport: self.
 	^report
-"	report add: portfolio accountName.
-	portfolio accountsIsEmpty ifFalse: [	report add: '    Cuenta de Hernan'; add: '    Cuenta de Juan'].
-	^report"! !
+! !
 
 
-!PortfolioStructure methodsFor: 'report generation - private' stamp: 'gg 10/26/2023 00:55:51'!
+!PortfolioStructure methodsFor: 'report generation - private' stamp: 'gg 10/26/2023 10:12:46'!
 addPortfolioToReport: aPortfolio
 	
-	report add: indentation, aPortfolio accountName.
-	indentation := indentation, '    '.
-
-	aPortfolio loopAccountContentForReport: self.
+	self addLine: aPortfolio.
+	self addIndentation.
 	
-	indentation copyReplaceFrom: (indentation size + 1 - 4) to: (indentation size) with: ''.! !
+	aPortfolio loopPortfolioContentForReport: self.
+	
+	self decrementIndentation! !
 
 !PortfolioStructure methodsFor: 'report generation - private' stamp: 'gg 10/26/2023 00:39:44'!
 addReceptiveAccountToReport: aReceptiveAccount
 	
 	report add: indentation, aReceptiveAccount accountName.! !
+
+
+!PortfolioStructure methodsFor: 'report generation - aux' stamp: 'gg 10/26/2023 10:07:47'!
+addIndentation
+
+	indentation := indentation, '    '.
+! !
+
+!PortfolioStructure methodsFor: 'report generation - aux' stamp: 'gg 10/26/2023 10:10:43'!
+addLine: aPortfolio
+
+	report add: indentation, aPortfolio accountName.
+! !
+
+!PortfolioStructure methodsFor: 'report generation - aux' stamp: 'gg 10/26/2023 10:08:34'!
+decrementIndentation
+
+	indentation copyReplaceFrom: (indentation size + 1 - 4) to: (indentation size) with: ''.! !
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
@@ -1541,16 +1553,6 @@ processForTransaction: aTransaction
 
 	self subclassResponsibility! !
 
-
-!Report methodsFor: 'report generation' stamp: 'NMS 10/25/2023 13:18:29'!
-doOperationForAPortfolio: aPortfolio
-
-	self subclassResponsibility! !
-
-!Report methodsFor: 'report generation' stamp: 'NMS 10/25/2023 13:18:36'!
-doOperationForAReceptiveAccount: aReceptiveAccount
-
-	self subclassResponsibility! !
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
