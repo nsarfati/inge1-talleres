@@ -67,6 +67,135 @@ test04PortfolioStructureForPortfolioWithPortfoliosWithAccounts
 	self assert: portfolioStructureReport size equals: 5! !
 
 
+!classDefinition: #PortfolioStructureWithTransactionsTest category: 'Portfolio-Solucion'!
+TestCase subclass: #PortfolioStructureWithTransactionsTest
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Solucion'!
+
+!PortfolioStructureWithTransactionsTest methodsFor: 'testing' stamp: 'NMS 10/26/2023 13:29:51'!
+test01PortfolioStructureWithTransactionsForEmptyPortfolio
+ 
+	| emptyPortfolio portfolioStructureWithTransactionsReport |
+
+	emptyPortfolio := Portfolio named: 'Portfolio de la familia'.
+	portfolioStructureWithTransactionsReport := ((PortfolioStructureWithTransactions for: emptyPortfolio) generatePortfolioStructureWithTransactions).
+	
+	self assert: portfolioStructureWithTransactionsReport first equals: 'Portfolio de la familia'.
+	self assert: portfolioStructureWithTransactionsReport second equals: '    Balance = 0'.
+	self assert: portfolioStructureWithTransactionsReport size equals: 2.! !
+
+!PortfolioStructureWithTransactionsTest methodsFor: 'testing' stamp: 'NMS 10/26/2023 13:29:47'!
+test02PortfolioStructureWithTransactionsForPortfolioWithOneAccountAndADeposit
+ 
+	| portfolioWithOneAccount portfolioStructureWithTransactionsReport hernanAccount |
+
+	hernanAccount := ReceptiveAccount named: 'Cuenta de Hernan'.
+	portfolioWithOneAccount := Portfolio named: 'Portfolio de la familia' with: hernanAccount.
+
+	Deposit register: 100 on: hernanAccount.
+
+	portfolioStructureWithTransactionsReport := ((PortfolioStructureWithTransactions for: portfolioWithOneAccount) generatePortfolioStructureWithTransactions ).
+		
+	self assert: portfolioStructureWithTransactionsReport first equals: 'Portfolio de la familia'.
+	self assert: portfolioStructureWithTransactionsReport second equals: '    Cuenta de Hernan'.
+	self assert: portfolioStructureWithTransactionsReport third equals: '        Depósito por 100.'.
+	self assert: portfolioStructureWithTransactionsReport fourth equals: '        Balance = 100'.
+	self assert: portfolioStructureWithTransactionsReport fifth equals: '    Balance = 100'.
+
+	self assert: portfolioStructureWithTransactionsReport size equals: 5
+
+! !
+
+!PortfolioStructureWithTransactionsTest methodsFor: 'testing' stamp: 'NMS 10/26/2023 13:29:43'!
+test03PortfolioStructureWithTransactionsForPortfolioWithOneAccountInsidePortfolioAndADeposit
+ 
+	| portfolioWithOneAccount portfolioStructureWithTransactionsReport hernanAccount |
+
+	hernanAccount := ReceptiveAccount named: 'Cuenta de Hernan'.
+	portfolioWithOneAccount := Portfolio named: 'Portfolio de la familia' with: hernanAccount.
+
+	Deposit register: 100 on: hernanAccount.
+
+	portfolioStructureWithTransactionsReport := ((PortfolioStructureWithTransactions for: portfolioWithOneAccount) generatePortfolioStructureWithTransactions ).
+		
+	self assert: portfolioStructureWithTransactionsReport first equals: 'Portfolio de la familia'.
+	self assert: portfolioStructureWithTransactionsReport second equals: '    Cuenta de Hernan'.
+	self assert: portfolioStructureWithTransactionsReport third equals: '        Depósito por 100.'.
+	self assert: portfolioStructureWithTransactionsReport fourth equals: '        Balance = 100'.
+	self assert: portfolioStructureWithTransactionsReport fifth equals: '    Balance = 100'.
+
+	self assert: portfolioStructureWithTransactionsReport size equals: 5
+
+! !
+
+!PortfolioStructureWithTransactionsTest methodsFor: 'testing' stamp: 'NMS 10/26/2023 13:29:39'!
+test04PortfolioStructureWithTransactionsForPortfolioWithOneAccountInsidePortfolioAndAWithdrawal
+ 
+	| portfolioWithOneAccount portfolioStructureWithTransactionsReport hernanAccount |
+
+	hernanAccount := ReceptiveAccount named: 'Cuenta de Hernan'.
+	portfolioWithOneAccount := Portfolio named: 'Portfolio de la familia' with: (Portfolio named: 'Portfolio de Hernan' with: hernanAccount).
+
+	Withdraw register: 100 on: hernanAccount.
+
+	portfolioStructureWithTransactionsReport := ((PortfolioStructureWithTransactions for: portfolioWithOneAccount) generatePortfolioStructureWithTransactions ).
+		
+	self assert: portfolioStructureWithTransactionsReport first equals: 'Portfolio de la familia'.
+	self assert: portfolioStructureWithTransactionsReport second equals: '    Portfolio de Hernan'.
+	self assert: portfolioStructureWithTransactionsReport third equals: '        Cuenta de Hernan'.
+	self assert: portfolioStructureWithTransactionsReport fourth equals: '            Extracción por 100.'.
+	self assert: portfolioStructureWithTransactionsReport fifth equals: '            Balance = -100'.
+	self assert: portfolioStructureWithTransactionsReport sixth equals: '        Balance = -100'.
+	self assert: portfolioStructureWithTransactionsReport seventh equals: '    Balance = -100'.
+
+	self assert: portfolioStructureWithTransactionsReport size equals: 7
+
+! !
+
+!PortfolioStructureWithTransactionsTest methodsFor: 'testing' stamp: 'NMS 10/26/2023 15:13:02'!
+test05TestExtraToCheckGeneralization
+ 
+	| angiesAccount childrenPortfolio familyPortfolio johnsAccount myAccount portfolioStructureWithTransactionsReport |
+
+	johnsAccount := ReceptiveAccount named: 'Cuenta de Juan'.
+	angiesAccount := ReceptiveAccount named: 'Cuenta de Angeles'.
+	childrenPortfolio := Portfolio named: 'Portfolio de hijos' with: johnsAccount with: angiesAccount.
+	myAccount := ReceptiveAccount named: 'Cuenta mia'.
+	familyPortfolio := Portfolio named: 'Portfolio de la familia' with:
+	myAccount with: childrenPortfolio.
+
+	Deposit register: 100 on: myAccount.
+	Withdraw register: 180 on: myAccount.
+	
+	Deposit register: 55 on: johnsAccount .
+	Withdraw register: 66 on: johnsAccount.
+	
+	Transfer from: angiesAccount to: (ReceptiveAccount new) forAmount: 100.
+	
+	portfolioStructureWithTransactionsReport := ((PortfolioStructureWithTransactions for: familyPortfolio) generatePortfolioStructureWithTransactions ).
+
+	self assert: portfolioStructureWithTransactionsReport first equals: 'Portfolio de la familia'.
+	self assert: portfolioStructureWithTransactionsReport second equals: '    Cuenta mia'.
+	self assert: portfolioStructureWithTransactionsReport third equals:'        Depósito por 100.'.
+	self assert: portfolioStructureWithTransactionsReport fourth equals:'        Extracción por 180.'.
+	self assert: portfolioStructureWithTransactionsReport fifth equals:'        Balance = -80'.
+	self assert: portfolioStructureWithTransactionsReport sixth equals:'    Portfolio de hijos'.
+	self assert: portfolioStructureWithTransactionsReport seventh equals:'        Cuenta de Juan'.
+	self assert: portfolioStructureWithTransactionsReport eighth equals:'            Depósito por 55.'.
+	self assert: portfolioStructureWithTransactionsReport ninth equals:'            Extracción por 66.'.
+	self assert: (portfolioStructureWithTransactionsReport at: 10) equals:'            Balance = -11'.
+	self assert: (portfolioStructureWithTransactionsReport at: 11) equals:'        Cuenta de Angeles'.
+	self assert: (portfolioStructureWithTransactionsReport at: 12) equals:'            Salida por transferencia de 100.'.
+	self assert: (portfolioStructureWithTransactionsReport at: 13) equals:'            Balance = -100'.
+	self assert: (portfolioStructureWithTransactionsReport at: 14) equals:'        Balance = -111'.
+	self assert: (portfolioStructureWithTransactionsReport at: 15) equals:'    Balance = -191'.
+
+	self assert: portfolioStructureWithTransactionsReport size equals: 15
+! !
+
+
 !classDefinition: #PortfolioTest category: 'Portfolio-Solucion'!
 TestCase subclass: #PortfolioTest
 	instanceVariableNames: ''
@@ -960,15 +1089,21 @@ addedTo: aPortfolio
 	self subclassResponsibility ! !
 
 
-!Account methodsFor: 'reporting' stamp: 'GG 10/24/2023 15:36:00'!
-generateReport: aReport
-
-	self subclassResponsibility! !
-
 
 !Account methodsFor: 'accessing' stamp: 'NMS 10/25/2023 12:31:38'!
 accountName
 	^accountName! !
+
+
+!Account methodsFor: 'reporting - private' stamp: 'NMS 10/26/2023 15:19:27'!
+generateIndentatedReport: aReport
+
+	self subclassResponsibility! !
+
+!Account methodsFor: 'reporting - private' stamp: 'NMS 10/26/2023 15:19:49'!
+generateReport: aReport
+
+	self subclassResponsibility! !
 
 
 !classDefinition: #Portfolio category: 'Portfolio-Solucion'!
@@ -1087,19 +1222,19 @@ signalCanNotAddAccount
 	self error: self class canNotAddAccountErrorMessage! !
 
 
-!Portfolio methodsFor: 'reporting' stamp: 'gg 10/26/2023 00:28:58'!
+!Portfolio methodsFor: 'reporting - private' stamp: 'gg 10/26/2023 00:28:58'!
 generateIndentatedReport: aReport
 
 	aReport addPortfolioToReport: self! !
 
-!Portfolio methodsFor: 'reporting' stamp: 'gg 10/26/2023 00:09:33'!
+!Portfolio methodsFor: 'reporting - private' stamp: 'gg 10/26/2023 00:09:33'!
 generateReport: aReport
 
 	accounts do: [:anAccount |
 		anAccount generateReport: aReport
 	]! !
 
-!Portfolio methodsFor: 'reporting' stamp: 'gg 10/26/2023 10:12:46'!
+!Portfolio methodsFor: 'reporting - private' stamp: 'gg 10/26/2023 10:12:46'!
 loopPortfolioContentForReport: aReport
 
 	accounts do: [:anAccount | anAccount generateIndentatedReport: aReport].! !
@@ -1212,12 +1347,12 @@ addedTo: aPortfolio
 	! !
 
 
-!ReceptiveAccount methodsFor: 'reporting' stamp: 'gg 10/26/2023 00:41:09'!
+!ReceptiveAccount methodsFor: 'reporting - private' stamp: 'gg 10/26/2023 00:41:09'!
 generateIndentatedReport: aReport
 
 	aReport addReceptiveAccountToReport: self.! !
 
-!ReceptiveAccount methodsFor: 'reporting' stamp: 'gg 10/26/2023 00:09:38'!
+!ReceptiveAccount methodsFor: 'reporting - private' stamp: 'gg 10/26/2023 00:09:38'!
 generateReport: aReport
 
 	transactions do: [:aTransaction |
@@ -1448,20 +1583,67 @@ on: aReceptiveAccount with: aTransfer
 	^self new initializeWith: aTransfer on: aReceptiveAccount ! !
 
 
-!classDefinition: #PortfolioStructure category: 'Portfolio-Solucion'!
-Object subclass: #PortfolioStructure
+!classDefinition: #PortfolioReport category: 'Portfolio-Solucion'!
+Object subclass: #PortfolioReport
 	instanceVariableNames: 'report portfolio indentation'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'Portfolio-Solucion'!
 
-!PortfolioStructure methodsFor: 'initialization' stamp: 'gg 10/25/2023 23:55:40'!
+!PortfolioReport methodsFor: 'initialization' stamp: 'NMS 10/26/2023 15:05:26'!
 initializeWith: aPortfolio
 
 	portfolio := aPortfolio.
 	report := OrderedCollection new.
 	indentation := ''! !
 
+
+!PortfolioReport methodsFor: 'report generation - aux' stamp: 'NMS 10/26/2023 15:06:01'!
+addIndentation
+
+	indentation := indentation, '    '.
+! !
+
+!PortfolioReport methodsFor: 'report generation - aux' stamp: 'NMS 10/26/2023 15:06:15'!
+addLine: aPortfolio
+
+	report add: indentation, aPortfolio accountName.
+! !
+
+!PortfolioReport methodsFor: 'report generation - aux' stamp: 'NMS 10/26/2023 15:07:34'!
+decrementIndentation
+
+	indentation := indentation copyReplaceFrom: (indentation size + 1 - 4) to: (indentation size) with: ''.! !
+
+
+!PortfolioReport methodsFor: 'report generation - private' stamp: 'NMS 10/26/2023 15:06:33'!
+addPortfolioToReport: aPortfolio
+
+	self subclassResponsibility! !
+
+!PortfolioReport methodsFor: 'report generation - private' stamp: 'NMS 10/26/2023 15:07:58'!
+addReceptiveAccountToReport: aReceptiveAccount
+
+	self subclassResponsibility! !
+
+"-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
+
+!classDefinition: 'PortfolioReport class' category: 'Portfolio-Solucion'!
+PortfolioReport class
+	instanceVariableNames: ''!
+
+!PortfolioReport class methodsFor: 'instance creation' stamp: 'NMS 10/26/2023 15:13:25'!
+for: aPortfolio
+
+	^self new initializeWith: aPortfolio ! !
+
+
+!classDefinition: #PortfolioStructure category: 'Portfolio-Solucion'!
+PortfolioReport subclass: #PortfolioStructure
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Solucion'!
 
 !PortfolioStructure methodsFor: 'report generation' stamp: 'gg 10/26/2023 10:03:14'!
 generatePortfolioStructure
@@ -1486,34 +1668,53 @@ addReceptiveAccountToReport: aReceptiveAccount
 	
 	report add: indentation, aReceptiveAccount accountName.! !
 
+
+!classDefinition: #PortfolioStructureWithTransactions category: 'Portfolio-Solucion'!
+PortfolioReport subclass: #PortfolioStructureWithTransactions
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Solucion'!
 
-!PortfolioStructure methodsFor: 'report generation - aux' stamp: 'gg 10/26/2023 10:07:47'!
-addIndentation
+!PortfolioStructureWithTransactions methodsFor: 'report generation' stamp: 'NMS 10/26/2023 15:08:51'!
+generatePortfolioStructureWithTransactions
+	portfolio generateIndentatedReport: self.
 
-	indentation := indentation, '    '.
+	^report! !
+
+
+!PortfolioStructureWithTransactions methodsFor: 'report generation - private' stamp: 'NMS 10/26/2023 14:42:54'!
+addPortfolioToReport: aPortfolio
+	
+	self addLine: aPortfolio.
+	self addIndentation.
+	
+	aPortfolio loopPortfolioContentForReport: self.
+	
+	self addPortfolioBalance: aPortfolio.
+
+	self decrementIndentation.
 ! !
 
-!PortfolioStructure methodsFor: 'report generation - aux' stamp: 'gg 10/26/2023 10:10:43'!
-addLine: aPortfolio
+!PortfolioStructureWithTransactions methodsFor: 'report generation - private' stamp: 'NMS 10/26/2023 15:17:51'!
+addReceptiveAccountToReport: aReceptiveAccount
+	| accountSummaryReport |
+	
+	report add: indentation, aReceptiveAccount accountName.
+	accountSummaryReport := ((AccountSummary for: aReceptiveAccount) generateAccountSummary).
+	
+	self addIndentation.
+	
+	accountSummaryReport do: [:accountSummaryLine | report add: indentation, accountSummaryLine].
+	
+	self decrementIndentation.! !
 
-	report add: indentation, aPortfolio accountName.
+
+!PortfolioStructureWithTransactions methodsFor: 'report generation - aux' stamp: 'NMS 10/26/2023 13:30:01'!
+addPortfolioBalance: aPortfolio
+
+	report add: indentation, 'Balance = ', aPortfolio balance asString.
 ! !
-
-!PortfolioStructure methodsFor: 'report generation - aux' stamp: 'gg 10/26/2023 10:08:34'!
-decrementIndentation
-
-	indentation copyReplaceFrom: (indentation size + 1 - 4) to: (indentation size) with: ''.! !
-
-"-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
-
-!classDefinition: 'PortfolioStructure class' category: 'Portfolio-Solucion'!
-PortfolioStructure class
-	instanceVariableNames: ''!
-
-!PortfolioStructure class methodsFor: 'instance creation' stamp: 'gg 10/26/2023 00:15:16'!
-for: aPortfolio
-
-	^self new initializeWith: aPortfolio ! !
 
 
 !classDefinition: #Report category: 'Portfolio-Solucion'!
@@ -1545,11 +1746,6 @@ doOperationForAWithdraw: aTransaction
 
 !Report methodsFor: 'report generation - private' stamp: 'NMS 10/25/2023 13:19:45'!
 doOperationForAWithdrawLeg: aTransaction
-
-	self subclassResponsibility! !
-
-!Report methodsFor: 'report generation - private' stamp: 'GG 10/24/2023 15:21:38'!
-processForTransaction: aTransaction
 
 	self subclassResponsibility! !
 
