@@ -154,8 +154,8 @@ test04PortfolioStructureWithTransactionsForPortfolioWithOneAccountInsidePortfoli
 
 ! !
 
-!PortfolioStructureWithTransactionsTest methodsFor: 'testing' stamp: 'NMS 10/26/2023 15:13:02'!
-test05TestExtraToCheckGeneralization
+!PortfolioStructureWithTransactionsTest methodsFor: 'testing' stamp: 'NMS 10/26/2023 15:32:12'!
+test05PortfolioStructureWithTransactionsTestExtraToCheckGeneralization
  
 	| angiesAccount childrenPortfolio familyPortfolio johnsAccount myAccount portfolioStructureWithTransactionsReport |
 
@@ -628,8 +628,8 @@ test04AccountSummaryForAccountWithDepositTransferLeg
 	
 ! !
 
-!ReportTest methodsFor: 'testing' stamp: 'GG 10/24/2023 15:12:58'!
-test05TestExtraToCheckGeneralization
+!ReportTest methodsFor: 'testing' stamp: 'NMS 10/26/2023 15:30:46'!
+test05AccountSummaryForAccountTestExtraToCheckGeneralization
 
 	| receptiveAccount senderAccount accountSummaryReceptiveAccount accountSummarySenderAccount |
 	
@@ -689,8 +689,8 @@ test08TransferNetForAccountWithATransfers
 	self assert: 	((TransferNet for: receptiveAccount) generateTransferNet) equals: 100.
 	self assert: 	((TransferNet for: senderAccount) generateTransferNet) equals: -100! !
 
-!ReportTest methodsFor: 'testing' stamp: 'GG 10/24/2023 15:11:55'!
-test09TestExtraToCheckGeneralization
+!ReportTest methodsFor: 'testing' stamp: 'NMS 10/26/2023 15:30:58'!
+test09TransferNetForAccountTestExtraToCheckGeneralization
 
 	| receptiveAccount senderAccount |
 	
@@ -792,8 +792,8 @@ test13AccountSummaryOfPortfolioIsGeneratedRecursively
 	
 	self assert: (accountSummaryReport size) equals: 6.! !
 
-!ReportTest methodsFor: 'testing' stamp: 'gg 10/26/2023 10:42:42'!
-test14TestExtraToCheckGeneralization
+!ReportTest methodsFor: 'testing' stamp: 'NMS 10/26/2023 15:31:20'!
+test14AccountSummaryForPortfolioTestExtraToCheckGeneralization
 	
 	|rootPortfolio simplePortfolio1 simplePortfolio2 senderAccount receptiveAccount anAccount anotherAccount accountSummaryReport|
 
@@ -916,8 +916,8 @@ test19TransferNetForPortfolioIsGeneratedRecursively
 	self assert: transferNetReport equals: -320
 	! !
 
-!ReportTest methodsFor: 'testing' stamp: 'gg 10/26/2023 10:54:08'!
-test20TestExtraToCheckGeneralization
+!ReportTest methodsFor: 'testing' stamp: 'NMS 10/26/2023 15:30:24'!
+test20TransferNetForPortfolioTestExtraToCheckGeneralization
 	
 	|rootPortfolio simplePortfolio1 simplePortfolio2 senderAccount receptiveAccount anAccount anotherAccount transferNetReport|
 
