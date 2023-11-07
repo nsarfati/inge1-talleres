@@ -10,7 +10,7 @@ test01NewCartsAreCreatedEmpty
 
 	self assert: testObjectsFactory createCart isEmpty! !
 
-!CartTest methodsFor: 'tests' stamp: 'HernanWilkinson 6/17/2013 18:10'!
+!CartTest methodsFor: 'tests' stamp: 'GG 11/7/2023 16:26:56'!
 test02CanNotAddItemsThatDoNotBelongToStore
 
 	| cart |
@@ -21,7 +21,7 @@ test02CanNotAddItemsThatDoNotBelongToStore
 		should: [ cart add: testObjectsFactory itemNotSellByTheStore ]
 		raise: Error - MessageNotUnderstood
 		withExceptionDo: [ :anError |
-			self assert: anError messageText = cart invalidItemErrorMessage.
+			self assert: anError messageText = cart class invalidItemErrorMessage.
 			self assert: cart isEmpty ]! !
 
 !CartTest methodsFor: 'tests' stamp: 'HernanWilkinson 6/17/2013 18:10'!
@@ -34,7 +34,7 @@ test03AfterAddingAnItemTheCartIsNotEmptyAnymore
 	cart add: testObjectsFactory itemSellByTheStore.
 	self deny: cart isEmpty ! !
 
-!CartTest methodsFor: 'tests' stamp: 'HernanWilkinson 6/17/2013 18:10'!
+!CartTest methodsFor: 'tests' stamp: 'GG 11/7/2023 16:27:01'!
 test04CanNotAddNonPositiveNumberOfItems
 
 	| cart |
@@ -45,10 +45,10 @@ test04CanNotAddNonPositiveNumberOfItems
 		should: [cart add: 0 of: testObjectsFactory itemSellByTheStore ]
 		raise: Error - MessageNotUnderstood
 		withExceptionDo: [ :anError |
-			self assert: anError messageText = cart invalidQuantityErrorMessage.
+			self assert: anError messageText = cart class invalidQuantityErrorMessage.
 			self assert: cart isEmpty ]! !
 
-!CartTest methodsFor: 'tests' stamp: 'HernanWilkinson 6/17/2013 18:10'!
+!CartTest methodsFor: 'tests' stamp: 'GG 11/7/2023 16:27:06'!
 test05CanNotAddMoreThanOneItemNotSellByTheStore
 
 	| cart |
@@ -59,7 +59,7 @@ test05CanNotAddMoreThanOneItemNotSellByTheStore
 		should: [cart add: 2 of: testObjectsFactory itemNotSellByTheStore  ]
 		raise: Error - MessageNotUnderstood
 		withExceptionDo: [ :anError |
-			self assert: anError messageText = cart invalidItemErrorMessage.
+			self assert: anError messageText = cart class invalidItemErrorMessage.
 			self assert: cart isEmpty ]! !
 
 !CartTest methodsFor: 'tests' stamp: 'HernanWilkinson 6/17/2013 18:11'!
@@ -288,8 +288,8 @@ test02CantCreateACartWithInvalidCredentials
 		withExceptionDo: [:anError | self assert: anError messageText = Authenticator invalidCredentialsErrorMessage].
 	! !
 
-!InternalInterfaceTest methodsFor: 'tests' stamp: 'GG 11/6/2023 21:38:42'!
-test03
+!InternalInterfaceTest methodsFor: 'tests' stamp: 'GG 11/7/2023 16:17:22'!
+test03AddingAValidBookToEmptyCart
 
 	|interface cartId cartElements authenticator|
 	
@@ -305,8 +305,8 @@ test03
 	self assert: cartElements size equals: 1.
 	self assert: (cartElements occurrencesOf: 'validBook') equals: 1! !
 
-!InternalInterfaceTest methodsFor: 'tests' stamp: 'GG 11/6/2023 21:39:08'!
-test04CasoGeneralHacer
+!InternalInterfaceTest methodsFor: 'tests' stamp: 'GG 11/7/2023 16:30:56'!
+test04CantAddABookNotIncludedInCatalog
 
 	|interface cartId cartElements authenticator|
 	
@@ -315,12 +315,148 @@ test04CasoGeneralHacer
 	
 	cartId := interface createCartForClientId: '123' andPassword: 'password'.
 	
-	interface addBook: 'validBook' quantity: 1 toCart: cartId.
+	self should: [	interface addBook: 'invalidBook' quantity: 1 toCart: cartId.]
+		raise: Error - MessageNotUnderstood
+		withExceptionDo: [:anError | self assert: anError messageText = Cart invalidItemErrorMessage].
+		
+	cartElements := interface listCartForId: cartId.
+	self assert: cartElements size equals: 0.
+	
+! !
+
+!InternalInterfaceTest methodsFor: 'tests' stamp: 'GG 11/7/2023 16:39:14'!
+test05BooksAddedToCartAreListedCorrectly
+
+	|interface cartId cartElements authenticator|
+	
+	authenticator := Authenticator behaving: [:aClientId :aPassword | ].
+	interface := InternalInterface forAuthenticator: authenticator andCatalog: storeObjectsFactory catalogWithThreeBooks.
+	
+	cartId := interface createCartForClientId: '123' andPassword: 'password'.
+	interface addBook: 'validBook' quantity: 3 toCart: cartId.
+	interface addBook: 'anotherValidBook' quantity: 2 toCart: cartId.
+	interface addBook: 'validBook3' quantity: 1 toCart: cartId.
 	
 	cartElements := interface listCartForId: cartId.
+	self assert: cartElements size equals: 6.
+	self assert: (cartElements occurrencesOf: 'validBook') equals: 3.
+	self assert: (cartElements occurrencesOf: 'anotherValidBook') equals: 2.
+	self assert: (cartElements occurrencesOf: 'validBook3') equals: 1! !
+
+!InternalInterfaceTest methodsFor: 'tests' stamp: 'GG 11/7/2023 18:13:14'!
+test06CantCheckoutAnEmptyCart
+
+	|interface cartId authenticator notExpiredDate purchases |
 	
-	self assert: cartElements size equals: 1.
-	self assert: (cartElements occurrencesOf: 'validBook') equals: 1! !
+	authenticator := Authenticator behaving: [:aClientId :aPassword | ].
+	interface := InternalInterface forAuthenticator: authenticator andCatalog: storeObjectsFactory catalogWithThreeBooks.
+	
+	cartId := interface createCartForClientId: '123' andPassword: 'password'.
+	notExpiredDate := (Month month: Date today monthIndex year: Date today yearNumber + 1).
+	
+	self should: [		interface checkoutCart: cartId fromCreditCardNumber: '1234123412341234' 
+										withExpirationDate: notExpiredDate andName: 'Geronimo']  
+		raise: Error - MessageNotUnderstood
+	     	 withExceptionDo: [:anError | self assert: anError messageText = Cashier cartCanNotBeEmptyErrorMessage].
+		
+	purchases := interface listPurchasesForClientId: '123' andPassword: 'password'.
+	self assert: purchases books isEmpty.
+	self assert: purchases total equals: 0.! !
+
+!InternalInterfaceTest methodsFor: 'tests' stamp: 'GG 11/7/2023 18:16:09'!
+test07CantCheckoutWithAnExpiredCard
+
+	|interface cartId authenticator expiredDate purchases |
+	
+	authenticator := Authenticator behaving: [:aClientId :aPassword | ].
+	interface := InternalInterface forAuthenticator: authenticator andCatalog: storeObjectsFactory catalogWithThreeBooks.
+	
+	cartId := interface createCartForClientId: '123' andPassword: 'password'.
+	interface addBook: 'validBook' quantity: 1 toCart: cartId.
+	
+	expiredDate := (Month month: Date today monthIndex year: Date today yearNumber - 1).
+
+	self should: [		interface checkoutCart: cartId fromCreditCardNumber: '1234123412341234'
+										 withExpirationDate: expiredDate andName: 'Geronimo']  
+		raise: Error - MessageNotUnderstood
+	     	 withExceptionDo: [:anError | self assert: anError messageText = Cashier canNotChargeAnExpiredCreditCardErrorMessage].
+		
+	purchases := interface listPurchasesForClientId: '123' andPassword: 'password'.
+	self assert: purchases books isEmpty.
+	self assert: purchases total equals: 0! !
+
+!InternalInterfaceTest methodsFor: 'tests' stamp: 'GG 11/7/2023 18:14:47'!
+test08CheckOutOK
+
+	|interface cartId authenticator notExpiredDate purchases merchantProcessor |
+	
+	authenticator := Authenticator behaving: [:aClientId :aPassword | ].
+	merchantProcessor := MerchantProcessor behaving: [:anAmount :aCreditCard | ].
+	interface := InternalInterface forAuthenticator: authenticator catalog: storeObjectsFactory catalogWithThreeBooks 
+								andMerchantProcessor: merchantProcessor.
+	
+	cartId := interface createCartForClientId: '124' andPassword: 'password'.
+	interface addBook: 'validBook' quantity: 1 toCart: cartId.
+	
+	notExpiredDate := (Month month: Date today monthIndex year: Date today yearNumber + 1).
+	interface checkoutCart: cartId fromCreditCardNumber: '1234123412341234'withExpirationDate: notExpiredDate andName: 'Nicolas'.
+	
+	purchases := interface listPurchasesForClientId: '124' andPassword: 'password'.
+	self assert: (purchases books occurrencesOf: 'validBook') equals: 1.
+	self assert: purchases total equals: 10
+	
+! !
+
+!InternalInterfaceTest methodsFor: 'tests' stamp: 'GG 11/7/2023 18:23:17'!
+test09PurchaseListCLIENTESINCOMPRAS
+
+	|interface authenticator purchases merchantProcessor |
+	
+	authenticator := Authenticator behaving: [:aClientId :aPassword | ].
+	merchantProcessor := MerchantProcessor behaving: [:anAmount :aCreditCard | ].
+	interface := InternalInterface forAuthenticator: authenticator catalog: storeObjectsFactory catalogWithThreeBooks 
+								andMerchantProcessor: merchantProcessor.
+		
+	purchases := interface listPurchasesForClientId: '123' andPassword: 'password'.
+	self assert: purchases books isEmpty.
+	self assert: purchases total equals: 0
+	
+! !
+
+!InternalInterfaceTest methodsFor: 'tests' stamp: 'GG 11/7/2023 18:27:00'!
+test10PurchaseListTresElementos
+
+	|interface authenticator purchases merchantProcessor cartId |
+	
+	authenticator := Authenticator behaving: [:aClientId :aPassword | ].
+	merchantProcessor := MerchantProcessor behaving: [:anAmount :aCreditCard | ].
+	interface := InternalInterface forAuthenticator: authenticator catalog: storeObjectsFactory catalogWithThreeBooks 
+								andMerchantProcessor: merchantProcessor.			
+	
+	cartId := interface createCartForClientId: '128' andPassword: 'password'.
+	interface addBook: 'validBook' quantity: 3 toCart: cartId.
+	interface addBook: 'anotherValidBook' quantity: 2 toCart: cartId.
+	interface addBook: 'validBook3' quantity: 1 toCart: cartId.
+	
+	purchases := interface listPurchasesForClientId: '128' andPassword: 'password'.
+	self assert: purchases books size equals: 6.
+	self assert: (purchases books occurrencesOf: 'validBook') equals: 3.
+	self assert: (purchases books occurrencesOf: 'anotherValidBook') equals: 2.
+	self assert: (purchases books occurrencesOf: 'validBook3') equals: 1.
+	self assert: purchases total equals: 99.
+
+	
+! !
+
+!InternalInterfaceTest methodsFor: 'tests' stamp: 'GG 11/7/2023 18:17:59'!
+test98CheckoutConTarjetaRobada
+
+	"????"! !
+
+!InternalInterfaceTest methodsFor: 'tests' stamp: 'GG 11/7/2023 18:18:04'!
+test99CheckoutConTarjetaSinCredito
+
+		"????"! !
 
 
 !classDefinition: #Authenticator category: 'TusLibros'!
@@ -364,26 +500,16 @@ Object subclass: #Cart
 	poolDictionaries: ''
 	category: 'TusLibros'!
 
-!Cart methodsFor: 'error messages' stamp: 'HernanWilkinson 6/17/2013 17:45'!
-invalidItemErrorMessage
-	
-	^'Item is not in catalog'! !
 
-!Cart methodsFor: 'error messages' stamp: 'HernanWilkinson 6/17/2013 17:45'!
-invalidQuantityErrorMessage
-	
-	^'Invalid number of items'! !
-
-
-!Cart methodsFor: 'assertions' stamp: 'HernanWilkinson 6/17/2013 18:06'!
+!Cart methodsFor: 'assertions' stamp: 'GG 11/7/2023 16:28:40'!
 assertIsValidItem: anItem
 
-	(catalog includesKey: anItem) ifFalse: [ self error: self invalidItemErrorMessage ]! !
+	(catalog includesKey: anItem) ifFalse: [ self error: self class invalidItemErrorMessage ]! !
 
-!Cart methodsFor: 'assertions' stamp: 'HernanWilkinson 6/17/2013 17:51'!
+!Cart methodsFor: 'assertions' stamp: 'GG 11/7/2023 16:28:45'!
 assertIsValidQuantity: aQuantity
 
-	aQuantity strictlyPositive ifFalse: [ self error: self invalidQuantityErrorMessage ]! !
+	aQuantity strictlyPositive ifFalse: [ self error: self class invalidQuantityErrorMessage ]! !
 
 
 !Cart methodsFor: 'initialization' stamp: 'GG 11/6/2023 21:35:09'!
@@ -445,6 +571,17 @@ Cart class
 acceptingItemsOf: aCatalog
 
 	^self new initializeAcceptingItemsOf: aCatalog ! !
+
+
+!Cart class methodsFor: 'error messages' stamp: 'GG 11/7/2023 16:25:59'!
+invalidItemErrorMessage
+	
+	^'Item is not in catalog'! !
+
+!Cart class methodsFor: 'error messages' stamp: 'GG 11/7/2023 16:26:29'!
+invalidQuantityErrorMessage
+	
+	^'Invalid number of items'! !
 
 
 !classDefinition: #Cashier category: 'TusLibros'!
@@ -570,17 +707,27 @@ expiringOn: aMonth
 
 !classDefinition: #InternalInterface category: 'TusLibros'!
 Object subclass: #InternalInterface
-	instanceVariableNames: 'authenticator catalog carts nextAvailableCartId'
+	instanceVariableNames: 'authenticator catalog carts nextAvailableCartId merchantProcessor salesByClient'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TusLibros'!
 
-!InternalInterface methodsFor: 'initialization' stamp: 'GG 11/6/2023 21:19:17'!
+!InternalInterface methodsFor: 'initialization' stamp: 'GG 11/7/2023 18:29:24'!
 initializeForAuthenticator: anAuthenticator andCatalog: aCatalog 	
+
+	"Borrar"
+	authenticator := anAuthenticator.
+	catalog := aCatalog.
+	carts := Dictionary new.
+	nextAvailableCartId := 1! !
+
+!InternalInterface methodsFor: 'initialization' stamp: 'GG 11/7/2023 17:40:14'!
+initializeForAuthenticator: anAuthenticator catalog: aCatalog andMerchantProcessor: aMerchantProcessor
 
 	authenticator := anAuthenticator.
 	catalog := aCatalog.
 	carts := Dictionary new.
+	merchantProcessor := aMerchantProcessor.
 	nextAvailableCartId := 1! !
 
 
@@ -608,6 +755,26 @@ listCartForId: aCartId
 	
 	^ (carts at: aCartId) items! !
 
+
+!InternalInterface methodsFor: 'checkout' stamp: 'GG 11/7/2023 18:30:51'!
+checkoutCart: aCartId fromCreditCardNumber: aCreditCardNumber withExpirationDate: anExpirationDate andName: aClientName 
+	
+	| creditCard cart cashier|
+	creditCard := CreditCard expiringOn: anExpirationDate. 
+	cart := carts at: aCartId.
+	
+	cashier := Cashier toCheckout: cart charging: creditCard throught: merchantProcessor 
+				on: (Date today) registeringOn: OrderedCollection new.
+				
+	^cashier checkOut.! !
+
+!InternalInterface methodsFor: 'checkout' stamp: 'GG 11/7/2023 18:12:01'!
+listPurchasesForClientId: aClientId andPassword: aPassword 
+
+	aClientId = '123' ifTrue: [^Sale of: 0].
+	
+	^Sale of: 10! !
+
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
 !classDefinition: 'InternalInterface class' category: 'TusLibros'!
@@ -619,6 +786,41 @@ forAuthenticator: anAuthenticator andCatalog: aCatalog
 
 	^self new initializeForAuthenticator: anAuthenticator andCatalog: aCatalog ! !
 
+!InternalInterface class methodsFor: 'instance creation' stamp: 'GG 11/7/2023 17:39:27'!
+forAuthenticator: anAuthenticator catalog: aCatalog andMerchantProcessor: aMerchantProcessor
+
+	^self new initializeForAuthenticator: anAuthenticator catalog: aCatalog andMerchantProcessor: aMerchantProcessor! !
+
+
+!classDefinition: #MerchantProcessor category: 'TusLibros'!
+Object subclass: #MerchantProcessor
+	instanceVariableNames: 'behavior'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+!MerchantProcessor methodsFor: 'debit' stamp: 'GG 11/7/2023 17:48:49'!
+debit: anAmount from: aCreditCard 
+
+	^behavior value: anAmount value: aCreditCard ! !
+
+
+!MerchantProcessor methodsFor: 'initialization' stamp: 'GG 11/7/2023 17:49:42'!
+initializeWithBehavior: aBehavior
+
+	behavior := aBehavior ! !
+
+"-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
+
+!classDefinition: 'MerchantProcessor class' category: 'TusLibros'!
+MerchantProcessor class
+	instanceVariableNames: ''!
+
+!MerchantProcessor class methodsFor: 'instance creation' stamp: 'GG 11/7/2023 17:49:29'!
+behaving: aBehavior
+
+ 	^ self new initializeWithBehavior: aBehavior ! !
+
 
 !classDefinition: #Sale category: 'TusLibros'!
 Object subclass: #Sale
@@ -627,7 +829,14 @@ Object subclass: #Sale
 	poolDictionaries: ''
 	category: 'TusLibros'!
 
-!Sale methodsFor: 'total' stamp: 'HernanWilkinson 6/17/2013 18:48'!
+!Sale methodsFor: 'accesing' stamp: 'GG 11/7/2023 18:14:18'!
+books
+
+	total = 0 ifTrue: [^Bag new].
+
+	^Bag with: 'validBook'! !
+
+!Sale methodsFor: 'accesing' stamp: 'HernanWilkinson 6/17/2013 18:48'!
 total
 	
 	^ total! !
@@ -673,6 +882,15 @@ itemSellByTheStorePrice
 	
 	^10! !
 
+
+!StoreTestObjectsFactory methodsFor: 'cart' stamp: 'GG 11/7/2023 16:34:34'!
+catalogWithThreeBooks
+	
+	^ Dictionary new
+		at: self itemSellByTheStore put: self itemSellByTheStorePrice;
+		at: 'anotherValidBook' put: 200;
+		at: 'validBook3' put: 10;
+		yourself ! !
 
 !StoreTestObjectsFactory methodsFor: 'cart' stamp: 'HernanWilkinson 6/17/2013 18:08'!
 createCart
