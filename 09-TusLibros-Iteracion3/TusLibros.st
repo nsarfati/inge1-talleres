@@ -100,12 +100,12 @@ setUp
 
 !classDefinition: #CashierTest category: 'TusLibros'!
 TestCase subclass: #CashierTest
-	instanceVariableNames: 'testObjectsFactory debitBehavior'
+	instanceVariableNames: 'testObjectsFactory'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TusLibros'!
 
-!CashierTest methodsFor: 'tests' stamp: 'HernanWilkinson 6/17/2013 18:50'!
+!CashierTest methodsFor: 'tests' stamp: 'NMS 11/8/2023 23:55:09'!
 test01CanNotCheckoutAnEmptyCart
 
 	| salesBook |
@@ -115,7 +115,7 @@ test01CanNotCheckoutAnEmptyCart
 		should: [ Cashier 
 			toCheckout: testObjectsFactory createCart 
 			charging: testObjectsFactory notExpiredCreditCard 
-			throught: self
+			throught: testObjectsFactory successDebitMp
 			on: testObjectsFactory today
 			registeringOn:  salesBook ]
 		raise: Error - MessageNotUnderstood
@@ -123,7 +123,7 @@ test01CanNotCheckoutAnEmptyCart
 			self assert: anError messageText = Cashier cartCanNotBeEmptyErrorMessage.
 			self assert: salesBook isEmpty ]! !
 
-!CashierTest methodsFor: 'tests' stamp: 'HernanWilkinson 6/17/2013 18:51'!
+!CashierTest methodsFor: 'tests' stamp: 'NMS 11/8/2023 23:55:17'!
 test02CalculatedTotalIsCorrect
 
 	| cart cashier |
@@ -134,13 +134,13 @@ test02CalculatedTotalIsCorrect
 	cashier :=  Cashier
 		toCheckout: cart 
 		charging: testObjectsFactory notExpiredCreditCard 
-		throught: self
+		throught: testObjectsFactory successDebitMp
 		on: testObjectsFactory today 
 		registeringOn: OrderedCollection new.
 		
 	self assert: cashier checkOut = (testObjectsFactory itemSellByTheStorePrice * 2)! !
 
-!CashierTest methodsFor: 'tests' stamp: 'HernanWilkinson 6/17/2013 18:51'!
+!CashierTest methodsFor: 'tests' stamp: 'NMS 11/8/2023 23:55:21'!
 test03CanNotCheckoutWithAnExpiredCreditCart
 
 	| cart salesBook |
@@ -153,7 +153,7 @@ test03CanNotCheckoutWithAnExpiredCreditCart
 		should: [ Cashier 
 				toCheckout: cart 
 				charging: testObjectsFactory expiredCreditCard 
-				throught: self
+				throught: testObjectsFactory successDebitMp
 				on: testObjectsFactory today
 				registeringOn: salesBook ]
 		raise: Error - MessageNotUnderstood
@@ -161,7 +161,7 @@ test03CanNotCheckoutWithAnExpiredCreditCart
 			self assert: anError messageText = Cashier canNotChargeAnExpiredCreditCardErrorMessage.
 			self assert: salesBook isEmpty ]! !
 
-!CashierTest methodsFor: 'tests' stamp: 'HernanWilkinson 6/17/2013 19:04'!
+!CashierTest methodsFor: 'tests' stamp: 'NMS 11/8/2023 23:55:30'!
 test04CheckoutRegistersASale
 
 	| cart cashier salesBook total |
@@ -173,7 +173,7 @@ test04CheckoutRegistersASale
 	cashier:= Cashier 
 		toCheckout: cart 
 		charging: testObjectsFactory notExpiredCreditCard
-		throught: self
+		throught: testObjectsFactory successDebitMp
 		on: testObjectsFactory today
 		registeringOn: salesBook.
 		
@@ -182,32 +182,33 @@ test04CheckoutRegistersASale
 	self assert: salesBook size = 1.
 	self assert: salesBook first total = total.! !
 
-!CashierTest methodsFor: 'tests' stamp: 'HernanWilkinson 6/17/2013 19:00'!
+!CashierTest methodsFor: 'tests' stamp: 'NMS 11/9/2023 00:02:52'!
 test05CashierChargesCreditCardUsingMerchantProcessor
 
-	| cart cashier salesBook total creditCard debitedAmout debitedCreditCard  |
+	| cart cashier salesBook total creditCard debitedAmout debitedCreditCard debitBehavior |
 
 	cart := testObjectsFactory createCart.
 	cart add: testObjectsFactory itemSellByTheStore.
 	creditCard := testObjectsFactory notExpiredCreditCard.
 	salesBook := OrderedCollection new.
  
-	cashier:= Cashier 
-		toCheckout: cart 
-		charging: creditCard
-		throught: self
-		on: testObjectsFactory today
-		registeringOn: salesBook.
-		
 	debitBehavior := [ :anAmount :aCreditCard | 
 		debitedAmout := anAmount.
 		debitedCreditCard := aCreditCard ].
+
+	cashier:= Cashier 
+		toCheckout: cart 
+		charging: creditCard
+		throught: 	(MerchantProcessorSimulator behaving: debitBehavior)
+		on: testObjectsFactory today
+		registeringOn: salesBook.
+		
 	total := cashier checkOut.
 					
 	self assert: debitedCreditCard = creditCard.
 	self assert: debitedAmout = total.! !
 
-!CashierTest methodsFor: 'tests' stamp: 'HernanWilkinson 6/17/2013 18:59'!
+!CashierTest methodsFor: 'tests' stamp: 'NMS 11/8/2023 23:57:20'!
 test06CashierDoesNotSaleWhenTheCreditCardHasNoCredit
 
 	| cart cashier salesBook creditCard |
@@ -216,12 +217,11 @@ test06CashierDoesNotSaleWhenTheCreditCardHasNoCredit
 	cart add: testObjectsFactory itemSellByTheStore.
 	creditCard := testObjectsFactory notExpiredCreditCard.
 	salesBook := OrderedCollection new.
- 	debitBehavior := [ :anAmount :aCreditCard | self error: Cashier creditCardHasNoCreditErrorMessage].
 	
 	cashier:= Cashier 
 		toCheckout: cart 
 		charging: creditCard
-		throught: self
+		throught: testObjectsFactory cardNoCreditDebitMp
 		on: testObjectsFactory today
 		registeringOn: salesBook.
 		
@@ -229,21 +229,14 @@ test06CashierDoesNotSaleWhenTheCreditCardHasNoCredit
 		should: [cashier checkOut ]
 		raise: Error - MessageNotUnderstood
 		withExceptionDo: [ :anError |
-			self assert: anError messageText = Cashier creditCardHasNoCreditErrorMessage.
+			self assert: anError messageText = MerchantProcessorSimulator creditCardHasNoCreditErrorMessage.
 			self assert: salesBook isEmpty ]! !
 
 
-!CashierTest methodsFor: 'setup' stamp: 'HernanWilkinson 6/17/2013 19:03'!
+!CashierTest methodsFor: 'setup' stamp: 'NMS 11/9/2023 00:02:02'!
 setUp 
 
-	testObjectsFactory := StoreTestObjectsFactory new.
-	debitBehavior := [ :anAmount :aCreditCard | ]! !
-
-
-!CashierTest methodsFor: 'merchant processor protocol' stamp: 'HernanWilkinson 6/17/2013 19:02'!
-debit: anAmount from: aCreditCard 
-
-	^debitBehavior value: anAmount value: aCreditCard ! !
+	testObjectsFactory := StoreTestObjectsFactory new.! !
 
 
 !classDefinition: #InternalInterfaceTest category: 'TusLibros'!
@@ -984,7 +977,7 @@ toCheckout: aCart charging: aCreditCard throught: aMerchantProcessor on: aDate r
 	^self new initializeToCheckout: aCart charging: aCreditCard throught: aMerchantProcessor registeringOn: aSalesBook! !
 
 
-!Cashier class methodsFor: 'error messages' stamp: 'HernanWilkinson 6/17/2013 18:21'!
+!Cashier class methodsFor: 'error messages' stamp: 'NMS 11/9/2023 00:05:08'!
 canNotChargeAnExpiredCreditCardErrorMessage
 	
 	^'Can not charge an expired credit card'! !
@@ -993,11 +986,6 @@ canNotChargeAnExpiredCreditCardErrorMessage
 cartCanNotBeEmptyErrorMessage
 	
 	^'Can not check out an empty cart'! !
-
-!Cashier class methodsFor: 'error messages' stamp: 'HernanWilkinson 6/17/2013 19:02'!
-creditCardHasNoCreditErrorMessage
-	
-	^'Credit card has no credit'! !
 
 
 !classDefinition: #Clock category: 'TusLibros'!
@@ -1340,6 +1328,16 @@ debit: anAmount from: aCreditCard
 
 	^behavior value: anAmount value: aCreditCard ! !
 
+"-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
+
+!classDefinition: 'MerchantProcessorSimulator class' category: 'TusLibros'!
+MerchantProcessorSimulator class
+	instanceVariableNames: ''!
+
+!MerchantProcessorSimulator class methodsFor: 'error messages' stamp: 'NMS 11/8/2023 23:57:08'!
+creditCardHasNoCreditErrorMessage
+	^'Credit card has no credit'! !
+
 
 !classDefinition: #StoreTestObjectsFactory category: 'TusLibros'!
 Object subclass: #StoreTestObjectsFactory
@@ -1419,8 +1417,8 @@ today
 invalidCredentialsAuthenticator
 	^AuthenticatorSimulator behaving: [:aClientId :aPassword | self error: AuthenticatorSimulator invalidCredentialsErrorMessage]! !
 
-!StoreTestObjectsFactory methodsFor: 'authenticator - simulator' stamp: 'NMS 11/7/2023 20:35:22'!
-successfullyAuthenticator
+!StoreTestObjectsFactory methodsFor: 'authenticator - simulator' stamp: 'NMS 11/9/2023 00:06:35'!
+successfulAuthenticator
 	^AuthenticatorSimulator behaving: [:aClientId :aPassword | ].
 ! !
 
@@ -1438,22 +1436,26 @@ internalInterfaceWithInvalidCredentialsAuthenticator
 		aMerchantProcessor: (self successDebitMp)
 		andClock: (self clockSimulatorSetOnNow)! !
 
-!StoreTestObjectsFactory methodsFor: 'internal interface' stamp: 'gg 11/8/2023 23:23:16'!
+!StoreTestObjectsFactory methodsFor: 'internal interface' stamp: 'NMS 11/9/2023 00:06:35'!
 internalInterfaceWithSuccessfulAuthenticator
 	^InternalInterface
-		forAuthenticator: (self successfullyAuthenticator)
+		forAuthenticator: (self successfulAuthenticator)
 		catalog: (self catalogWithThreeBooks)
 		aMerchantProcessor: (self successDebitMp)
 		andClock: (self clockSimulatorSetOnNow)! !
 
-!StoreTestObjectsFactory methodsFor: 'internal interface' stamp: 'gg 11/8/2023 23:23:37'!
+!StoreTestObjectsFactory methodsFor: 'internal interface' stamp: 'NMS 11/9/2023 00:06:35'!
 internalInterfaceWithSuccessfulAuthenticatorAndClockSimulator: aClockSimulator
 	^InternalInterface
-		forAuthenticator: (self successfullyAuthenticator)
+		forAuthenticator: (self successfulAuthenticator)
 		catalog: (self catalogWithThreeBooks)
 		aMerchantProcessor: (self successDebitMp)
 		andClock: aClockSimulator! !
 
+
+!StoreTestObjectsFactory methodsFor: 'merchant processor - simulator' stamp: 'NMS 11/8/2023 23:57:25'!
+cardNoCreditDebitMp
+	^MerchantProcessorSimulator behaving: [ :anAmount :aCreditCard | self error: MerchantProcessorSimulator creditCardHasNoCreditErrorMessage]! !
 
 !StoreTestObjectsFactory methodsFor: 'merchant processor - simulator' stamp: 'NMS 11/7/2023 20:35:33'!
 successDebitMp
