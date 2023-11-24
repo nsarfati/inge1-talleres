@@ -91,8 +91,8 @@ test03CanNotImportSupplierRecordWithLessThanFourFields
 
 ! !
 
-!ImportTest methodsFor: 'tests - supplier' stamp: 'gg 11/23/2023 19:18:44'!
-test04
+!ImportTest methodsFor: 'tests - supplier' stamp: 'NMS 11/23/2023 20:27:33'!
+test04SupplierWithAddressesIsImportedCorrectly
 	
 	|supplier|
 	
@@ -107,6 +107,151 @@ test04
 	self assertAddressOf: supplier at: 'Maipu' hasNumber: 888 town: 'Florida' zipCode: 1122 province: 'Buenos Aires'.
 	! !
 
+!ImportTest methodsFor: 'tests - supplier' stamp: 'NMS 11/23/2023 20:32:00'!
+test05CannotImportEmptyLine
+
+	self
+		should: [ 	SupplierImporter valueFrom: self emptyLine into: system]
+		raise: Error - MessageNotUnderstood
+		withExceptionDo: [ :anError |
+			self assert: anError messageText equals: SupplierImporter invalidRecordTypeErrorDescription.
+			self assert: system numberOfSuppliers equals: 0]	! !
+
+!ImportTest methodsFor: 'tests - supplier' stamp: 'NMS 11/23/2023 20:36:22'!
+test06CanNotImportAddressWithoutSupplier
+
+	self
+		should: [ SupplierImporter valueFrom: self addressWithoutPartyData into: system. ]
+		raise: Error - MessageNotUnderstood
+		withMessageText: SupplierImporter canNotImportAddressWithoutPartyErrorDescription! !
+
+!ImportTest methodsFor: 'tests - supplier' stamp: 'NMS 11/23/2023 20:38:38'!
+test07DoesNotImportRecordsStartingWithSButMoreCharacters
+
+	self
+		should: [ 	SupplierImporter valueFrom: (ReadStream on: 'SS,Supplier1,D,123') into: system]
+		raise: Error - MessageNotUnderstood
+		withExceptionDo: [ :anError |
+			self assert: anError messageText equals: SupplierImporter invalidRecordTypeErrorDescription.
+			self assert: system numberOfSuppliers equals: 0]! !
+
+!ImportTest methodsFor: 'tests - supplier' stamp: 'NMS 11/23/2023 21:14:50'!
+test08SupplierWithNewCustomerIsImportedCorrectly
+
+	|stream supplier|
+	
+	stream := ReadStream on:
+'S,Supplier1,D,123
+NC,Pepe,Sanchez,D,22333444'.
+
+	SupplierImporter valueFrom: stream into: system.
+
+	self assert: system numberOfSuppliers equals: 1.
+	self assert: system numberOfCustomers equals: 1.
+	
+	supplier := system supplierWithIdentificationType: 'D' number: '123'.
+	self assert: (supplier isNamed: 'Supplier1').
+	self assert: (supplier isIdentifiedAs: 'D' numbered: '123').
+	self assert: supplier isAddressesEmpty.
+	self assert: supplier numberOfCustomers equals: 1.
+	self assert: ((supplier customersOfSupplier first) isNamedAs: 'Pepe' andLastNamedAs: 'Sanchez').
+	self assert: ((supplier customersOfSupplier first) isIdentifiedAs: 'D' numbered: '22333444')
+! !
+
+!ImportTest methodsFor: 'tests - supplier' stamp: 'NMS 11/23/2023 21:15:32'!
+test09CanNotImportNewCustomerForSupplierWithMoreThanFiveFields
+
+	|stream supplier|
+	
+	stream := ReadStream on:
+'S,Supplier1,D,123
+NC,Pepe,Sanchez,D,22333444,XX'.
+
+	self
+		should: [ 	SupplierImporter valueFrom: stream into: system]
+		raise: Error - MessageNotUnderstood
+		withExceptionDo: [ :anError |
+			self assert: anError messageText equals: XXImporter invalidCustomerRecordErrorDescription.
+		].
+
+	self assert: system numberOfSuppliers equals: 1.
+	self assert: system numberOfCustomers equals: 0.
+	
+	supplier := system supplierWithIdentificationType: 'D' number: '123'.
+	self assert: (supplier isNamed: 'Supplier1').
+	self assert: (supplier isIdentifiedAs: 'D' numbered: '123').
+	self assert: supplier isAddressesEmpty.
+	self assert: supplier numberOfCustomers equals: 0.! !
+
+!ImportTest methodsFor: 'tests - supplier' stamp: 'NMS 11/23/2023 21:15:45'!
+test10CanNotImportNewCustomerForSupplierWithLessThanFiveFields
+
+	|stream supplier|
+	
+	stream := ReadStream on:
+'S,Supplier1,D,123
+NC,Pepe,Sanchez,D,'.
+
+	self
+		should: [ 	SupplierImporter valueFrom: stream into: system]
+		raise: Error - MessageNotUnderstood
+		withExceptionDo: [ :anError |
+			self assert: anError messageText equals: XXImporter invalidCustomerRecordErrorDescription.
+		].
+
+	self assert: system numberOfSuppliers equals: 1.
+	self assert: system numberOfCustomers equals: 0.
+	
+	supplier := system supplierWithIdentificationType: 'D' number: '123'.
+	self assert: (supplier isNamed: 'Supplier1').
+	self assert: (supplier isIdentifiedAs: 'D' numbered: '123').
+	self assert: supplier isAddressesEmpty.
+	self assert: supplier numberOfCustomers equals: 0.! !
+
+!ImportTest methodsFor: 'tests - supplier' stamp: 'NMS 11/23/2023 21:17:09'!
+test11DoesNotImportNewCustomerForSupplierWithNCButMoreCharacters
+
+	|stream supplier|
+	
+	stream := ReadStream on:
+'S,Supplier1,D,123
+NCC,Pepe,Sanchez,D,'.
+
+	self
+		should: [ 	SupplierImporter valueFrom: stream into: system]
+		raise: Error - MessageNotUnderstood
+		withExceptionDo: [ :anError |
+			self assert: anError messageText equals: XXImporter invalidRecordTypeErrorDescription .
+		].
+
+	self assert: system numberOfSuppliers equals: 1.
+	self assert: system numberOfCustomers equals: 0.
+	
+	supplier := system supplierWithIdentificationType: 'D' number: '123'.
+	self assert: (supplier isNamed: 'Supplier1').
+	self assert: (supplier isIdentifiedAs: 'D' numbered: '123').
+	self assert: supplier isAddressesEmpty.
+	self assert: supplier numberOfCustomers equals: 0.! !
+
+!ImportTest methodsFor: 'tests - supplier' stamp: 'NMS 11/23/2023 21:24:12'!
+test12CanNotImportANewCustomerWithoutSupplier
+
+	|stream |
+	
+	stream := ReadStream on:
+'NC,Pepe,Sanchez,D,22333444'.
+
+	self
+		should: [ 	SupplierImporter valueFrom: stream into: system]
+		raise: Error - MessageNotUnderstood
+		withExceptionDo: [ :anError |
+			self assert: anError messageText equals: SupplierImporter canNotImportNewCustomerWithoutPartyErrorDescription.
+			self assert: system numberOfSuppliers equals: 0.
+			self assert: system numberOfCustomers equals: 0.
+		].
+
+	! !
+
 
 !ImportTest methodsFor: 'tests - customer' stamp: 'HAW 5/22/2022 21:15:52'!
 test01ValidDataIsImportedCorrectly
@@ -117,13 +262,13 @@ test01ValidDataIsImportedCorrectly
 	self assertPepeSanchezWasImportedCorrecty.
 	self assertJuanPerezWasImportedCorrectly ! !
 
-!ImportTest methodsFor: 'tests - customer' stamp: 'HAW 5/22/2022 21:15:52'!
+!ImportTest methodsFor: 'tests - customer' stamp: 'NMS 11/23/2023 20:35:36'!
 test02CanNotImportAddressWithoutCustomer
 
 	self
-		should: [ CustomerImporter valueFrom: self addressWithoutCustomerData into: system. ]
+		should: [ CustomerImporter valueFrom: self addressWithoutPartyData into: system. ]
 		raise: Error - MessageNotUnderstood
-		withMessageText: CustomerImporter canNotImportAddressWithoutCustomerErrorDescription
+		withMessageText: CustomerImporter canNotImportAddressWithoutPartyErrorDescription
 
 	! !
 
@@ -310,8 +455,8 @@ addressRecordWithMoreThanSixFields
 	^ReadStream on: 'C,Pepe,Sanchez,D,22333444
 A,San Martin,3322,Olivos,1636,BsAs,x'! !
 
-!ImportTest methodsFor: 'test data' stamp: 'HAW 5/22/2022 19:14:13'!
-addressWithoutCustomerData
+!ImportTest methodsFor: 'test data' stamp: 'NMS 11/23/2023 20:34:39'!
+addressWithoutPartyData
 
 	^ReadStream on: 'A,San Martin,3322,Olivos,1636,BsAs'! !
 
@@ -499,31 +644,31 @@ from: aReadStream into: aCustomerSystem
 
 !classDefinition: #XXImporter category: 'CustomerImporter'!
 CSVImporter subclass: #XXImporter
-	instanceVariableNames: 'newCustomer'
+	instanceVariableNames: 'newParty'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'CustomerImporter'!
 
-!XXImporter methodsFor: 'address' stamp: 'gg 11/23/2023 19:30:53'!
-assertCustomerWasImported
+!XXImporter methodsFor: 'address' stamp: 'NMS 11/23/2023 21:21:04'!
+assertPartyWasImportedForAddress
 
-	^ newCustomer ifNil: [ self error: self class canNotImportAddressWithoutCustomerErrorDescription ]! !
+	^ newParty ifNil: [ self error: self class canNotImportAddressWithoutPartyErrorDescription ]! !
 
 !XXImporter methodsFor: 'address' stamp: 'gg 11/23/2023 18:51:38'!
 assertValidAddressRecord
 
 	^ record size ~= 6 ifTrue: [ self error: self class invalidAddressRecordErrorDescription ]! !
 
-!XXImporter methodsFor: 'address' stamp: 'gg 11/23/2023 19:28:30'!
+!XXImporter methodsFor: 'address' stamp: 'NMS 11/23/2023 21:21:04'!
 importAddress
 
 	| newAddress |
 
-	self assertCustomerWasImported.
+	self assertPartyWasImportedForAddress.
 	self assertValidAddressRecord.
 
 	newAddress := Address new.
-	newCustomer addAddress: newAddress.
+	newParty addAddress: newAddress.
 	newAddress streetName: record second.
 	newAddress streetNumber: record third asNumber .
 	newAddress town: record fourth.
@@ -536,10 +681,32 @@ isAddressRecord
 	^ record first = 'A'! !
 
 
-!XXImporter methodsFor: 'evaluating - private' stamp: 'gg 11/23/2023 19:24:19'!
+!XXImporter methodsFor: 'evaluating - private' stamp: 'NMS 11/23/2023 20:21:55'!
 importRecord
 
-	self subclassResponsibility! !
+	self subclassResponsibility ! !
+
+
+!XXImporter methodsFor: 'customer' stamp: 'NMS 11/23/2023 20:57:35'!
+assertValidCustomerRecord
+
+	^ record size ~= 5 ifTrue: [ self error: self class invalidCustomerRecordErrorDescription ]! !
+
+"-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
+
+!classDefinition: 'XXImporter class' category: 'CustomerImporter'!
+XXImporter class
+	instanceVariableNames: ''!
+
+!XXImporter class methodsFor: 'error messages' stamp: 'NMS 11/23/2023 20:36:00'!
+canNotImportAddressWithoutPartyErrorDescription
+
+	^'Cannot import address without party'! !
+
+!XXImporter class methodsFor: 'error messages' stamp: 'NMS 11/23/2023 21:12:40'!
+invalidCustomerRecordErrorDescription
+
+	^'Invalid Customer record'! !
 
 
 !classDefinition: #CustomerImporter category: 'CustomerImporter'!
@@ -549,22 +716,19 @@ XXImporter subclass: #CustomerImporter
 	poolDictionaries: ''
 	category: 'CustomerImporter'!
 
-!CustomerImporter methodsFor: 'customer' stamp: 'HAW 5/22/2022 19:59:39'!
-assertValidCustomerRecord
-
-	^ record size ~= 5 ifTrue: [ self error: self class invalidCustomerRecordErrorDescription ]! !
-
-!CustomerImporter methodsFor: 'customer' stamp: 'HAW 5/22/2022 21:13:47'!
+!CustomerImporter methodsFor: 'customer' stamp: 'NMS 11/23/2023 21:37:32'!
 importCustomer
 
+	"el importCustomer hay que subirlo al XXImporter"
+	"el importNewCustomer del SupplierImporter debe hacer lo mismo que hace el del XXImporter (super) pero deberia ademas, agregarlo a la lista de customers del supplier"
 	self assertValidCustomerRecord.
 
-	newCustomer := Customer new.
-	newCustomer firstName: record second.
-	newCustomer lastName: record third.
-	newCustomer identificationType: record fourth.
-	newCustomer identificationNumber: record fifth.
-	system add: newCustomer! !
+	newParty := Customer new.
+	newParty firstName: record second.
+	newParty lastName: record third.
+	newParty identificationType: record fourth.
+	newParty identificationNumber: record fifth.
+	system add: newParty! !
 
 !CustomerImporter methodsFor: 'customer' stamp: 'HAW 5/22/2022 19:23:55'!
 isCustomerRecord
@@ -573,7 +737,7 @@ isCustomerRecord
 
 
 
-!CustomerImporter methodsFor: 'evaluating - private' stamp: 'gg 11/23/2023 19:24:18'!
+!CustomerImporter methodsFor: 'evaluating - private' stamp: 'NMS 11/23/2023 21:36:54'!
 importRecord
 
 	self assertRecordNotEmpty.
@@ -591,20 +755,10 @@ CustomerImporter class
 
 
 
-!CustomerImporter class methodsFor: 'error messages' stamp: 'HAW 5/22/2022 19:13:48'!
-canNotImportAddressWithoutCustomerErrorDescription
-
-	^'Cannot import address without customer'! !
-
 !CustomerImporter class methodsFor: 'error messages' stamp: 'HAW 5/22/2022 19:41:39'!
 invalidAddressRecordErrorDescription
 
 	^'Address record has to have six fields'! !
-
-!CustomerImporter class methodsFor: 'error messages' stamp: 'HAW 5/22/2022 19:53:56'!
-invalidCustomerRecordErrorDescription
-
-	^'Invalid Customer record'! !
 
 
 !classDefinition: #SupplierImporter category: 'CustomerImporter'!
@@ -614,15 +768,36 @@ XXImporter subclass: #SupplierImporter
 	poolDictionaries: ''
 	category: 'CustomerImporter'!
 
-!SupplierImporter methodsFor: 'evaluating - private' stamp: 'gg 11/23/2023 19:27:51'!
+!SupplierImporter methodsFor: 'evaluating - private' stamp: 'NMS 11/23/2023 21:21:47'!
+assertPartyWasImportedForNewCustomer
+
+	^ newParty ifNil: [ self error: self class canNotImportNewCustomerWithoutPartyErrorDescription ]! !
+
+!SupplierImporter methodsFor: 'evaluating - private' stamp: 'NMS 11/23/2023 21:23:42'!
+importNewCustomer
+	| newCustomer |
+	
+	self assertPartyWasImportedForNewCustomer.
+	self assertValidCustomerRecord.
+
+	newCustomer := Customer new.
+	newCustomer firstName: record second.
+	newCustomer lastName: record third.
+	newCustomer identificationType: record fourth.
+	newCustomer identificationNumber: record fifth.
+	system add: newCustomer.
+	newParty addCustomer: newCustomer.! !
+
+!SupplierImporter methodsFor: 'evaluating - private' stamp: 'NMS 11/23/2023 21:37:03'!
 importRecord
 	
-	"self assertRecordNotEmpty."
-
-
+	self assertRecordNotEmpty.
+	
 	self isSupplierRecord ifTrue: [^self importSupplier].
 
 	self isAddressRecord ifTrue: [ ^self importAddress ].
+
+	self isNewCustomerRecord ifTrue: [ ^self importNewCustomer ].
 
 	self error: self class invalidRecordTypeErrorDescription! !
 
@@ -632,11 +807,16 @@ assertValidSupplierRecord
 	
 	^ record size ~= 4 ifTrue: [ self error: self class  invalidSupplierRecordErrorDescription]! !
 
-!SupplierImporter methodsFor: 'supplier' stamp: 'gg 11/23/2023 19:25:17'!
+!SupplierImporter methodsFor: 'supplier' stamp: 'NMS 11/23/2023 20:15:12'!
 importSupplier
 
 	self assertValidSupplierRecord.
-	system addSupplier: (Supplier named: record second identificationType: record third numbered: record fourth)! !
+	newParty := Supplier named: record second identificationType: record third numbered: record fourth.
+	system addSupplier: newParty! !
+
+!SupplierImporter methodsFor: 'supplier' stamp: 'NMS 11/23/2023 20:59:33'!
+isNewCustomerRecord
+	^ record first = 'NC'! !
 
 !SupplierImporter methodsFor: 'supplier' stamp: 'gg 11/23/2023 19:27:11'!
 isSupplierRecord
@@ -648,6 +828,11 @@ isSupplierRecord
 !classDefinition: 'SupplierImporter class' category: 'CustomerImporter'!
 SupplierImporter class
 	instanceVariableNames: ''!
+
+!SupplierImporter class methodsFor: 'error messages' stamp: 'NMS 11/23/2023 21:22:34'!
+canNotImportNewCustomerWithoutPartyErrorDescription
+
+	^'Cannot import new customer without party'! !
 
 !SupplierImporter class methodsFor: 'error messages' stamp: 'gg 11/23/2023 19:07:38'!
 invalidSupplierRecordErrorDescription
@@ -1160,6 +1345,10 @@ firstName: aName
 
 	firstName := aName! !
 
+!Customer methodsFor: 'name' stamp: 'NMS 11/23/2023 20:48:41'!
+isNamedAs: aFirstName andLastNamedAs: aLastName
+	^firstName = aFirstName and: [lastName = aLastName]! !
+
 !Customer methodsFor: 'name' stamp: 'HAW 5/22/2022 00:19:29'!
 lastName
 
@@ -1174,17 +1363,18 @@ lastName: aLastName
 
 !classDefinition: #Supplier category: 'CustomerImporter'!
 Party subclass: #Supplier
-	instanceVariableNames: 'name'
+	instanceVariableNames: 'name customers'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'CustomerImporter'!
 
-!Supplier methodsFor: 'initialization' stamp: 'gg 11/23/2023 18:55:44'!
+!Supplier methodsFor: 'initialization' stamp: 'NMS 11/23/2023 21:02:21'!
 initializeNamed: aName identificationType: anIdentificationType numbered: anIdentificationNumber 
 	
 	name := aName.
 	identificationType := anIdentificationType.
-	identificationNumber := anIdentificationNumber.! !
+	identificationNumber := anIdentificationNumber.
+	customers := OrderedCollection new.! !
 
 
 !Supplier methodsFor: 'identification' stamp: 'gg 11/23/2023 18:55:23'!
@@ -1193,10 +1383,22 @@ isNamed: aName
 	^name = aName! !
 
 
-!Supplier methodsFor: 'as yet unclassified' stamp: 'gg 11/23/2023 18:45:50'!
+!Supplier methodsFor: 'as yet unclassified' stamp: 'NMS 11/23/2023 21:05:30'!
+addCustomer: newCustomer 
+	customers add: newCustomer! !
+
+!Supplier methodsFor: 'as yet unclassified' stamp: 'NMS 11/23/2023 21:08:55'!
+customersOfSupplier
+	^customers copy! !
+
+!Supplier methodsFor: 'as yet unclassified' stamp: 'NMS 11/23/2023 21:13:51'!
 isCustomersEmpty
 	
-	^true.! !
+	^customers isEmpty! !
+
+!Supplier methodsFor: 'as yet unclassified' stamp: 'NMS 11/23/2023 21:13:36'!
+numberOfCustomers
+	^customers size! !
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
