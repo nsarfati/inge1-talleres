@@ -45,7 +45,7 @@ TestCase subclass: #ImportTest
 	poolDictionaries: ''
 	category: 'CustomerImporter'!
 
-!ImportTest methodsFor: 'tests - supplier' stamp: 'NMS 11/25/2023 14:39:51'!
+!ImportTest methodsFor: 'tests - supplier' stamp: 'GG 11/25/2023 17:01:54'!
 test01SupplierWithNoAddressesOrCustomersIsImportedCorrectly
 
 	|stream |
@@ -53,7 +53,8 @@ test01SupplierWithNoAddressesOrCustomersIsImportedCorrectly
 	stream := ReadStream on: 'S,Supplier1,D,123'.
 	SupplierImporter valueFrom: stream into: system.
 
-	self assertSupplierWithNoAddressesAndCustomerImportedCorrectly! !
+	self assertSystemHasSuppliers: 1 andCustomers: 0.
+	self assertSupplierWithNoAddressesAndNoCustomerIsImportedCorrectly! !
 
 !ImportTest methodsFor: 'tests - supplier' stamp: 'gg 11/23/2023 19:11:01'!
 test02CanNotImportSupplierRecordWithMoreThanFourFields
@@ -79,12 +80,17 @@ test03CanNotImportSupplierRecordWithLessThanFourFields
 
 ! !
 
-!ImportTest methodsFor: 'tests - supplier' stamp: 'NMS 11/25/2023 14:42:51'!
+!ImportTest methodsFor: 'tests - supplier' stamp: 'GG 11/25/2023 17:01:44'!
 test04SupplierWithAddressesIsImportedCorrectly
 
+	| supplier |
 	SupplierImporter valueFrom: self supplierWithAddresses into: system.
-		
-	self assertSupplierWithTwoAddressesAndNoCustomersIsImportedCorrectly! !
+	supplier := system supplierWithIdentificationType: 'D' number: '123'.
+	
+	self assertSystemHasSuppliers: 1 andCustomers: 0.
+
+	self assertSupplierDataIsImportedCorrectly: supplier.
+	self assertSuppliersAddressesAreImportedCorrectly: supplier! !
 
 !ImportTest methodsFor: 'tests - supplier' stamp: 'NMS 11/23/2023 20:32:00'!
 test05CannotImportEmptyLine
@@ -114,7 +120,7 @@ test07DoesNotImportRecordsStartingWithSButMoreCharacters
 			self assert: anError messageText equals: SupplierImporter invalidRecordTypeErrorDescription.
 			self assert: system numberOfSuppliers equals: 0]! !
 
-!ImportTest methodsFor: 'tests - supplier' stamp: 'NMS 11/25/2023 14:53:08'!
+!ImportTest methodsFor: 'tests - supplier' stamp: 'GG 11/25/2023 17:06:21'!
 test08SupplierWithNewCustomerIsImportedCorrectly
 
 	|stream |
@@ -125,10 +131,10 @@ NC,Pepe,Sanchez,D,22333444'.
 
 	SupplierImporter valueFrom: stream into: system.
 
-	self assert: system numberOfCustomers equals: 1.
+	self assertSystemHasSuppliers: 1 andCustomers: 1.
 	self assertSupplierWithNoAddressesAndOneCustomerIsImportedCorrectly! !
 
-!ImportTest methodsFor: 'tests - supplier' stamp: 'NMS 11/25/2023 14:47:48'!
+!ImportTest methodsFor: 'tests - supplier' stamp: 'GG 11/25/2023 16:52:07'!
 test09CanNotImportNewCustomerForSupplierWithMoreThanFiveFields
 
 	|stream |
@@ -144,9 +150,10 @@ NC,Pepe,Sanchez,D,22333444,XX'.
 			self assert: anError messageText equals: PartyImporter invalidCustomerRecordErrorDescription.
 		].
 
-	self assertSupplierWithNoAddressesAndCustomerImportedCorrectly.! !
+	self assertSystemHasSuppliers: 1 andCustomers: 0.	
+	self assertSupplierWithNoAddressesAndNoCustomerIsImportedCorrectly.! !
 
-!ImportTest methodsFor: 'tests - supplier' stamp: 'NMS 11/25/2023 14:48:04'!
+!ImportTest methodsFor: 'tests - supplier' stamp: 'GG 11/25/2023 16:52:19'!
 test10CanNotImportNewCustomerForSupplierWithLessThanFiveFields
 
 	|stream |
@@ -162,9 +169,10 @@ NC,Pepe,Sanchez,D,'.
 			self assert: anError messageText equals: PartyImporter invalidCustomerRecordErrorDescription.
 		].
 
-	self assertSupplierWithNoAddressesAndCustomerImportedCorrectly! !
+	self assertSystemHasSuppliers: 1 andCustomers: 0.
+	self assertSupplierWithNoAddressesAndNoCustomerIsImportedCorrectly! !
 
-!ImportTest methodsFor: 'tests - supplier' stamp: 'NMS 11/25/2023 14:48:37'!
+!ImportTest methodsFor: 'tests - supplier' stamp: 'GG 11/25/2023 16:52:24'!
 test11DoesNotImportNewCustomerForSupplierWithNCButMoreCharacters
 
 	|stream |
@@ -180,9 +188,10 @@ NCC,Pepe,Sanchez,D,'.
 			self assert: anError messageText equals: PartyImporter invalidRecordTypeErrorDescription .
 		].
 
-	self assertSupplierWithNoAddressesAndCustomerImportedCorrectly! !
+	self assertSystemHasSuppliers: 1 andCustomers: 0.
+	self assertSupplierWithNoAddressesAndNoCustomerIsImportedCorrectly! !
 
-!ImportTest methodsFor: 'tests - supplier' stamp: 'NMS 11/25/2023 13:00:20'!
+!ImportTest methodsFor: 'tests - supplier' stamp: 'GG 11/25/2023 16:52:42'!
 test12CanNotImportANewCustomerWithoutSupplier
 
 	|stream |
@@ -195,11 +204,10 @@ test12CanNotImportANewCustomerWithoutSupplier
 		raise: Error - MessageNotUnderstood
 		withExceptionDo: [ :anError |
 			self assert: anError messageText equals: SupplierImporter canNotImportCustomerWithoutPartyErrorDescription.
-			self assert: system numberOfSuppliers equals: 0.
-			self assert: system numberOfCustomers equals: 0.
+			self assertSystemHasSuppliers:  0 andCustomers: 0.
 		].! !
 
-!ImportTest methodsFor: 'tests - supplier' stamp: 'NMS 11/25/2023 14:56:38'!
+!ImportTest methodsFor: 'tests - supplier' stamp: 'GG 11/25/2023 17:05:56'!
 test13SupplierWithExistingCustomerIsImportedCorrectly
 
 	|stream |
@@ -211,10 +219,11 @@ EC,D,22333444'.
 	self importValidCustomersAndAssertThem.
 		
 	SupplierImporter valueFrom: stream into: system.
-
+	
+	self assertSystemHasSuppliers: 1 andCustomers: 2.
 	self assertSupplierWithNoAddressesAndOneCustomerIsImportedCorrectly! !
 
-!ImportTest methodsFor: 'tests - supplier' stamp: 'NMS 11/25/2023 15:00:46'!
+!ImportTest methodsFor: 'tests - supplier' stamp: 'GG 11/25/2023 16:53:14'!
 test14DoesNotImportExistingCustomerForSupplierWithECButMoreCharacters
 
 	|stream |
@@ -232,15 +241,13 @@ ECX,D,22333444'.
 			self assert: anError messageText equals: PartyImporter invalidRecordTypeErrorDescription .
 		].	
 
-	self assert: system numberOfSuppliers equals: 1.
-	self assert: system numberOfCustomers equals: 2.
-	
+	self assertSystemHasSuppliers: 1 andCustomers: 2.
 	self assertSupplierWithNoAddressesAndNoCustomerIsImportedCorrectly! !
 
-!ImportTest methodsFor: 'tests - supplier' stamp: 'NMS 11/25/2023 14:23:02'!
+!ImportTest methodsFor: 'tests - supplier' stamp: 'GG 11/25/2023 16:53:19'!
 test15CanNotImportExistingCustomerForSupplierWithMoreThanThreeFields
 
-	|stream supplier|
+	|stream|
 	
 	stream := ReadStream on:
 'S,Supplier1,D,123,
@@ -255,19 +262,14 @@ EC,D,22333444,XXXXX'.
 			self assert: anError messageText equals: SupplierImporter invalidExistingCustomerRecordErrorDescription.
 		].	
 
-	self assert: system numberOfSuppliers equals: 1.
-	self assert: system numberOfCustomers equals: 2.
-	
-	supplier := system supplierWithIdentificationType: 'D' number: '123'.
-	self assert: (supplier isNamedAs: 'Supplier1').
-	self assert: (supplier isIdentifiedAs: 'D' numbered: '123').
-	self assert: supplier isAddressesEmpty.
-	self assert: supplier numberOfCustomers equals: 0.! !
+	self assertSystemHasSuppliers: 1 andCustomers: 2.
+	self assertSupplierWithNoAddressesAndNoCustomerIsImportedCorrectly
+! !
 
-!ImportTest methodsFor: 'tests - supplier' stamp: 'NMS 11/25/2023 14:23:07'!
+!ImportTest methodsFor: 'tests - supplier' stamp: 'GG 11/25/2023 16:53:30'!
 test16CanNotImportExistingCustomerForSupplierWithLessThanThreeFields
 
-	|stream supplier|
+	|stream |
 	
 	stream := ReadStream on:
 'S,Supplier1,D,123,
@@ -282,19 +284,13 @@ EC,D,'.
 			self assert: anError messageText equals: SupplierImporter invalidExistingCustomerRecordErrorDescription.
 		].	
 
-	self assert: system numberOfSuppliers equals: 1.
-	self assert: system numberOfCustomers equals: 2.
-	
-	supplier := system supplierWithIdentificationType: 'D' number: '123'.
-	self assert: (supplier isNamedAs: 'Supplier1').
-	self assert: (supplier isIdentifiedAs: 'D' numbered: '123').
-	self assert: supplier isAddressesEmpty.
-	self assert: supplier numberOfCustomers equals: 0.! !
+	self assertSystemHasSuppliers: 1 andCustomers: 2.
+	self assertSupplierWithNoAddressesAndNoCustomerIsImportedCorrectly! !
 
-!ImportTest methodsFor: 'tests - supplier' stamp: 'NMS 11/25/2023 14:23:10'!
+!ImportTest methodsFor: 'tests - supplier' stamp: 'GG 11/25/2023 16:53:35'!
 test17CanNotImportANonExistingCustomerAsExistingCustomerForSupplier
 
-	|stream supplier|
+	|stream |
 	
 	stream := ReadStream on:
 'S,Supplier1,D,123,
@@ -309,19 +305,13 @@ EC,D,666'.
 			self assert: anError messageText equals: SupplierImporter existingCustomerNotFound .
 		].	
 
-	self assert: system numberOfSuppliers equals: 1.
-	self assert: system numberOfCustomers equals: 2.
-	
-	supplier := system supplierWithIdentificationType: 'D' number: '123'.
-	self assert: (supplier isNamedAs: 'Supplier1').
-	self assert: (supplier isIdentifiedAs: 'D' numbered: '123').
-	self assert: supplier isAddressesEmpty.
-	self assert: supplier numberOfCustomers equals: 0.! !
+	self assertSystemHasSuppliers: 1 andCustomers: 2.
+	self assertSupplierWithNoAddressesAndNoCustomerIsImportedCorrectly! !
 
-!ImportTest methodsFor: 'tests - supplier' stamp: 'NMS 11/25/2023 14:23:16'!
+!ImportTest methodsFor: 'tests - supplier' stamp: 'GG 11/25/2023 16:54:06'!
 test18CanNotImportSameExistingCustomerMoreThanOnceForSupplier
 
-	|stream supplier|
+	|stream |
 	
 	stream := ReadStream on:
 'S,Supplier1,D,123,
@@ -336,18 +326,8 @@ EC,D,22333444'.
 		withExceptionDo: [ :anError |
 			self assert: anError messageText equals: SupplierImporter customerAlreadyAddedToSupplier .
 		].	
-
-	self assert: system numberOfSuppliers equals: 1.
-	self assert: system numberOfCustomers equals: 2.
-	
-	supplier := system supplierWithIdentificationType: 'D' number: '123'.
-	self assert: (supplier isNamedAs: 'Supplier1').
-	self assert: (supplier isIdentifiedAs: 'D' numbered: '123').
-	self assert: supplier isAddressesEmpty.
-	self assert: supplier numberOfCustomers equals: 1.
-
-	self assert: (supplier doesAnyCustomerSatisfyFirstNamedAs: 'Pepe' lastNamedAs: 'Sanchez' andIdentifiedAs: 'D' numbered: '22333444').
-! !
+	self assertSystemHasSuppliers: 1 andCustomers: 2.
+	self assertSupplierWithNoAddressesAndOneCustomerIsImportedCorrectly! !
 
 !ImportTest methodsFor: 'tests - supplier' stamp: 'NMS 11/25/2023 14:23:20'!
 test19CanNotImportAnExistingCustomerWithoutSupplier
@@ -367,10 +347,10 @@ test19CanNotImportAnExistingCustomerWithoutSupplier
 			self assert: system numberOfSuppliers equals: 0.
 		].! !
 
-!ImportTest methodsFor: 'tests - supplier' stamp: 'NMS 11/25/2023 14:33:38'!
+!ImportTest methodsFor: 'tests - supplier' stamp: 'GG 11/25/2023 16:55:46'!
 test20CanNotImportSameNewCustomerMoreThanOnceForSupplier
 
-	|stream supplier|
+	|stream |
 	
 	stream := ReadStream on:
 'S,Supplier1,D,123
@@ -383,16 +363,9 @@ NC,Pepe,Sanchez,D,22333444'.
 		withExceptionDo: [ :anError |
 			self assert: anError messageText equals: SupplierImporter customerAlreadyAddedToSupplier .
 		].	
-
-	self assert: system numberOfSuppliers equals: 1.
-	self assert: system numberOfCustomers equals: 1.
-	
-	supplier := system supplierWithIdentificationType: 'D' number: '123'.
-	self assert: (supplier isNamedAs: 'Supplier1').
-	self assert: (supplier isIdentifiedAs: 'D' numbered: '123').
-	self assert: supplier isAddressesEmpty.
-	self assert: supplier numberOfCustomers equals: 1.
-	self assert: (supplier doesAnyCustomerSatisfyFirstNamedAs: 'Pepe' lastNamedAs: 'Sanchez' andIdentifiedAs: 'D' numbered: '22333444')! !
+	self assertSystemHasSuppliers: 1 andCustomers: 1.
+	self 	assertSupplierWithNoAddressesAndOneCustomerIsImportedCorrectly
+	! !
 
 
 !ImportTest methodsFor: 'tests - customer' stamp: 'NMS 11/25/2023 14:22:47'!
@@ -495,21 +468,18 @@ test10CanNotImportSameCustomerMoreThanOnce
 	self assertJuanPerezWasImportedCorrectly ! !
 
 
-!ImportTest methodsFor: 'assertions' stamp: 'HAW 5/22/2022 18:22:05'!
+!ImportTest methodsFor: 'assertions - customer' stamp: 'GG 11/25/2023 17:31:22'!
 assertAddressOf: importedCustomer at: aStreetName hasNumber: aNumber town: aTown zipCode: aZipCode province: aProvince
 
 	| importedAddress |
 
-	importedAddress := importedCustomer addressAt: aStreetName ifNone: [ self fail ].
-	self assert: aStreetName equals: importedAddress streetName.
-	self assert: aNumber equals: importedAddress streetNumber.
-	self assert: aTown equals: importedAddress town.
-	self assert: aZipCode equals: importedAddress zipCode.
-	self assert: aProvince equals: importedAddress province.
-
+	importedAddress := importedCustomer addressAt: aStreetName number: aNumber town: aTown province: aProvince zipCode: aZipCode ifNone:  [ self fail ].
+	
+	self assert: (importedAddress isAtStreet: aStreetName numbered: aNumber inTown: aTown province: aProvince withZipCode: aZipCode)
+	
 	! !
 
-!ImportTest methodsFor: 'assertions' stamp: 'NMS 11/25/2023 13:54:21'!
+!ImportTest methodsFor: 'assertions - customer' stamp: 'NMS 11/25/2023 13:54:21'!
 assertCustomerWithIdentificationType: anIdType number: anIdNumber hasFirstName: aFirstName lastName: aLastName
 
 	| importedCustomer |
@@ -523,7 +493,7 @@ assertCustomerWithIdentificationType: anIdType number: anIdNumber hasFirstName: 
 
 	! !
 
-!ImportTest methodsFor: 'assertions' stamp: 'NMS 11/25/2023 13:54:47'!
+!ImportTest methodsFor: 'assertions - customer' stamp: 'NMS 11/25/2023 13:54:47'!
 assertImportedOneCustomerWithoutAddress
 
 	| importedCustomer |
@@ -533,12 +503,12 @@ assertImportedOneCustomerWithoutAddress
 	self assert: importedCustomer isAddressesEmpty
 	! !
 
-!ImportTest methodsFor: 'assertions' stamp: 'HAW 5/22/2022 21:33:18'!
+!ImportTest methodsFor: 'assertions - customer' stamp: 'HAW 5/22/2022 21:33:18'!
 assertImportedRightNumberOfCustomers
 
 	^ self assert: 2 equals: system numberOfCustomers! !
 
-!ImportTest methodsFor: 'assertions' stamp: 'HAW 5/22/2022 18:28:45'!
+!ImportTest methodsFor: 'assertions - customer' stamp: 'HAW 5/22/2022 18:28:45'!
 assertJuanPerezWasImportedCorrectly
 
 	| importedCustomer |
@@ -547,12 +517,12 @@ assertJuanPerezWasImportedCorrectly
 	self assertAddressOf: importedCustomer at: 'Alem' hasNumber: 1122 town: 'CABA' zipCode: 1001 province: 'CABA'
 	! !
 
-!ImportTest methodsFor: 'assertions' stamp: 'HAW 5/22/2022 21:33:24'!
+!ImportTest methodsFor: 'assertions - customer' stamp: 'HAW 5/22/2022 21:33:24'!
 assertNoCustomerWasImported
 
 	^ self assert: 0 equals: system numberOfCustomers! !
 
-!ImportTest methodsFor: 'assertions' stamp: 'HAW 5/22/2022 18:28:05'!
+!ImportTest methodsFor: 'assertions - customer' stamp: 'HAW 5/22/2022 18:28:05'!
 assertPepeSanchezWasImportedCorrecty
 
 	| importedCustomer |
@@ -564,7 +534,7 @@ assertPepeSanchezWasImportedCorrecty
 
 	! !
 
-!ImportTest methodsFor: 'assertions' stamp: 'NMS 11/25/2023 14:22:47'!
+!ImportTest methodsFor: 'assertions - customer' stamp: 'NMS 11/25/2023 14:22:47'!
 importValidCustomersAndAssertThem
 
 	CustomerImporter valueFrom: self validImportData into: system.
@@ -573,7 +543,7 @@ importValidCustomersAndAssertThem
 	self assertPepeSanchezWasImportedCorrecty.
 	self assertJuanPerezWasImportedCorrectly! !
 
-!ImportTest methodsFor: 'assertions' stamp: 'HAW 5/22/2022 21:15:52'!
+!ImportTest methodsFor: 'assertions - customer' stamp: 'HAW 5/22/2022 21:15:52'!
 shouldFailImporting: aReadStream messageText: anErrorMessageText asserting: anAssertionBlock
 
 	self
@@ -602,55 +572,57 @@ tearDown
 	! !
 
 
-!ImportTest methodsFor: 'assertions - supplier' stamp: 'NMS 11/25/2023 15:01:41'!
-assertSupplierWithNoAddressesAndCustomerImportedCorrectly
+!ImportTest methodsFor: 'assertions - supplier' stamp: 'GG 11/25/2023 16:43:34'!
+assertSupplierDataIsImportedCorrectly: aSupplier
 
-	self assert: system numberOfCustomers equals: 0.
-	self assert: system numberOfSuppliers equals: 1.
+	self assert: (aSupplier isNamedAs: 'Supplier1').
+	self assert: (aSupplier isIdentifiedAs: 'D' numbered: '123')! !
 
-	self assertSupplierWithNoAddressesAndNoCustomerIsImportedCorrectly! !
+!ImportTest methodsFor: 'assertions - supplier' stamp: 'GG 11/25/2023 17:08:02'!
+assertSupplierHasNoAddresses: aSupplier
 
-!ImportTest methodsFor: 'assertions - supplier' stamp: 'NMS 11/25/2023 15:01:06'!
+	self assert: aSupplier isAddressesEmpty! !
+
+!ImportTest methodsFor: 'assertions - supplier' stamp: 'GG 11/25/2023 17:08:08'!
+assertSupplierHasNoCustomers: aSupplier
+
+	self assert: aSupplier isCustomersEmpty! !
+
+!ImportTest methodsFor: 'assertions - supplier' stamp: 'GG 11/25/2023 16:44:29'!
 assertSupplierWithNoAddressesAndNoCustomerIsImportedCorrectly
 
 	| supplier |
 
 	supplier := system supplierWithIdentificationType: 'D' number: '123'.
 
-	self assert: (supplier isNamedAs: 'Supplier1').
-	self assert: (supplier isIdentifiedAs: 'D' numbered: '123').
-	self assert: supplier isAddressesEmpty.
-	self assert: supplier isCustomersEmpty! !
+	self assertSupplierDataIsImportedCorrectly: supplier.
+	self assertSupplierHasNoAddresses: supplier.
+	self assertSupplierHasNoCustomers: supplier! !
 
-!ImportTest methodsFor: 'assertions - supplier' stamp: 'NMS 11/25/2023 14:54:26'!
+!ImportTest methodsFor: 'assertions - supplier' stamp: 'GG 11/25/2023 17:07:33'!
 assertSupplierWithNoAddressesAndOneCustomerIsImportedCorrectly
 
 	| supplier |
 
 	supplier := system supplierWithIdentificationType: 'D' number: '123'.
 
-	self assert: system numberOfSuppliers equals: 1.
-
-	self assert: (supplier isNamedAs: 'Supplier1').
-	self assert: (supplier isIdentifiedAs: 'D' numbered: '123').
-	self assert: supplier isAddressesEmpty.
-	self assert: supplier numberOfCustomers equals: 1.
+	self assertSupplierDataIsImportedCorrectly: supplier.
+	self assertSupplierHasNoAddresses: supplier.
 	
+	self assert: supplier numberOfCustomers equals: 1.
 	self assert: (supplier doesAnyCustomerSatisfyFirstNamedAs: 'Pepe' lastNamedAs: 'Sanchez' andIdentifiedAs: 'D' numbered: '22333444')! !
 
-!ImportTest methodsFor: 'assertions - supplier' stamp: 'NMS 11/25/2023 14:42:13'!
-assertSupplierWithTwoAddressesAndNoCustomersIsImportedCorrectly
+!ImportTest methodsFor: 'assertions - supplier' stamp: 'GG 11/25/2023 17:01:40'!
+assertSuppliersAddressesAreImportedCorrectly: aSupplier
 
-	| supplier |
+	self assertAddressOf: aSupplier at: 'San Martin' hasNumber: 3322 town: 'Olivos' zipCode: 1636 province: 'BsAs'.
+	self assertAddressOf: aSupplier at: 'Maipu' hasNumber: 888 town: 'Florida' zipCode: 1122 province: 'Buenos Aires'! !
 
-	supplier := system supplierWithIdentificationType: 'D' number: '123'.
+!ImportTest methodsFor: 'assertions - supplier' stamp: 'GG 11/25/2023 16:49:49'!
+assertSystemHasSuppliers: anAmountOfSuppliers andCustomers: anAmountOfCustomers 
 
-	self assert: system numberOfSuppliers equals: 1.
-	self assert: (supplier isNamedAs: 'Supplier1').
-	self assert: (supplier isIdentifiedAs: 'D' numbered: '123').
-	
-	self assertAddressOf: supplier at: 'San Martin' hasNumber: 3322 town: 'Olivos' zipCode: 1636 province: 'BsAs'.
-	self assertAddressOf: supplier at: 'Maipu' hasNumber: 888 town: 'Florida' zipCode: 1122 province: 'Buenos Aires'! !
+	self assert: system numberOfSuppliers equals: anAmountOfSuppliers.
+	self assert: system numberOfCustomers equals: anAmountOfCustomers ! !
 
 
 !ImportTest methodsFor: 'test data' stamp: 'HAW 5/22/2022 19:41:20'!
@@ -734,64 +706,34 @@ Object subclass: #Address
 	poolDictionaries: ''
 	category: 'CustomerImporter'!
 
-!Address methodsFor: 'province' stamp: 'HAW 5/22/2022 00:19:29'!
-province
+!Address methodsFor: 'testing' stamp: 'GG 11/25/2023 17:19:23'!
+isAtStreet: aStreetName numbered: aStreetNumber inTown: aTown province: aProvince withZipCode: aZipCode
 
-	^province! !
-
-!Address methodsFor: 'province' stamp: 'HAW 5/22/2022 00:19:29'!
-province: aProvince
-
-	province := aProvince
-	! !
+	^ streetName = aStreetName and: [streetNumber = aStreetNumber] and: [town = aTown] and: [province = aProvince] 
+					and: [zipCode = aZipCode]! !
 
 
-!Address methodsFor: 'street' stamp: 'HAW 5/22/2022 17:55:46'!
-isAt: aStreetName
+!Address methodsFor: 'initialization' stamp: 'GG 11/25/2023 17:12:37'!
+initializeWithStreetName: aStreetName number: aStreetNumber province: aProvince town: aTown zipCode: aZipCode
+	
+	streetName := aStreetName.
+	streetNumber := aStreetNumber.
+	province := aProvince.
+	town := aTown.
+	zipCode := aZipCode.! !
 
-	^streetName = aStreetName ! !
+"-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
-!Address methodsFor: 'street' stamp: 'HAW 5/22/2022 00:19:29'!
-streetName
+!classDefinition: 'Address class' category: 'CustomerImporter'!
+Address class
+	instanceVariableNames: ''!
 
-	^streetName ! !
+!Address class methodsFor: 'instance creation' stamp: 'GG 11/25/2023 17:11:43'!
+withStreetName: aStreetName number: aStreetNumber province: aProvince town: aTown zipCode: aZipCode
 
-!Address methodsFor: 'street' stamp: 'HAW 5/22/2022 00:19:29'!
-streetName: aStreetName
-
-	streetName := aStreetName ! !
-
-!Address methodsFor: 'street' stamp: 'HAW 5/22/2022 00:19:29'!
-streetNumber
-
-	^streetNumber ! !
-
-!Address methodsFor: 'street' stamp: 'HAW 5/22/2022 00:19:29'!
-streetNumber: aStreetNumber
-
-	streetNumber := aStreetNumber ! !
-
-
-!Address methodsFor: 'twon' stamp: 'HAW 5/22/2022 00:19:29'!
-town
-
-	^town! !
-
-!Address methodsFor: 'twon' stamp: 'HAW 5/22/2022 00:19:29'!
-town: aTown
-
-	town := aTown! !
-
-
-!Address methodsFor: 'zip code' stamp: 'HAW 5/22/2022 00:19:29'!
-zipCode
-
-	^zipCode! !
-
-!Address methodsFor: 'zip code' stamp: 'HAW 5/22/2022 00:19:29'!
-zipCode: aZipCode
-
-	zipCode := aZipCode! !
+	^ self new
+	initializeWithStreetName: aStreetName number: aStreetNumber province: aProvince town: aTown zipCode: aZipCode
+! !
 
 
 !classDefinition: #CSVImporter category: 'CustomerImporter'!
@@ -880,32 +822,27 @@ assertValidAddressRecord
 
 	^ record size ~= 6 ifTrue: [ self error: self class invalidAddressRecordErrorDescription ]! !
 
-!PartyImporter methodsFor: 'address' stamp: 'NMS 11/23/2023 21:21:04'!
+!PartyImporter methodsFor: 'address' stamp: 'GG 11/25/2023 17:14:40'!
 importAddress
 
 	| newAddress |
 
 	self assertPartyWasImportedForAddress.
 	self assertValidAddressRecord.
+	
+	newAddress := Address withStreetName: record second 
+						number: record third asNumber 
+						province: record sixth 
+						town: record fourth 
+						zipCode: record fifth asNumber.
 
-	newAddress := Address new.
 	newParty addAddress: newAddress.
-	newAddress streetName: record second.
-	newAddress streetNumber: record third asNumber .
-	newAddress town: record fourth.
-	newAddress zipCode: record fifth asNumber .
-	newAddress province: record sixth! !
+	! !
 
 !PartyImporter methodsFor: 'address' stamp: 'gg 11/23/2023 18:51:53'!
 isAddressRecord
 
 	^ record first = 'A'! !
-
-
-!PartyImporter methodsFor: 'evaluating - private' stamp: 'NMS 11/23/2023 20:21:55'!
-importRecord
-
-	self subclassResponsibility ! !
 
 
 !PartyImporter methodsFor: 'customer' stamp: 'NMS 11/25/2023 13:35:18'!
@@ -1573,7 +1510,7 @@ identifier
 
 	^ #INT! !
 
-!IntegrationEnvironment class methodsFor: 'current' stamp: 'NMS 11/25/2023 13:51:40'!
+!IntegrationEnvironment class methodsFor: 'current' stamp: 'GG 11/25/2023 17:38:04'!
 isCurrent
 
 	"
@@ -1623,10 +1560,12 @@ addAddress: anAddress
 
 	addresses add: anAddress ! !
 
-!Party methodsFor: 'addresses' stamp: 'gg 11/23/2023 18:56:42'!
-addressAt: aStreetName ifNone: aNoneBlock
+!Party methodsFor: 'addresses' stamp: 'GG 11/25/2023 17:32:50'!
+addressAt: aStreetName number: aStreetNumber town: aTown province: aProvince zipCode: aZipCode ifNone: aNoneBlock
 
-	^addresses detect: [ :address | address isAt: aStreetName ] ifNone: aNoneBlock ! !
+	^addresses detect: [ 	:address | 
+		address isAtStreet: aStreetName numbered: aStreetNumber inTown: aTown province: aProvince withZipCode: aZipCode] 
+		ifNone: 	aNoneBlock ! !
 
 !Party methodsFor: 'addresses' stamp: 'gg 11/23/2023 18:57:35'!
 isAddressesEmpty
