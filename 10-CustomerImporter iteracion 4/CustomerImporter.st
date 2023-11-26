@@ -400,6 +400,19 @@ test10CanNotImportSameCustomerMoreThanOnce
 			self assertJuanPerezWasImportedCorrectly
 		].! !
 
+!ImportTest methodsFor: 'tests - customer' stamp: 'NMS 11/26/2023 16:35:02'!
+test11CanImportCustomerWithSameAddressButDifferentNumber
+
+	| importedCustomer |
+	CustomerImporter valueFrom: self customerWithSameStreetNameButDifferentNumber into: system.
+
+	self assert: 1 equals: system numberOfCustomers.
+	
+	importedCustomer := self assertCustomerWithIdentificationType: 'D' number: '22333444' hasFirstName: 'Pepe' lastName: 'Sanchez'.
+	self assertAddressOf: importedCustomer at: 'San Martin' hasNumber: 3322 town: 'Olivos' zipCode: 1636 province: 'BsAs'.
+	self assertAddressOf: importedCustomer at: 'San Martin' hasNumber: 3333 town: 'Olivos' zipCode: 1636 province: 'BsAs'.
+! !
+
 
 !ImportTest methodsFor: 'assertions - customer' stamp: 'NMS 11/25/2023 17:46:32'!
 assertAddressOf: importedCustomer at: aStreetName hasNumber: aNumber town: aTown zipCode: aZipCode province: aProvince
@@ -686,6 +699,14 @@ customerRecordWithLessThanFiveFields
 customerRecordWithMoreThanFiveFields
 
 	^ReadStream on: 'C,Pepe,Sanchez,D,22333444,x'! !
+
+!ImportTest methodsFor: 'test data - customer' stamp: 'NMS 11/26/2023 16:32:56'!
+customerWithSameStreetNameButDifferentNumber
+
+	^ ReadStream on:
+'C,Pepe,Sanchez,D,22333444
+A,San Martin,3322,Olivos,1636,BsAs
+A,San Martin,3333,Olivos,1636,BsAs'! !
 
 !ImportTest methodsFor: 'test data - customer' stamp: 'HAW 5/22/2022 20:02:57'!
 emptyLine
@@ -1566,7 +1587,7 @@ identifier
 
 	^ #DEV! !
 
-!DevelopmentEnvironment class methodsFor: 'current' stamp: 'NMS 11/25/2023 18:42:44'!
+!DevelopmentEnvironment class methodsFor: 'current' stamp: 'NMS 11/26/2023 16:36:10'!
 isCurrent
 
 	"
@@ -1598,7 +1619,7 @@ identifier
 
 	^ #INT! !
 
-!IntegrationEnvironment class methodsFor: 'current' stamp: 'NMS 11/25/2023 18:42:14'!
+!IntegrationEnvironment class methodsFor: 'current' stamp: 'NMS 11/26/2023 16:35:39'!
 isCurrent
 
 	"
